@@ -9,7 +9,6 @@ import { VideoListing } from './video-listing/videoListing';
 
 import { videos } from './server/mock.api';
 
-
 function App() {
 
   const { dispatch } = useStore();

@@ -2,18 +2,25 @@ import { FaEllipsisV } from 'react-icons/fa';
 
 import './video.css'
 import { Menu } from '../../menu/menu';
+import { useStore } from '../../store-context';
+import { AddToPlayList } from '../../actions';
 
 
-export function Video( { video } ) {
+export function Video( { video, onSelection } ) {
+    const { dispatch } = useStore();
+
+    const saveToWatchLater = () => {
+        dispatch( new AddToPlayList({ id: 1, video }) );
+    }
+
+    const saveToPlayList = () => {
+        onSelection(video);
+    }
 
     const options = [
-        {title: 'Save To Watch Later', action: console.log},
-        {title: 'Save To Playlist', action: console.log },
+        {title: 'Save To Watch Later', action: saveToWatchLater},
+        {title: 'Save To Playlist', action: saveToPlayList },
     ]
-
-    const showMenu = () => {
-        console.log( video )        
-    }
 
     return (
         <li className = "card col-3 col-lg-4 col-md-6 col-sm-12">

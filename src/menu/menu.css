@@ -10,6 +10,10 @@
     border: none;
 }
 
+.dropdown__toggle:focus ~ .dropdown__menu{
+    opacity: 1;
+}
+
 .dropdown__toggle::after {
     display: none;
 }
@@ -17,6 +21,8 @@
 .dropdown__menu {
     list-style: none;
     width: max-content;
+    display: flex;
+    opacity: 0;
 }
 
 .dropdown__item {
