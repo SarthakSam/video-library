@@ -1,0 +1,15 @@
+img {
+    object-fit: cover;
+    object-position: center;
+    height: 200px;
+}
+
+.badge {
+    padding: 0.1em;
+    bottom: 0.3em;
+    display: none;
+}
+
+.card:hover .badge {
+    display: block;
+}
