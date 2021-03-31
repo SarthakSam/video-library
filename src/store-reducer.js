@@ -8,7 +8,8 @@ export const initialState = {
     uploads: [],
     liked: [],
     disliked: [],
-    route: ''
+    route: '',
+    user: 'user1'
 }
 
 export function reducer(state, action) {

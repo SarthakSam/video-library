@@ -6,6 +6,7 @@ import { useStore } from './store-context';
 import { InitializePlaylists, InitializeVideoListing } from './actions';
 import { VideoListing } from './video-listing/videoListing';
 import { Sidenav } from './sidenav/sidenav';
+// import { NewVideo } from './new-video/new-video';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
       <div className="container">
         <Sidenav></Sidenav>
         <VideoListing/>
+        {/* <NewVideo /> */}
       </div>      
     </div>
   );
