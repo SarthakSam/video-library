@@ -1,14 +1,16 @@
 import { actions } from './actions';
-
+import { watchLaterObj } from './static-data';
 
 export const initialState = {
     videos: [],
     playlists: [
-        { id: 1, title: 'Watch Later', items: [] },
-        { id: 2, title: 'Liked videos', items: [] },
-        { id: 3, title: 'DisLiked videos', items: [] }
+        watchLaterObj
     ],
     history: [],
+    uploads: [],
+    liked: [],
+    disliked: [],
+    route: ''
 }
 
 export function reducer(state, action) {
@@ -17,6 +19,7 @@ export function reducer(state, action) {
         case actions.CREATE_PLAYLIST:        return createPlayList(state, action);
         case actions.ADD_TO_PLAYLIST:        return addToPlayList(state, action);
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);
+        case actions.CHANGE_ROUTE:           return { ...state, route: action.payload };
         default:                             return state;
     }
 }
@@ -43,7 +46,7 @@ function removeFromPlayList(state, action) {
         return playlist;
     })
     changedPlaylist = changedPlaylist.reduce((acc, cur) => { 
-        if(cur.items.length > 0 || cur.id < 4)
+        if(cur.items.length > 0 || cur.id === watchLaterObj.id)
            acc.push(cur); 
         return acc;
     } , []);
