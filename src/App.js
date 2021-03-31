@@ -1,21 +1,24 @@
-import './App.css';
-
 import { useEffect } from 'react';
+import axios from 'axios';
 
+import './App.css';
 import { useStore } from './store-context';
 import { InitializeVideoListing } from './actions';
 import { VideoListing } from './video-listing/videoListing';
 import { Sidenav } from './sidenav/sidenav';
 
-
-import { videos } from './server/mock.api';
-
 function App() {
 
   const { dispatch } = useStore();
+
+  const getVideos = async () => {
+    const res = await axios.get('/api/videos')
+    dispatch(new InitializeVideoListing(res.data.videos) );
+  }
+
   useEffect(() => {
-    dispatch(new InitializeVideoListing(videos) );
-  }, [dispatch]);
+    getVideos();
+  }, []);
 
   return (
     <div className="App">

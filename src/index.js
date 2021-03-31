@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {server} from './server/mock.api';
 import { StoreProvider } from './store-context';
+
+server();
 
 ReactDOM.render(
   <StoreProvider>
