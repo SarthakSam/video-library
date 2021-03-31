@@ -5,8 +5,8 @@ export const initialState = {
     videos: [],
     playlists: [
         { id: 1, title: 'Watch Later', items: [] },
-        { id: 2, title: 'Liked', items: [] },
-        { id: 3, title: 'DisLiked', items: [] }
+        { id: 2, title: 'Liked videos', items: [] },
+        { id: 3, title: 'DisLiked videos', items: [] }
     ],
     history: [],
 }

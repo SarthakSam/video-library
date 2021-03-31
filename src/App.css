@@ -9,3 +9,24 @@
     --padding-2: 2em;
     --padding-point5: 0.5em;
 }
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+
+.container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-areas: "sidenav main";
+
+}

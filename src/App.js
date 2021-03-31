@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useStore } from './store-context';
 import { InitializeVideoListing } from './actions';
 import { VideoListing } from './video-listing/videoListing';
+import { Sidenav } from './sidenav/sidenav';
 
 
 import { videos } from './server/mock.api';
@@ -19,8 +20,10 @@ function App() {
   return (
     <div className="App">
       <nav></nav>
-      <aside></aside>
-      <VideoListing/>
+      <div className="container">
+        <Sidenav></Sidenav>
+        <VideoListing/>
+      </div>      
     </div>
   );
 }
