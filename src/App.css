@@ -1,1 +1,5 @@
 @import url('https://seasoning-ui.netlify.app/seasoning.css');
+
+:root {
+    --app-primary-color: var(--color-blue);
+}

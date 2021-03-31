@@ -1,25 +1,27 @@
 import { FaEllipsisV } from 'react-icons/fa';
+// import { useState } from 'react';
 
 import './video.css'
-import { Menu } from '../../menu/menu';
+import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../store-context';
 import { AddToPlayList } from '../../actions';
 
 
-export function Video( { video, onSelection } ) {
+export function Video( { video, setSelectedVideo } ) {
     const { dispatch } = useStore();
+    // const [showPlaylist, setShowPlaylist] = useState(false);
 
     const saveToWatchLater = () => {
         dispatch( new AddToPlayList({ id: 1, video }) );
     }
 
-    const saveToPlayList = () => {
-        onSelection(video);
+    const openPlaylistPopup = () => {
+        setSelectedVideo(video);
     }
 
     const options = [
         {title: 'Save To Watch Later', action: saveToWatchLater},
-        {title: 'Save To Playlist', action: saveToPlayList },
+        {title: 'Save To Playlist', action: openPlaylistPopup },
     ]
 
     return (

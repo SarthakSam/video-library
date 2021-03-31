@@ -1,20 +1,21 @@
 import { useState } from 'react';
-import { PlayListPopup } from '../playlist-popup/playlist-popup';
+
 import { useStore } from '../store-context';
 import { Video } from './video/Video';
+import { PlayListPopup } from '../playlist-popup/playlist-popup';
 
 export function VideoListing() {
     const { state: { videos } } = useStore();
-    const [ selectedVideo, setSelectedVideo ] = useState(null);
+    const [selectedVideo, setSelectedVideo] = useState(null);
+
     return (
         <div>
             <ul className="row">
                 {
-                    videos.map( video => <Video key = { video.id } video = { video } onSelection = {setSelectedVideo} />)
+                    videos.map( video => <Video key = { video.id } video = { video } setSelectedVideo = { setSelectedVideo } />)
                 }
             </ul>
-            <PlayListPopup  selectedVideo = { selectedVideo } setSelectedVideo = { setSelectedVideo }  />
+            { selectedVideo && <PlayListPopup  selectedVideo = { selectedVideo } setSelectedVideo = { setSelectedVideo } /> }
         </div>
-
     )
 }

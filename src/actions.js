@@ -1,7 +1,8 @@
 export const actions = {
     INITIALIZE_VIDEOS_DATA: 'INITIALIZE_VIDEOS_DATA',
     CREATE_PLAYLIST: 'CREATE_PLAYLIST',
-    ADD_TO_PLAYLIST: 'ADD_TO_PLAYLIST'
+    ADD_TO_PLAYLIST: 'ADD_TO_PLAYLIST',
+    REMOVE_FROM_PLAYLIST: 'REMOVE_FROM_PLAYLIST'
 }
 
 export class InitializeVideoListing {
@@ -21,6 +22,13 @@ export class CreatePlayList {
 export class AddToPlayList {
     constructor(payload) {
         this.type = actions.ADD_TO_PLAYLIST;
+        this.payload = payload;
+    }
+}
+
+export class RemoveFromPlayList {
+    constructor(payload) {
+        this.type = actions.REMOVE_FROM_PLAYLIST;
         this.payload = payload;
     }
 }

@@ -14,7 +14,7 @@ function App() {
   const { dispatch } = useStore();
   useEffect(() => {
     dispatch(new InitializeVideoListing(videos) );
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
