@@ -3,9 +3,7 @@ import { watchLaterObj } from './static-data';
 
 export const initialState = {
     videos: [],
-    playlists: [
-        watchLaterObj
-    ],
+    playlists: [],
     history: [],
     uploads: [],
     liked: [],
@@ -15,7 +13,8 @@ export const initialState = {
 
 export function reducer(state, action) {
     switch( action.type ) {
-        case actions.INITIALIZE_VIDEOS_DATA: return { ...state, videos: [...action.payload] };
+        case actions.INITIALIZE_VIDEOS:      return { ...state, videos: [...action.payload] };
+        case action.INITIALIZE_PLAYLISTS:    return { ...state, playlists: [watchLaterObj, ...action.payload] };
         case actions.CREATE_PLAYLIST:        return createPlayList(state, action);
         case actions.ADD_TO_PLAYLIST:        return addToPlayList(state, action);
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);

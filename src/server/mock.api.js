@@ -15,6 +15,13 @@ export function server() {
                 let video = JSON.parse(request.body);
                 return schema.videos.create(video);
             });
+            this.get('/api/playlists', (schema) => {
+                return schema.playlists.all();
+            });
+            this.post('/api/playlists', (schema, request) => {
+                let playlist = JSON.parse(request.body);
+                return schema.playlists.create(playlist);
+            });
         },
         seeds(server) {
             videos.forEach(video => {

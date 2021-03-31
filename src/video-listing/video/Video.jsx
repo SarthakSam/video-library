@@ -5,6 +5,7 @@ import './video.css'
 import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../store-context';
 import { AddToPlayList } from '../../actions';
+import { watchLaterObj } from '../../static-data';
 
 
 export function Video( { video, setSelectedVideo } ) {
@@ -12,7 +13,7 @@ export function Video( { video, setSelectedVideo } ) {
     // const [showPlaylist, setShowPlaylist] = useState(false);
 
     const saveToWatchLater = () => {
-        dispatch( new AddToPlayList({ id: 1, video }) );
+        dispatch( new AddToPlayList({ playlistId: watchLaterObj.id, video }) );
     }
 
     const openPlaylistPopup = () => {

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import './App.css';
 import { useStore } from './store-context';
-import { InitializeVideoListing } from './actions';
+import { InitializePlaylists, InitializeVideoListing } from './actions';
 import { VideoListing } from './video-listing/videoListing';
 import { Sidenav } from './sidenav/sidenav';
 
@@ -16,8 +16,14 @@ function App() {
     dispatch(new InitializeVideoListing(res.data.videos) );
   }
 
+  const getPlaylists = async () => {
+    const res = await axios.get('/api/playlists')
+    dispatch(new InitializePlaylists(res.data.playlists) );
+  }
+
   useEffect(() => {
     getVideos();
+    getPlaylists();
   }, []);
 
   return (
