@@ -8,11 +8,8 @@
 
 .playlist__item {
     padding: 0.5em;
-}
-
-.playlist__item {
-    padding: 0.5em;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 .playlist__item > * {
@@ -22,6 +19,7 @@
 .playlist__label {
     padding-left: 0.5em;
     cursor: pointer;
+    font-size: var(--font-normal);
 }
 
 .popup__footer {
