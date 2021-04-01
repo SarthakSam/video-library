@@ -28,7 +28,7 @@ export function NewPlaylist({ createNewPlaylist }) {
                 !newPlaylistFormVisible? 
                 <button className={ styles.new__playlist__btn + " col-12 btn btn--fluid" }>
                 <FaPlus /> 
-                <label className="playlist__label" onClick = { showPlayListForm }>Create a new playlist</label>
+                <label className={ styles.playlist__label} onClick = { showPlayListForm }>Create a new playlist</label>
                 </button> : 
                 <form className ="row col-12 new__playlist">
                     <label htmlFor="new-playlist">Name</label>

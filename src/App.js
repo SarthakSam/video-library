@@ -8,6 +8,7 @@ import { VideoListing } from './video-listing/videoListing';
 import { Sidenav } from './sidenav/sidenav';
 // import { NewVideo } from './new-video/new-video';
 import { Nav } from './nav/Nav';
+import { Video } from './video/video';
 
 function App() {
 
@@ -38,7 +39,8 @@ function App() {
       </div>
       <div className={styles.container}>
           {/* <NewVideo /> */}
-          <VideoListing />
+          {/* <VideoListing /> */}
+          <Video />
       </div>      
     </div>
   );

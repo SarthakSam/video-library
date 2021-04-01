@@ -1,13 +1,13 @@
 import { FaEllipsisV } from 'react-icons/fa';
 
-import styles from './video.module.css'
+import styles from './video-item.module.css'
 import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../store-context';
 import { AddToPlayList } from '../../actions';
 import { watchLaterObj } from '../../static-data';
 
 
-export function Video( { video, setSelectedVideo } ) {
+export function VideoItem( { video, setSelectedVideo } ) {
     const { dispatch } = useStore();
 
     const saveToWatchLater = () => {

@@ -1,18 +1,4 @@
-:root {
-    --app-primary-color: var(--color-blue);
-    --font-large: 1.2rem;
-    --font-normal: 1rem;
-    --font-small: 0.8rem;
-    --padding-1: 1em;
-    --padding-2: 2em;
-    --padding-point5: 0.5em;
-}
 
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 
 .App {
     height: 100vh;
