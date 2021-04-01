@@ -4,9 +4,10 @@ import axios from 'axios';
 import './App.css';
 import { useStore } from './store-context';
 import { InitializePlaylists, InitializeVideoListing } from './actions';
-import { VideoListing } from './video-listing/videoListing';
+// import { VideoListing } from './video-listing/videoListing';
 import { Sidenav } from './sidenav/sidenav';
-// import { NewVideo } from './new-video/new-video';
+import { NewVideo } from './new-video/new-video';
+import { Nav } from './nav/Nav';
 
 function App() {
 
@@ -29,11 +30,14 @@ function App() {
 
   return (
     <div className="App">
-      <nav></nav>
+      <div className = "nav__container">
+        <Nav />
+      </div>
+      <div className = "sidenav__container">
+        <Sidenav />
+      </div>
       <div className="container">
-        <Sidenav></Sidenav>
-        <VideoListing/>
-        {/* <NewVideo /> */}
+          <NewVideo />
       </div>      
     </div>
   );

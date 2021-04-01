@@ -17,16 +17,23 @@
 }
 
 .App {
-    display: flex;
-    flex-direction: column;
     height: 100vh;
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 2.5em auto;
+    grid-template-areas: "nav nav"
+                         "sidenav main"; 
+}
+
+.nav__container {
+    grid-area: nav;
+}
+
+.sidenav__container {
+    grid-area: sidenav;
 }
 
 .container {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    grid-template-areas: "sidenav main";
-
+    grid-area: main;
 }

@@ -1,0 +1,7 @@
+nav {
+    background: white;
+    box-shadow: 0 0 1px rgb(67 90 111 / 47%),
+                 0 2px 4px -2px rgb(67 90 111 / 30%);
+    border: 1px solid var(--color-grey);
+    height: 100%;
+}
