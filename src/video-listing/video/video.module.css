@@ -10,6 +10,10 @@ img {
     display: none;
 }
 
+.card {
+    cursor: pointer;
+}
+
 .card:hover .badge {
     display: block;
 }

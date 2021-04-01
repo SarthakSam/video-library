@@ -1,8 +1,8 @@
 import { FaTimes } from 'react-icons/fa';
 import { useStore } from '../../store-context';
-import './playlist-popup.css';
+import styles from './playlist-popup.module.css';
 import { AddToPlayList, CreatePlayList, RemoveFromPlayList } from '../../actions';
-import { NewPlaylistForm } from './new-playlist-form/new-playlist-form';
+import { NewPlaylist } from './new-playlist/new-playlist';
 
 export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
@@ -30,25 +30,25 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
 
     return (
-        <div className="popup__container popup--small">
+        <div className={ styles.popup__container + " popup__container popup--small" }>
             <div className="popup">
                 <div className="popup__header">
                     <p className="popup__title">Save to...</p>   
                     <FaTimes onClick = { closePopup } style = {{ cursor: 'pointer'}} tabIndex = "1"/>
                 </div>
                 <div className="popup__body">
-                    <ul className="playlist">
+                    <ul className={ styles.playlist }>
                         {
                             playlists.map( item => 
-                            <li key = { item.id} className="playlist__item">
+                            <li key = { item.id} className={ styles.playlist__item }>
                                 <input type="checkbox" id={item.id} onChange = { (e) => addToPlayList(item, e.target.checked) } defaultChecked = { item.containsCurrentVideo } />
-                                <label className="playlist__label" htmlFor={item.id}>{item.title}</label>
+                                <label className={styles.playlist__label} htmlFor={item.id}>{item.title}</label>
                             </li> )
                         }
                     </ul>
                 </div>
-                <div className="popup__footer">
-                    <NewPlaylistForm createNewPlaylist = { createNewPlaylist } />    
+                <div className={styles.popup__footer + " popup__footer"}>
+                    <NewPlaylist createNewPlaylist = { createNewPlaylist } />    
                 </div>
             </div>
         </div>

@@ -1,17 +1,17 @@
-import './menu.css';
+import styles from './menu.module.css';
 
 export function Menu({icon, options, id}) {
 
     return (
-        <div className ="dropdown" tabIndex="0">
-            <button className="dropdown__toggle">
+        <div className ={ styles.dropdown + " dropdown" } tabIndex="0">
+            <button className={ styles.dropdown__toggle + " dropdown__toggle" }>
                 { icon }
             </button>
             
-        <ul className="dropdown__menu">
+        <ul className={ styles.dropdown__menu + " dropdown__menu" }>
             {
                 options.map( (option, index) => 
-                    <li key = { index } className = "dropdown__item" 
+                    <li key = { index } className = { styles.dropdown__item + " dropdown__item" }
                     onClick = { option.action }>
                          { option.title }
                     </li>)

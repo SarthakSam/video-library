@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 
-import './App.css';
+import styles from './App.module.css';
 import { useStore } from './store-context';
 import { InitializePlaylists, InitializeVideoListing } from './actions';
-// import { VideoListing } from './video-listing/videoListing';
+import { VideoListing } from './video-listing/videoListing';
 import { Sidenav } from './sidenav/sidenav';
-import { NewVideo } from './new-video/new-video';
+// import { NewVideo } from './new-video/new-video';
 import { Nav } from './nav/Nav';
 
 function App() {
@@ -29,15 +29,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <div className = "nav__container">
+    <div className={ styles.App }>
+      <div className = { styles.nav__container} >
         <Nav />
       </div>
-      <div className = "sidenav__container">
+      <div className = {styles.sidenav__container}>
         <Sidenav />
       </div>
-      <div className="container">
-          <NewVideo />
+      <div className={styles.container}>
+          {/* <NewVideo /> */}
+          <VideoListing />
       </div>      
     </div>
   );

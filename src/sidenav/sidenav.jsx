@@ -1,5 +1,5 @@
 import { useStore } from '../store-context';
-import './sidenav.css';
+import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
 import { ChangeRoute } from '../actions';
 
@@ -12,14 +12,14 @@ export function Sidenav() {
 
     return (
         <aside>
-            <ul className="list">
+            <ul className={ styles.list }>
                 {
-                    staticRoutes.map( route => <li key = { route.id } className = "list__item" onClick = { () => { changeRoute(route.id) } } >{ route.title }</li>)
+                    staticRoutes.map( route => <li key = { route.id } className = { styles.list__item } onClick = { () => { changeRoute(route.id) } } >{ route.title }</li>)
                 }
             </ul>
-            <ul className="list">
+            <ul className={ styles.list }>
                 {
-                    playlists.map( playlist => <li key = { playlist.id } className = "list__item"  onClick = { () => { changeRoute(playlist.id) } }>{ playlist.title }</li>)
+                    playlists.map( playlist => <li key = { playlist.id } className = { styles.list__item }  onClick = { () => { changeRoute(playlist.id) } }>{ playlist.title }</li>)
                 }
             </ul>
         </aside>

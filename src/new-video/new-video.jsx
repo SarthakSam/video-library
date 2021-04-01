@@ -1,4 +1,4 @@
-import './new-video.css';
+// import './new-video.css';
 
 export function NewVideo() {
     return (
