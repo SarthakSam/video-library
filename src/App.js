@@ -4,11 +4,12 @@ import axios from 'axios';
 import styles from './App.module.css';
 import { useStore } from './store-context';
 import { InitializePlaylists, InitializeVideoListing } from './actions';
-import { VideoListing } from './video-listing/videoListing';
-import { Sidenav } from './sidenav/sidenav';
-// import { NewVideo } from './new-video/new-video';
+
+import { Content } from './content/Content';
+
 import { Nav } from './nav/Nav';
 import { Video } from './video/video';
+import { Sidenav } from './sidenav/sidenav';
 
 function App() {
 
@@ -31,17 +32,15 @@ function App() {
 
   return (
     <div className={ styles.App }>
-      <div className = { styles.nav__container} >
-        <Nav />
+      <div className={ styles.nav__container }>
+        <Nav/>
       </div>
-      <div className = {styles.sidenav__container}>
+      <div className={ styles.sidenav__container }>
         <Sidenav />
       </div>
-      <div className={styles.container}>
-          {/* <NewVideo /> */}
-          {/* <VideoListing /> */}
-          <Video />
-      </div>      
+      <div className={ styles.content__container }>
+        <Content />
+      </div>
     </div>
   );
 }

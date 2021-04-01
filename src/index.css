@@ -13,7 +13,7 @@ code {
 }
 
 :root {
-  --app-primary-color: var(--color-blue);
+  --app-primary-color: rgba(16,112,202,.09);
   --font-large: 1.2rem;
   --font-normal: 1rem;
   --font-small: 0.8rem;

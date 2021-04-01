@@ -8,7 +8,7 @@ export const initialState = {
     uploads: [],
     liked: [],
     disliked: [],
-    route: '',
+    route: { path: 'home', params: '' },
     user: 'user1'
 }
 

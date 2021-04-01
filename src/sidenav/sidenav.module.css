@@ -1,7 +1,13 @@
 aside {
-    grid-area: 'sidenav';
-    background: var(--color-light-grey);
-    min-width: 230px;
+    grid-area: aside;
+    background: white;
+    z-index: 2;
+    transition: 0.8s ease;
+    position: absolute;
+    height: 100%;
+    width: max-content;
+    grid-area: sidenav;
+    box-shadow: 0 10px 10px var(--color-grey);
 }
 
 .list {
@@ -13,8 +19,63 @@ aside {
     font-size: var(--font-normal);
     font-weight: 700;
     cursor: pointer;
+    display: flex;
+    gap: 0.5em;
+    transition: all 300ms ease-in;
 }
 
 .list__item:hover {
     background: var(--color-grey);
+}
+
+.list__item__text {
+    color: var(--color-dark-grey);
+}
+
+.list__item__icon {
+    fill: var(--color-dark-grey);
+}
+
+/* .list__item.active {
+    background: var(--app-primary-color);
+    color: var(--color-blue);
+    fill: var(--color-blue);
+} */
+
+.sidenav__expand {
+    position: absolute;
+    right: -0.75em;
+    z-index: 1;
+    top: 1em;
+    display: flex;
+    background: white;
+    align-items: center;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    box-shadow: 1px 1px var(--color-light-grey);
+}
+
+.sidenav__expandIcon {
+    font-size: 1.6rem;
+    transform: rotateZ(-180deg);
+    fill: var(--color-grey);
+    transition: transform 300ms ease-in-out;
+}
+
+.sidenav__expandIcon:hover {
+    fill: var(--color-blue);
+}
+
+.sidenav__toggle {
+    display: none;
+}
+
+.sidenav__toggle:checked ~ .list > .list__item p {
+    display: none;
+}
+
+.sidenav__toggle:checked ~ .sidenav__expand > .sidenav__expandIcon {
+    transform: rotateZ(0deg);
 }

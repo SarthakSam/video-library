@@ -1,7 +1,13 @@
-// import './Nav.css';
+import styles from './Nav.module.css';
+import { FaBars } from 'react-icons/fa';
 
-export function Nav() {
+export function Nav({ setSideNavState }) {
+
+
     return (
-        <nav>This is nav</nav>
+        <nav>
+            I am nav
+
+        </nav>
     )
 }
