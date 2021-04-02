@@ -4,8 +4,8 @@
 } */
 
 .video__container {
-    height: 50vw;
-    background: red; 
+    height: 40vw;
+    padding: 2em;
 }
 
 .video__container > div {

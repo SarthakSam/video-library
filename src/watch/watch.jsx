@@ -19,7 +19,7 @@ export function Watch({ id }) {
                 video? 
                     <div className="row">
                         <div className={"col-12 " + styles.video__container }>
-                            <YoutubePlayer src={ video.videoUrl } allowFullScreen width="100%" height="100%"/> :
+                            <YoutubePlayer src={ video.videoURL } allowFullScreen width="100%" height="100%"/> :
                         </div>
                     </div>
                     :

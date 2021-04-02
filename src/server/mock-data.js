@@ -1,8 +1,8 @@
 export const videos = [
     {
         id: '1',
-        imageUrl: 'http://img.youtube.com/vi/8aGhZQkoFbQ/0.jpg',
-        videoUrl: 'https://youtu.be/8aGhZQkoFbQ',
+        thumbnailURL: 'http://img.youtube.com/vi/8aGhZQkoFbQ/0.jpg',
+        videoURL: 'https://youtu.be/8aGhZQkoFbQ',
         title: 'Title1',
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
         author: 'author1',
@@ -16,8 +16,8 @@ export const videos = [
     },
     {
         id: '2',
-        imageUrl: 'http://img.youtube.com/vi/TQQPAU21ZUw/0.jpg',
-        videoUrl: 'https://youtu.be/TQQPAU21ZUw',
+        thumbnailURL: 'http://img.youtube.com/vi/TQQPAU21ZUw/0.jpg',
+        videoURL: 'https://youtu.be/TQQPAU21ZUw',
         title: 'Title2',
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
         author: 'author2',
@@ -31,8 +31,8 @@ export const videos = [
     },
     {
         id: '3',
-        imageUrl: 'http://img.youtube.com/vi/Ep78KjstQuw/0.jpg',
-        videoUrl: 'https://youtu.be/Ep78KjstQuw',
+        thumbnailURL: 'http://img.youtube.com/vi/Ep78KjstQuw/0.jpg',
+        videoURL: 'https://youtu.be/Ep78KjstQuw',
         title: 'Title3',
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
         author: 'author3',
@@ -46,8 +46,8 @@ export const videos = [
     },
     {
         id: '4',
-        imageUrl: 'https://images.unsplash.com/photo-1605135693932-f1d6fb1be3cc?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fGZvb3RiYWxsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        videoUrl: '',
+        thumbnailURL: 'https://images.unsplash.com/photo-1605135693932-f1d6fb1be3cc?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fGZvb3RiYWxsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        videoURL: '',
         title: 'Title4',
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
         author: 'author4',

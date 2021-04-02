@@ -12,14 +12,14 @@ export function server() {
                 return schema.videos.all();
             });
             this.post('/api/videos', (schema, request) => {
-                let video = JSON.parse(request.body);
+                let video = JSON.parse(request.requestBody);
                 return schema.videos.create(video);
             });
             this.get('/api/playlists', (schema) => {
                 return schema.playlists.all();
             });
             this.post('/api/playlists', (schema, request) => {
-                let playlist = JSON.parse(request.body);
+                let playlist = JSON.parse(request.requestBody);
                 return schema.playlists.create(playlist);
             });
         },

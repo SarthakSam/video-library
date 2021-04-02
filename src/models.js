@@ -1,7 +1,7 @@
 let video = {
     id: '',
-    imageUrl: '',
-    videoUrl: '',
+    thumbnailURL: '',
+    videoURL: '',
     title: '',
     descrition: '',
     author: '',

@@ -1,6 +1,7 @@
 export const staticRoutes = [
     { id: 'home', title: 'Home', goTo: { path: 'home', params: ''} },
     { id: 'history', title: 'History', goTo: { path: 'history', params: ''} },
+    { id: 'uploadNew', title: 'Upload video', goTo: { path: 'uploads/new', params: ''} },
     { id: 'uploads', title: 'Your videos', goTo: { path: 'uploads', params: ''} },
     { id: 'liked', title: 'Liked videos', goTo: { path: 'playlist', params: 'liked'} },
     { id: 'disliked', title: 'Disliked videos', goTo: { path: 'playlist', params: 'disliked'} }
