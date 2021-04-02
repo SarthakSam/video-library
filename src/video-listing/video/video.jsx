@@ -30,7 +30,7 @@ export function Video( { video, setSelectedVideo } ) {
     return (
         <li className = { styles.card + " card col-3 col-lg-4 col-md-6 col-sm-12" } onClick = { () => openVideo(video.id) }>
             <div className= "card__img badge__container">
-                <img className = { styles.img } src={ video.imageUrl} alt=""/>
+                <img className = { styles.img } src={ video.imageUrl } alt=""/>
                 <span className={ styles.badge + " badge bg-black text-white" }>{ video.duration }</span>
             </div>
             <p className="card__title">{ video.title }</p>

@@ -2,9 +2,19 @@ import styles from './menu.module.css';
 
 export function Menu({icon, options, id}) {
 
+    const stopEventPropogation = (event) => {
+        event.stopPropagation();
+    }
+
+    const optionClicked = (event, option) => {
+        stopEventPropogation(event);
+        option.action();
+    }
+
+
     return (
         <div className ={ styles.dropdown + " dropdown" } tabIndex="0">
-            <button className={ styles.dropdown__toggle + " dropdown__toggle" }>
+            <button className={ styles.dropdown__toggle + " dropdown__toggle" }  onClick = { stopEventPropogation }>
                 { icon }
             </button>
             
@@ -12,7 +22,7 @@ export function Menu({icon, options, id}) {
             {
                 options.map( (option, index) => 
                     <li key = { index } className = { styles.dropdown__item + " dropdown__item" }
-                    onClick = { option.action }>
+                    onClick = { (e) => { optionClicked(e, option) } }>
                          { option.title }
                     </li>)
             }

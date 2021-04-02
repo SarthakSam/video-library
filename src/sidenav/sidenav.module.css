@@ -30,17 +30,18 @@
 
 .sidenav__listItem__text {
     color: var(--color-dark-grey);
+    padding: 0 var(--padding-point5);
 }
 
 .sidenav__listItem__icon {
     fill: var(--color-dark-grey);
 }
 
-.list__item.active {
+/* .list__item.active {
     background: var(--app-primary-color);
     color: var(--color-blue);
     fill: var(--color-blue);
-}
+} */
 
 .sidenav__expand {
     position: absolute;

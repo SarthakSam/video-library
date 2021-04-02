@@ -1,0 +1,13 @@
+/* .watch {
+    display: flex;
+    flex-direction: column;
+} */
+
+.video__container {
+    height: 50vw;
+    background: red; 
+}
+
+.video__container > div {
+    height: 100%;
+}
