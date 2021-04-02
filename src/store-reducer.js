@@ -19,7 +19,7 @@ export function reducer(state, action) {
         case actions.CREATE_PLAYLIST:        return createPlayList(state, action);
         case actions.ADD_TO_PLAYLIST:        return addToPlayList(state, action);
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);
-        case actions.CHANGE_ROUTE:           return { ...state, route: action.payload };
+        case actions.CHANGE_ROUTE:           return { ...state, route: { ...action.payload} };
         default:                             return state;
     }
 }

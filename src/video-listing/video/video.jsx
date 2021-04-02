@@ -1,13 +1,13 @@
 import { FaEllipsisV } from 'react-icons/fa';
 
-import styles from './video-item.module.css'
+import styles from './video.module.css'
 import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../store-context';
-import { AddToPlayList } from '../../actions';
+import { AddToPlayList, ChangeRoute } from '../../actions';
 import { watchLaterObj } from '../../static-data';
 
 
-export function VideoItem( { video, setSelectedVideo } ) {
+export function Video( { video, setSelectedVideo } ) {
     const { dispatch } = useStore();
 
     const saveToWatchLater = () => {
@@ -18,13 +18,17 @@ export function VideoItem( { video, setSelectedVideo } ) {
         setSelectedVideo(video);
     }
 
+    const openVideo = (id) => {
+        dispatch( new ChangeRoute({ path: 'watch', params: id }));
+    }
+
     const options = [
         {title: 'Save To Watch Later', action: saveToWatchLater},
         {title: 'Save To Playlist', action: openPlaylistPopup },
     ]
 
     return (
-        <li className = { styles.card + " card col-3 col-lg-4 col-md-6 col-sm-12" }>
+        <li className = { styles.card + " card col-3 col-lg-4 col-md-6 col-sm-12" } onClick = { () => openVideo(video.id) }>
             <div className= "card__img badge__container">
                 <img className = { styles.img } src={ video.imageUrl} alt=""/>
                 <span className={ styles.badge + " badge bg-black text-white" }>{ video.duration }</span>

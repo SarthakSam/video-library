@@ -8,7 +8,6 @@ import { InitializePlaylists, InitializeVideoListing } from './actions';
 import { Content } from './content/Content';
 
 import { Nav } from './nav/Nav';
-import { Video } from './video/video';
 import { Sidenav } from './sidenav/sidenav';
 
 function App() {

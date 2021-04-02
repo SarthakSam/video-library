@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useStore } from '../store-context';
-import { VideoItem } from './video-item/video-item';
+import { Video } from './video/video';
 import { PlayListPopup } from './playlist-popup/playlist-popup';
 
 export function VideoListing() {
@@ -19,12 +19,12 @@ export function VideoListing() {
 
     const filteredVideos = filterVideos();
     return (
-        <div>
+        <>
            {
                (filteredVideos.length > 0)? 
                 <ul className="row">
                     {
-                        filteredVideos.map( video => <VideoItem key = { video.id } video = { video } setSelectedVideo = { setSelectedVideo } />)
+                        filteredVideos.map( video => <Video key = { video.id } video = { video } setSelectedVideo = { setSelectedVideo } />)
                     }
                 </ul> : 
                 <h2>Nothing to see here.</h2>
@@ -32,6 +32,6 @@ export function VideoListing() {
            }
             
             { selectedVideo && <PlayListPopup  selectedVideo = { selectedVideo } setSelectedVideo = { setSelectedVideo } /> }
-        </div>
+        </>
     )
 }

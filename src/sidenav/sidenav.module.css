@@ -1,4 +1,4 @@
-aside {
+.sidenav {
     grid-area: aside;
     background: white;
     z-index: 2;
@@ -10,11 +10,11 @@ aside {
     box-shadow: 0 10px 10px var(--color-grey);
 }
 
-.list {
+.sidenav__list {
     border-bottom: 1px solid var(--color-grey);
 }
 
-.list__item {
+.sidenav__listItem {
     padding: var(--padding-point5) var(--padding-1);
     font-size: var(--font-normal);
     font-weight: 700;
@@ -28,19 +28,19 @@ aside {
     background: var(--color-grey);
 }
 
-.list__item__text {
+.sidenav__listItem__text {
     color: var(--color-dark-grey);
 }
 
-.list__item__icon {
+.sidenav__listItem__icon {
     fill: var(--color-dark-grey);
 }
 
-/* .list__item.active {
+.list__item.active {
     background: var(--app-primary-color);
     color: var(--color-blue);
     fill: var(--color-blue);
-} */
+}
 
 .sidenav__expand {
     position: absolute;
@@ -72,7 +72,7 @@ aside {
     display: none;
 }
 
-.sidenav__toggle:checked ~ .list > .list__item p {
+.sidenav__toggle:checked ~ .sidenav__list .sidenav__listItem__text {
     display: none;
 }
 

@@ -1,27 +1,3 @@
 .content {
-    flex: 1;
-    margin-top: 2.5em;
-    display: grid;
-    grid-template-columns: 200px auto;
-    grid-template-rows: 1fr;
-    grid-template-areas: "aside container";
-}
-
-.sidenavClosed {
-    grid-template-columns: 0 auto;
-}
-
-/* @media screen and (max-width: 500px) {
-    .content {
-        
-    }
-} */
-
-.aside__container {
-    grid-area: aside;
-    position: relative;
-}
-
-.container {
-    grid-area: container;
+    overflow-y: scroll;
 }
