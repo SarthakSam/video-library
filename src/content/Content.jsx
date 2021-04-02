@@ -5,6 +5,7 @@ import { VideoListing } from '../video-listing/videoListing';
 import { NewVideo } from '../new-video/new-video'; 
 import { Watch } from '../watch/watch';
 import { VideoProvider } from '../video-context';
+import { Playlist } from '../playlist/Playlist';
 
 export function Content() {
     const { state: { route: { path, params} } } = useStore();
@@ -20,7 +21,7 @@ export function Content() {
                 </VideoProvider>
              }
             { path === 'history' && <VideoListing /> }
-            {/* { path === 'playlist' && <PLaylist /> } */}
+            { path === 'playlist' && <Playlist /> }
             { path === 'watch' && <Watch id = { params } /> }
         </div>
     )
