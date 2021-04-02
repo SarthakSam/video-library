@@ -6,7 +6,6 @@ import { useStore } from '../../store-context';
 import { AddToPlayList, ChangeRoute } from '../../actions';
 import { watchLaterObj } from '../../static-data';
 
-
 export function Video( { video, setSelectedVideo } ) {
     const { dispatch } = useStore();
 

@@ -6,15 +6,18 @@ import reportWebVitals from './reportWebVitals';
 
 import {server} from './server/mock.api';
 import { StoreProvider } from './store-context';
+import { LoaderProvider } from './loader-context';
 
 server();
 
 ReactDOM.render(
-  <StoreProvider>
     <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </StoreProvider>,
+      <StoreProvider>
+        <LoaderProvider>
+          <App />
+        </LoaderProvider>
+      </StoreProvider>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 
