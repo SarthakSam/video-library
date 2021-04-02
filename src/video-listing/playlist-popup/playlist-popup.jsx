@@ -18,9 +18,9 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
     const addToPlayList = (item, checked) => {
         if(checked)
-            dispatch( new AddToPlayList({playListId: item.id, video}))
+            dispatch( new AddToPlayList({playlistId: item.id, video}))
         else
-            dispatch( new RemoveFromPlayList({playListId: item.id, video}))
+            dispatch( new RemoveFromPlayList({playlistId: item.id, video}))
     }
 
   const createNewPlaylist = (playlistTitle) => {
