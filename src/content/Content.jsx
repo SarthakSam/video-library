@@ -6,11 +6,21 @@ import { NewVideo } from '../new-video/new-video';
 import { Watch } from '../watch/watch';
 import { VideoProvider } from '../video-context';
 import { Playlist } from '../playlist/Playlist';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { InitializeVideoListing } from '../actions';
 
 export function Content() {
-    const { state: { route: { path, params} } } = useStore();
+    const { state: { route: { path, params} }, dispatch } = useStore();
 
-    console.log(path, params)
+    const getVideos = async () => {
+        const res = await axios.get('/api/videos')
+        dispatch(new InitializeVideoListing(res.data.videos) );
+    }
+
+    useEffect(() => {
+        getVideos();
+    }, []);
 
     return (
         <div className = { styles.content }>

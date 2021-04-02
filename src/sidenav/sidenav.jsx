@@ -1,9 +1,11 @@
 import { useStore } from '../store-context';
 import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
-import { ChangeRoute } from '../actions';
+import { ChangeRoute, InitializePlaylists } from '../actions';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { FaHome } from 'react-icons/fa';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();
@@ -12,9 +14,14 @@ export function Sidenav() {
         dispatch( new ChangeRoute( route ) );
     }
 
-    // const toggleNav = () => {
+    const getPlaylists = async () => {
+        const res = await axios.get('/api/playlists')
+        dispatch(new InitializePlaylists(res.data.playlists) );
+    }
 
-    // }
+    useEffect( () => {
+        getPlaylists();
+    }, []);
 
     return (
         <aside className = { styles.sidenav }>
