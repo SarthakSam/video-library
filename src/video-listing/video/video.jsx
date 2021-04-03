@@ -7,9 +7,14 @@ import { AddToPlayList, ChangeRoute } from '../../actions';
 import { watchLaterObj } from '../../static-data';
 
 export function Video( { video, setSelectedVideo } ) {
-    const { dispatch } = useStore();
+    const { dispatch, state: { playlists } } = useStore();
 
     const saveToWatchLater = () => {
+        const videosInWatchLater = playlists.find( playlist => playlist.id === watchLaterObj.id );
+        if(videosInWatchLater.items.find( item => item.id === video.id )) {
+            console.log("already present")
+            return;
+        }
         dispatch( new AddToPlayList({ playlistId: watchLaterObj.id, video }) );
     }
 
