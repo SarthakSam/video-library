@@ -34,16 +34,25 @@ export function Video( { video, setSelectedVideo } ) {
     ]
 
     return (
-        <li className = { styles.card + " card col-3 col-lg-4 col-md-6 col-sm-12" } onClick = { () => openVideo(video.id) }>
+        <li className = { styles.card + " card col-3 col-xl-4 col-lg-4 col-md-6 col-sm-12" } onClick = { () => openVideo(video.id) }>
             <div className= "card__img badge__container">
                 <img className = { styles.img } src={ video.thumbnailURL } alt=""/>
                 <span className={ styles.badge + " badge bg-black text-white" }>{ video.duration }</span>
             </div>
-            <p className="card__title">{ video.title }</p>
-            <p className="card__meta">{ video.author }</p>
-            <span className="card__meta">{ video.views }</span>
-            <span className="card__meta">{ video.uploadedDate }</span>
-            <Menu icon = { <FaEllipsisV/> } options = { options} />
+            <div class={ styles.card__body }>
+                <div className="avatar avatar--round">
+                    <img src="https://yt3.ggpht.com/ytc/AAUvwnjuTxkQkUtBdXuoiwzMwXI_iLo0ATcXYeTmkB8XAA=s68-c-k-c0x00ffffff-no-rj" alt="" className="avatar__img"/>
+                </div>
+                <div className={ styles.card__info }>
+                    <p className={ styles.card__title } >{ video.title }</p>
+                    <p className="card__meta">{ video.author }</p>
+                    <span className="card__meta">{ video.views }</span>
+                    <span className="card__meta">{ video.uploadedDate }</span>
+                </div>
+                <Menu className="col-1 m-0 p-0" icon = { <FaEllipsisV/> } options = { options } />
+            </div>
+
+           
         </li>
     )
 }
