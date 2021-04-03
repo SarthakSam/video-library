@@ -6,17 +6,29 @@ import { MdKeyboardArrowRight } from 'react-icons/md';
 import { FaHome } from 'react-icons/fa';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useLoader } from '../loader-context';
 
 export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();
+    const { setLoading } = useLoader();
+
     
     function changeRoute(route) {
         dispatch( new ChangeRoute( route ) );
     }
 
     const getPlaylists = async () => {
-        const res = await axios.get('/api/playlists')
-        dispatch(new InitializePlaylists(res.data.playlists) );
+        try {
+            setLoading(true);
+            const res = await axios.get('/api/playlists')
+            dispatch(new InitializePlaylists(res.data.playlists) );
+        } catch(err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+
+
     }
 
     useEffect( () => {
