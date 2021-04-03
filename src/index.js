@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import {server} from './server/mock.api';
 import { StoreProvider } from './store-context';
 import { LoaderProvider } from './loader-context';
+import { NotificationsProvider } from './notifications-context';
 
 server();
 
@@ -14,7 +15,9 @@ ReactDOM.render(
     <React.StrictMode>
       <StoreProvider>
         <LoaderProvider>
-          <App />
+          <NotificationsProvider>
+            <App />
+          </NotificationsProvider>
         </LoaderProvider>
       </StoreProvider>
     </React.StrictMode>,

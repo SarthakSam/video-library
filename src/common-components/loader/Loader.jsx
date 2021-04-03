@@ -5,8 +5,8 @@ export function Loader({ loading }) {
         <>
             {
                 loading && 
-                <div class={ styles.spinner__container }>
-                    <div class={ styles.spinner + " spinner-2"}></div>
+                <div className={ styles.spinner__container }>
+                    <div className={ styles.spinner + " spinner-2"}></div>
                 </div>
             }
         </>

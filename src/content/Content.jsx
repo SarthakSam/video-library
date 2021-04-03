@@ -10,10 +10,12 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { InitializeVideoListing } from '../actions';
 import { useLoader } from '../loader-context';
+import { useNotifications } from '../notifications-context';
 
 export function Content() {
     const { state: { route: { path, params} }, dispatch } = useStore();
     const { setLoading } = useLoader();
+    const { showNotification } = useNotifications();
 
     const getVideos = async () => {
         try {
@@ -22,13 +24,21 @@ export function Content() {
             dispatch(new InitializeVideoListing(res.data.videos) );
         }
         catch(err) {
-            console.log("Something went wrong");
+            showNotification({type: 'ERROR', message: err})
         }
         finally {
             setLoading(false);
         }
-
     }
+
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         let no = Math.floor(Math.random() * 3);
+    //         console.log(no)
+    //         let types = ["SUCCESS", "WARNING", "ERROR"];
+    //         showNotification({ type: types[no] ,message: "Hi there aio aio"});
+    //     }, 2000);
+    // }, [])
 
     useEffect(() => {
         getVideos();

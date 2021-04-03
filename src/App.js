@@ -4,10 +4,13 @@ import { Nav } from './nav/Nav';
 import { Sidenav } from './sidenav/sidenav';
 import { Loader } from './common-components/loader/Loader';
 import { useLoader } from './loader-context';
+import { NotificationContainer } from './common-components/notification/Notification-container';
+import { useNotifications } from './notifications-context';
 
 function App() {
 
   const { loading } = useLoader();
+  const { notifications } = useNotifications();
 
   return (
     <div className={ styles.App }>
@@ -21,6 +24,7 @@ function App() {
         <Content />
       </div>      
       <Loader loading = { loading } />
+      <NotificationContainer notifications = { notifications } />
     </div>
   );
 }

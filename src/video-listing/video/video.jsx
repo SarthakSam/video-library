@@ -5,14 +5,16 @@ import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../store-context';
 import { AddToPlayList, ChangeRoute } from '../../actions';
 import { watchLaterObj } from '../../static-data';
+import { useNotifications } from '../../notifications-context';
 
 export function Video( { video, setSelectedVideo } ) {
     const { dispatch, state: { playlists } } = useStore();
+    const { showNotification } = useNotifications();
 
     const saveToWatchLater = () => {
         const videosInWatchLater = playlists.find( playlist => playlist.id === watchLaterObj.id );
         if(videosInWatchLater.items.find( item => item.id === video.id )) {
-            console.log("already present")
+            showNotification({type: 'ERROR', message: 'Video already present in watch later'});
             return;
         }
         dispatch( new AddToPlayList({ playlistId: watchLaterObj.id, video }) );

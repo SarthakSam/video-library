@@ -7,11 +7,12 @@ import { FaHome } from 'react-icons/fa';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useLoader } from '../loader-context';
+import { useNotifications } from '../notifications-context';
 
 export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();
     const { setLoading } = useLoader();
-
+    const { showNotification } = useNotifications();
     
     function changeRoute(route) {
         dispatch( new ChangeRoute( route ) );
@@ -24,6 +25,7 @@ export function Sidenav() {
             dispatch(new InitializePlaylists(res.data.playlists) );
         } catch(err) {
             console.log(err);
+            showNotification({type: 'ERROR', message: err})
         } finally {
             setLoading(false);
         }
