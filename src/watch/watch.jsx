@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { YoutubePlayer } from "reactjs-media";
+import { BiLike, BiDislike } from 'react-icons/bi';
+import { MdPlaylistPlay } from 'react-icons/md'
+
+import { useLoader } from "../loader-context";
 import { useStore } from "../store-context";
 
 import styles from './watch.module.css';
@@ -7,23 +11,53 @@ import styles from './watch.module.css';
 export function Watch({ id }) {
     const { state: { videos } } = useStore();
     const [video, setVideo] = useState(null);
+    const { setLoading } = useLoader()
 
     useEffect( () => {
+        setLoading(true);
         const selectedVideo = videos.find(video => video.id === id);
         setVideo( selectedVideo );
+        setLoading(false);
     }, []);
 
     return (
         <>
             {
-                video? 
-                    <div className="row">
-                        <div className={"col-12 " + styles.video__container }>
-                            <YoutubePlayer src={ video.videoURL } allowFullScreen width="100%" height="100%"/> :
+                video && <div className={"row " + styles.watch}>
+                            <div className={"card col-9 col-lg-12 col-md-12 col-sm-12 " + styles.video__container }>
+                                <YoutubePlayer src={ video.videoURL } allowFullScreen width="100%" height="100%"/>
+                                <div className={styles.card__body }>
+                                    <p className="card__title">{ video.title }</p>
+                                    <div className="row spaceBetween">
+                                        <ul className={styles.watch__list}>
+                                            <li className={ "card__meta " + styles.watch__list__item }>{ video.views } views</li>
+                                            <li className={ "card__meta " + styles.watch__list__item }>{ video.uploadedDate }</li>
+                                        </ul>
+                                        <ul className={styles.watch__list }>
+                                            <li className={ styles.watch__list__item + " " + styles.button }>
+                                                <BiLike />
+                                                <span>{ video.likes }</span>
+                                            </li>
+                                            <li className={ styles.watch__list__item + " " + styles.button }>
+                                                <BiDislike />
+                                                <span>{ video.dislikes }</span>
+                                            </li>
+                                            <li className={ styles.watch__list__item + " " + styles.button }>
+                                                <MdPlaylistPlay />
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <hr/>
+                                    <p className="card__description">{ video.description }</p>
+                                    {/* <hr/> */}
+
+                                </div>
+                            </div>
+                            <div className="row col-3 col-lg-12 col-md-12 col-sm-12">
+                               
+                            </div>
                         </div>
-                    </div>
-                    :
-                    <p>Showing loading</p>
             }
         </>
     )

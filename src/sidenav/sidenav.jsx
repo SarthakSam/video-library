@@ -3,7 +3,7 @@ import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
 import { ChangeRoute, InitializePlaylists } from '../actions';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { FaHome, FaClock, FaFileVideo, FaCloudUploadAlt } from 'react-icons/fa';
+import { FaHome, FaFileVideo, FaCloudUploadAlt } from 'react-icons/fa';
 import { MdHistory, MdPlaylistPlay } from 'react-icons/md'
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { useEffect } from 'react';
