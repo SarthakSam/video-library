@@ -23,9 +23,10 @@
     display: flex;
     gap: 0.5em;
     transition: all 300ms ease-in;
+    text-decoration: none;
 }
 
-.list__item:hover {
+.sidenav__listItem:hover {
     background: var(--color-grey);
 }
 
@@ -39,11 +40,18 @@
     font-size: var(--font-large);
 }
 
-/* .list__item.active {
+.sidenav__listItem.active {
     background: var(--app-primary-color);
+}
+
+.sidenav__listItem.active > span > svg {
+    fill: blue;
+}
+
+.sidenav__listItem.active > p {
     color: var(--color-blue);
-    fill: var(--color-blue);
-} */
+}
+
 
 .sidenav__expand {
     position: absolute;

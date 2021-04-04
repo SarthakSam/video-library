@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { YoutubePlayer } from "reactjs-media";
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md'
+import { useParams } from 'react-router-dom';
 
 import { useLoader } from "../loader-context";
 import { useStore } from "../store-context";
@@ -9,7 +10,8 @@ import { PlaylistItem } from '../playlist-item/PlaylistItem';
 
 import styles from './watch.module.css';
 
-export function Watch({ id }) {
+export function Watch() {
+    const { id } = useParams();
     const { state: { videos } } = useStore();
     const [video, setVideo] = useState(null);
     const { setLoading } = useLoader()

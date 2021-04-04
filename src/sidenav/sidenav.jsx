@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import { useStore } from '../store-context';
 import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
@@ -22,8 +24,6 @@ export function Sidenav() {
         'FaFileVideo': <FaFileVideo />,
         'FaThumbsUp': <FaThumbsUp />,
         'FaThumbsDown': <FaThumbsDown />,
-
-
     }
     
     function changeRoute(route) {
@@ -57,22 +57,26 @@ export function Sidenav() {
             <ul className={ styles.sidenav__list }>
                 {
                     staticRoutes.map( route => 
-                    <li key = { route.id } className = { styles.sidenav__listItem + " " + styles.active } onClick = { () => { changeRoute( route.goTo) } } >
-                        <span className={styles.sidenav__listItem__icon}>
-                            { iconsMapping[route.icon] }
-                        </span>
-                        <p className={styles.sidenav__listItem__text}>{ route.title }</p>
+                    <li key = { route.id } onClick = { () => { changeRoute( route.goTo) } } >
+                        <NavLink to={ route.goTo } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
+                            <span className={styles.sidenav__listItem__icon}>
+                                { iconsMapping[route.icon] }
+                            </span>
+                            <p className={styles.sidenav__listItem__text}>{ route.title }</p>
+                        </NavLink>
                     </li>)
                 }
             </ul>
             <ul className={ styles.sidenav__list }>
                 {
                     playlists.map( playlist => 
-                    <li key = { playlist.id } className = { styles.sidenav__listItem }  onClick = { () => { changeRoute({ path: 'playlist', params: playlist.id }) } }>
-                        <span className={styles.sidenav__listItem__icon}>
-                            <MdPlaylistPlay  />
-                        </span>
-                        <p className={styles.sidenav__listItem__text}>{ playlist.title }</p>
+                    <li key = { playlist.id } onClick = { () => { changeRoute({ path: 'playlist', params: playlist.id }) } }>
+                        <NavLink to={ `playlist/${playlist.id}` } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
+                            <span className={styles.sidenav__listItem__icon}>
+                                <MdPlaylistPlay />
+                            </span>
+                            <p className={styles.sidenav__listItem__text}>{ playlist.title }</p>
+                        </NavLink>
                     </li>)
                 }
             </ul>

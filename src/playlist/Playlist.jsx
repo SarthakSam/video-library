@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+
 import { useStore } from "../store-context";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 
-export function Playlist({ id: playlistId }) {
+export function Playlist() {
     const { state } = useStore();
+    const { id: playlistId } = useParams();
     const [ videos, setVideos ] = useState(null);
 
     useEffect( () => {

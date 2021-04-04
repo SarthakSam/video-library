@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import {server} from './server/mock.api';
 import { StoreProvider } from './store-context';
@@ -16,7 +17,9 @@ ReactDOM.render(
       <StoreProvider>
         <LoaderProvider>
           <NotificationsProvider>
-            <App />
+            <Router>
+              <App />              
+            </Router>
           </NotificationsProvider>
         </LoaderProvider>
       </StoreProvider>

@@ -3,13 +3,17 @@ import { FaEllipsisV } from 'react-icons/fa';
 import { useStore } from '../store-context';
 import { AddToHistory, ChangeRoute } from '../actions';
 import styles from './PlaylistItem.module.css';
+import { useNavigate } from 'react-router';
 
 export function PlaylistItem({ video }) {
     const { dispatch } = useStore();
+    const navigate = useNavigate();
+
 
     const openVideo = (video) => {
-        dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
+        // dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
         dispatch( new AddToHistory( video ) );
+        navigate(`/watch/${video.id}`)
     }
 
     return (

@@ -1,4 +1,5 @@
 import { FaEllipsisV } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 import styles from './video.module.css'
 import { Menu } from '../../common-components/menu/menu';
@@ -10,6 +11,7 @@ import { useNotifications } from '../../notifications-context';
 export function Video( { video, setSelectedVideo } ) {
     const { dispatch, state: { playlists } } = useStore();
     const { showNotification } = useNotifications();
+    const navigate = useNavigate();
 
     const saveToWatchLater = () => {
         const videosInWatchLater = playlists.find( playlist => playlist.id === watchLaterObj.id );
@@ -25,8 +27,9 @@ export function Video( { video, setSelectedVideo } ) {
     }
 
     const openVideo = (video) => {
-        dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
+        // dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
         dispatch( new AddToHistory( video ) );
+        navigate(`/watch/${video.id}`)
     }
 
     const options = [
