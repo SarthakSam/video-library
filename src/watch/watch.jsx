@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { YoutubePlayer } from "reactjs-media";
-import { BiLike, BiDislike } from 'react-icons/bi';
+import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md'
 
 import { useLoader } from "../loader-context";
@@ -35,11 +35,11 @@ export function Watch({ id }) {
                                         </ul>
                                         <ul className={styles.watch__list }>
                                             <li className={ styles.watch__list__item + " " + styles.button }>
-                                                <BiLike />
+                                                <FaThumbsUp />
                                                 <span>{ video.likes }</span>
                                             </li>
                                             <li className={ styles.watch__list__item + " " + styles.button }>
-                                                <BiDislike />
+                                                <FaThumbsDown />
                                                 <span>{ video.dislikes }</span>
                                             </li>
                                             <li className={ styles.watch__list__item + " " + styles.button }>

@@ -3,9 +3,8 @@ import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
 import { ChangeRoute, InitializePlaylists } from '../actions';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { FaHome, FaFileVideo, FaCloudUploadAlt } from 'react-icons/fa';
+import { FaHome, FaFileVideo, FaCloudUploadAlt, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { MdHistory, MdPlaylistPlay } from 'react-icons/md'
-import { BiLike, BiDislike } from 'react-icons/bi';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useLoader } from '../loader-context';
@@ -21,8 +20,8 @@ export function Sidenav() {
         'MdHistory': <MdHistory />,
         'FaCloudUploadAlt': <FaCloudUploadAlt />,
         'FaFileVideo': <FaFileVideo />,
-        'BiLike': <BiLike />,
-        'BiDislike': <BiDislike />,
+        'FaThumbsUp': <FaThumbsUp />,
+        'FaThumbsDown': <FaThumbsDown />,
 
 
     }
