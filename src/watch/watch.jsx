@@ -19,7 +19,7 @@ export function Watch({ id }) {
         const selectedVideo = videos.find(video => video.id === id);
         setVideo( selectedVideo );
         setLoading(false);
-    }, []);
+    }, [id]);
 
     return (
         <>
@@ -57,8 +57,8 @@ export function Watch({ id }) {
                             </div>
                             <ul className="row col-3 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
                                { 
-                                    videos.map( video => <li className="col-12 col-lg-4 col-md-6 col-sm-12 p-0">
-                                         <PlaylistItem key = { video.id } video = { video } />
+                                    videos.map( video => <li  key = { video.id } className="col-12 col-lg-4 col-md-6 col-sm-12 p-0">
+                                         <PlaylistItem video = { video } />
                                     </li>)
                                }
                             </ul>

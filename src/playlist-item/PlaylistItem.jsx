@@ -1,12 +1,19 @@
-import { RemoveFromPlayList } from '../actions';
 import { FaEllipsisV } from 'react-icons/fa';
 
+import { useStore } from '../store-context';
+import { ChangeRoute } from '../actions';
 import styles from './PlaylistItem.module.css';
 
 export function PlaylistItem({ video }) {
+    const { dispatch } = useStore();
+
+    const openVideo = (id) => {
+        dispatch( new ChangeRoute({ path: 'watch', params: id }));
+    }
+
     return (
-        <div className={ styles.playlistItem }>
-                <div class={styles.thumbnail__img + " badge__container"}>
+        <div className={ styles.playlistItem } onClick = { () => openVideo(video.id) }>
+                <div class={styles.thumbnail__img + " badge__container"} >
                     <img src={video.thumbnailURL} alt="" />
                     <span className={"badge " + styles.duration}>
                         23:47
