@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { RemoveFromPlayList } from "../actions";
 import { useStore } from "../store-context";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 import styles from './Playlist.module.css';
 
 export function Playlist({ id: playlistId }) {
-    const { state, dispatch } = useStore();
+    const { state } = useStore();
     const [ videos, setVideos ] = useState(null);
 
     useEffect( () => {
@@ -13,20 +12,13 @@ export function Playlist({ id: playlistId }) {
         setVideos( curPlaylist? curPlaylist.items : state[playlistId] );
     } );
 
-    const removeFromPlayList = (video) => {
-        dispatch( new RemoveFromPlayList( { playlistId, video }) );
-    }
-
     return (
-        <div className="row">
-            <ul className={ "row col-12 " + styles.playlist}>
-                {
-                    videos? 
-                    videos.map( video => <PlaylistItem key = { video.id } video = { video } removeFromPlayList = { removeFromPlayList } /> )
-                    :
-                    <p>Loading...</p>
-                }
-            </ul>
-        </div>
+        <ul className="row " style={{ listStyle: 'none' }}>
+            { 
+                videos && videos.map( video => <li  key = { video.id } className="col-4 col-lg-4 col-md-6 col-sm-12 p-0">
+                        <PlaylistItem video = { video } />
+                </li>)
+            }
+        </ul>
     )
 }
