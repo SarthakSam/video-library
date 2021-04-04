@@ -21,7 +21,7 @@ export function Watch() {
         const selectedVideo = videos.find(video => video.id === id);
         setVideo( selectedVideo );
         setLoading(false);
-    }, [id]);
+    }, [videos, id]);
 
     return (
         <>

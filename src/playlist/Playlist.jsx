@@ -12,7 +12,7 @@ export function Playlist() {
     useEffect( () => {
         const curPlaylist = state.playlists.find( playlist => playlist.id === playlistId);
         setVideos( curPlaylist? curPlaylist.items : state[playlistId] );
-    } );
+    }, [state, playlistId] );
 
     return (
         <ul className="row " style={{ listStyle: 'none' }}>
