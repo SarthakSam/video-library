@@ -31,7 +31,7 @@ export function Notification({ notification: { id, type, message, duration = 200
             {
                 type === 'WARNING' && 
                 <div className="alert bg-yellow text-white">
-                    <FaTimes style={{ padding: 0 }} />
+                    <FaExclamation style={{ padding: 0 }} />
                     <p>{message}</p>
                 </div>
             }
