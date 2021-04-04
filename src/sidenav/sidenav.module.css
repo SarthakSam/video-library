@@ -36,6 +36,7 @@
 
 .sidenav__listItem__icon {
     fill: var(--color-dark-grey);
+    font-size: var(--font-large);
 }
 
 /* .list__item.active {
