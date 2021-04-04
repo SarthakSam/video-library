@@ -7,3 +7,13 @@ nav {
     position: fixed;
     width: 100%;
 }
+
+.search__input__container {
+    margin: auto;
+}
+
+.search__input > input {
+    padding: 0.4em;
+    width: 30vw;
+    min-width: 12em;
+}
