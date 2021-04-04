@@ -3,7 +3,9 @@ import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
 import { ChangeRoute, InitializePlaylists } from '../actions';
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaClock, FaFileVideo, FaCloudUploadAlt } from 'react-icons/fa';
+import { MdHistory, MdPlaylistPlay } from 'react-icons/md'
+import { BiLike, BiDislike } from 'react-icons/bi';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useLoader } from '../loader-context';
@@ -13,6 +15,17 @@ export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();
     const { setLoading } = useLoader();
     const { showNotification } = useNotifications();
+
+    const iconsMapping = {
+        'FaHome': <FaHome />,
+        'MdHistory': <MdHistory />,
+        'FaCloudUploadAlt': <FaCloudUploadAlt />,
+        'FaFileVideo': <FaFileVideo />,
+        'BiLike': <BiLike />,
+        'BiDislike': <BiDislike />,
+
+
+    }
     
     function changeRoute(route) {
         dispatch( new ChangeRoute( route ) );
@@ -29,10 +42,9 @@ export function Sidenav() {
         } finally {
             setLoading(false);
         }
-
-
     }
 
+   
     useEffect( () => {
         getPlaylists();
     }, []);
@@ -47,7 +59,9 @@ export function Sidenav() {
                 {
                     staticRoutes.map( route => 
                     <li key = { route.id } className = { styles.sidenav__listItem + " " + styles.active } onClick = { () => { changeRoute( route.goTo) } } >
-                        <FaHome className={styles.sidenav__listItem__icon} />
+                        <span className={styles.sidenav__listItem__icon}>
+                            { iconsMapping[route.icon] }
+                        </span>
                         <p className={styles.sidenav__listItem__text}>{ route.title }</p>
                     </li>)
                 }
@@ -56,7 +70,9 @@ export function Sidenav() {
                 {
                     playlists.map( playlist => 
                     <li key = { playlist.id } className = { styles.sidenav__listItem }  onClick = { () => { changeRoute({ path: 'playlist', params: playlist.id }) } }>
-                        <FaHome className={styles.sidenav__listItem__icon} />
+                        <span className={styles.sidenav__listItem__icon}>
+                            <MdPlaylistPlay  />
+                        </span>
                         <p className={styles.sidenav__listItem__text}>{ playlist.title }</p>
                     </li>)
                 }
