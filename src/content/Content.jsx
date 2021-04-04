@@ -52,7 +52,7 @@ export function Content() {
                     <NewVideo />
                 </VideoProvider>
              }
-            { path === 'history' && <VideoListing /> }
+            { path === 'history' && <Playlist id = "history"  /> }
             { path === 'playlist' && <Playlist id = { params } /> }
             { path === 'watch' && <Watch id = { params } /> }
         </div>

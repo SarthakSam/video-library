@@ -1,4 +1,4 @@
-import { actions } from './actions';
+import { actions, RemoveFromHistory } from './actions';
 import { watchLaterObj } from './static-data';
 
 export const initialState = {
@@ -21,6 +21,8 @@ export function reducer(state, action) {
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);
         case actions.CHANGE_ROUTE:           return { ...state, route: { ...action.payload} };
         case actions.UPLOAD_VIDEO:           return { ...state, videos: [...state.videos, action.payload]};
+        case actions.ADD_TO_HISTORY:         return { ...state, history: [...state.history, action.payload]};
+        case actions.REMOVE_FROM_HISTORY:    return removeFromHistory(state, action);
         default:                             return state;
     }
 }
@@ -52,4 +54,8 @@ function removeFromPlayList(state, action) {
         return acc;
     } , []);
     return { ...state, playlists: changedPlaylist }
+}
+
+function removeFromHistory(state, action) {
+    return { ...state, history: state.history.filter( video => video.id !== action.payload.id )};
 }

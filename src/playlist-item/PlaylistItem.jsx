@@ -1,18 +1,19 @@
 import { FaEllipsisV } from 'react-icons/fa';
 
 import { useStore } from '../store-context';
-import { ChangeRoute } from '../actions';
+import { AddToHistory, ChangeRoute } from '../actions';
 import styles from './PlaylistItem.module.css';
 
 export function PlaylistItem({ video }) {
     const { dispatch } = useStore();
 
-    const openVideo = (id) => {
-        dispatch( new ChangeRoute({ path: 'watch', params: id }));
+    const openVideo = (video) => {
+        dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
+        dispatch( new AddToHistory( video ) );
     }
 
     return (
-        <div className={ styles.playlistItem } onClick = { () => openVideo(video.id) }>
+        <div className={ styles.playlistItem } onClick = { () => openVideo(video) }>
                 <div class={styles.thumbnail__img + " badge__container"} >
                     <img src={video.thumbnailURL} alt="" />
                     <span className={"badge " + styles.duration}>

@@ -7,7 +7,9 @@ export const actions = {
     CHANGE_ROUTE: 'CHANGE_ROUTE',
     UPLOAD_VIDEO: 'UPLOAD_VIDEO',
     EDIT_FIELD: 'EDIT_FIELD',
-    RESET_FORM: 'RESET_FORM'
+    RESET_FORM: 'RESET_FORM',
+    ADD_TO_HISTORY: 'ADD_TO_HISTORY',
+    REMOVE_FROM_HISTORY: 'REMOVE_FROM_HISTORY'
 }
 
 export class InitializeVideoListing {
@@ -35,6 +37,19 @@ export class CreatePlayList {
 export class AddToPlayList {
     constructor(payload) {
         this.type = actions.ADD_TO_PLAYLIST;
+        this.payload = payload;
+    }
+}
+
+export class AddToHistory {
+    constructor(payload) {
+        this.type = actions.ADD_TO_HISTORY;
+        this.payload = payload;
+    }
+}
+export class RemoveFromHistory {
+    constructor(payload) {
+        this.type = actions.REMOVE_FROM_HISTORY;
         this.payload = payload;
     }
 }

@@ -3,7 +3,7 @@ import { FaEllipsisV } from 'react-icons/fa';
 import styles from './video.module.css'
 import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../store-context';
-import { AddToPlayList, ChangeRoute } from '../../actions';
+import { AddToHistory, AddToPlayList, ChangeRoute } from '../../actions';
 import { watchLaterObj } from '../../static-data';
 import { useNotifications } from '../../notifications-context';
 
@@ -24,8 +24,9 @@ export function Video( { video, setSelectedVideo } ) {
         setSelectedVideo(video);
     }
 
-    const openVideo = (id) => {
-        dispatch( new ChangeRoute({ path: 'watch', params: id }));
+    const openVideo = (video) => {
+        dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
+        dispatch( new AddToHistory( video ) );
     }
 
     const options = [
@@ -34,7 +35,7 @@ export function Video( { video, setSelectedVideo } ) {
     ]
 
     return (
-        <li className = { styles.card + " card col-3 col-xl-4 col-lg-4 col-md-6 col-sm-12" } onClick = { () => openVideo(video.id) }>
+        <li className = { styles.card + " card col-3 col-xl-4 col-lg-4 col-md-6 col-sm-12" } onClick = { () => openVideo(video) }>
             <div className= "card__img badge__container">
                 <img className = { styles.img } src={ video.thumbnailURL } alt=""/>
                 <span className={ styles.badge + " badge bg-black text-white" }>{ video.duration }</span>
