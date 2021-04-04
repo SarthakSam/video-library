@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RemoveFromPlayList } from "../actions";
 import { useStore } from "../store-context";
-import { PlaylistItem } from './playlist-item/PlaylistItem';
+import { PlaylistItem } from '../playlist-item/PlaylistItem';
 import styles from './Playlist.module.css';
 
 export function Playlist({ id: playlistId }) {

@@ -5,6 +5,7 @@ import { MdPlaylistPlay } from 'react-icons/md'
 
 import { useLoader } from "../loader-context";
 import { useStore } from "../store-context";
+import { PlaylistItem } from '../playlist-item/PlaylistItem';
 
 import styles from './watch.module.css';
 
@@ -54,9 +55,13 @@ export function Watch({ id }) {
 
                                 </div>
                             </div>
-                            <div className="row col-3 col-lg-12 col-md-12 col-sm-12">
-                               
-                            </div>
+                            <ul className="row col-3 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
+                               { 
+                                    videos.map( video => <li className="col-12 col-lg-4 col-md-6 col-sm-12 p-0">
+                                         <PlaylistItem key = { video.id } video = { video } />
+                                    </li>)
+                               }
+                            </ul>
                         </div>
             }
         </>
