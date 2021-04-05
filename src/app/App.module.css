@@ -5,10 +5,16 @@
     width: 100%;
     display: grid;
     grid-template-rows: 2.5rem auto;
-    grid-template-columns: 3.5em 1fr;
+    grid-template-columns: 12em 1fr;
     grid-template-areas: "nav nav"
                          "sidenav content";
     overflow: hidden;
+}
+
+@media screen and (max-width: 992px) {
+    .App {
+        grid-template-columns: 3.5em 1fr;
+    }
 }
 
 .nav__container {
