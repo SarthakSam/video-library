@@ -50,7 +50,7 @@ export function Sidenav() {
 
     return (
         <aside className = { styles.sidenav }>
-            <input type="checkbox" id="sidenav__toggle" className={  styles.sidenav__toggle}/>
+            <input type="checkbox" id="sidenav__toggle" className={  styles.sidenav__toggle} defaultChecked/>
             <label htmlFor="sidenav__toggle" className={ styles.sidenav__expand }>
                 <MdKeyboardArrowRight className = { styles.sidenav__expandIcon } />
             </label>
