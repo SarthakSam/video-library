@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useLoader } from "../loader-context";
 import { useStore } from "../store-context";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
+import { PlayListPopup } from '../playlist-popup/playlist-popup';
 
 import styles from './watch.module.css';
 
@@ -14,7 +15,9 @@ export function Watch() {
     const { id } = useParams();
     const { state: { videos } } = useStore();
     const [video, setVideo] = useState(null);
-    const { setLoading } = useLoader()
+    const { setLoading } = useLoader();
+    const [selectedVideo, setSelectedVideo] = useState(null);
+
 
     useEffect( () => {
         setLoading(true);
@@ -22,6 +25,10 @@ export function Watch() {
         setVideo( selectedVideo );
         setLoading(false);
     }, [videos, id]);
+
+    const showAddToPlaylistPopup = () => {
+        setSelectedVideo(video);
+    }
 
     return (
         <>
@@ -45,7 +52,7 @@ export function Watch() {
                                                 <FaThumbsDown />
                                                 <span>{ video.dislikes }</span>
                                             </li>
-                                            <li className={ styles.watch__list__item + " " + styles.button }>
+                                            <li className={ styles.watch__list__item + " " + styles.button } onClick = { showAddToPlaylistPopup }>
                                                 <MdPlaylistPlay />
                                             </li>
                                         </ul>
@@ -64,6 +71,7 @@ export function Watch() {
                                     </li>)
                                }
                             </ul>
+                            { selectedVideo && <PlayListPopup  selectedVideo = { selectedVideo } setSelectedVideo = { setSelectedVideo } /> }
                         </div>
             }
         </>

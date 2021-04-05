@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useStore } from '../store-context';
 import { Video } from './video/video';
-import { PlayListPopup } from './playlist-popup/playlist-popup';
+import { PlayListPopup } from '../playlist-popup/playlist-popup';
 
 export function VideoListing() {
     const { state: {videos} } = useStore();

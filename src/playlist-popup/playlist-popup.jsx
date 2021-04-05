@@ -1,7 +1,7 @@
 import { FaTimes } from 'react-icons/fa';
-import { useStore } from '../../store-context';
+import { useStore } from '../store-context';
 import styles from './playlist-popup.module.css';
-import { AddToPlayList, CreatePlayList, RemoveFromPlayList } from '../../actions';
+import { AddToPlayList, CreatePlayList, RemoveFromPlayList } from '../actions';
 import { NewPlaylist } from './new-playlist/new-playlist';
 
 export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
