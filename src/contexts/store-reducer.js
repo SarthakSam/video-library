@@ -4,10 +4,10 @@ import { watchLaterObj } from '../static-data';
 export const initialState = {
     videos: [],
     playlists: [],
-    history: [],
-    uploads: [],
-    liked: [],
-    disliked: [],
+    history: { title: 'History', items: []},
+    uploads: { title: 'Uploaded Videos', items: []},
+    liked: { title: 'Liked Videos', items: []},
+    disliked: { title: 'Disliked Videos', items: []},
     route: { path: 'home', params: '' },
     user: 'user1'
 }
@@ -21,14 +21,14 @@ export function reducer(state, action) {
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);
         case actions.CHANGE_ROUTE:           return { ...state, route: { ...action.payload} };
         case actions.UPLOAD_VIDEO:           return { ...state, videos: [...state.videos, action.payload]};
-        case actions.ADD_TO_HISTORY:         return { ...state, history: [...state.history, action.payload]};
+        case actions.ADD_TO_HISTORY:         return { ...state, history: {...state.history, items: [ ...state.history.items, action.payload] } };
         // case actions.REMOVE_FROM_HISTORY:    return removeFromHistory(state, action);
         default:                             return state;
     }
 }
 
 function createPlayList(state, action) {
-    return { ...state, playlists: [...state.playlists, { id: (new Date()).toISOString(), title: action.payload.title, items: [ action.payload.video ] }] }
+    return { ...state, playlists: [...state.playlists, { ...action.payload.playlist, items: [ action.payload.video ] }] }
 }
 
 function addToPlayList(state, action) {

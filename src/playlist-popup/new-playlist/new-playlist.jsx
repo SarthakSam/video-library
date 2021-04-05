@@ -1,27 +1,43 @@
 import { useState } from "react";
 import { FaPlus } from 'react-icons/fa';
-// import axios from 'axios';
+import axios from 'axios';
 
 import styles from './new-playlist.module.css';
+import { useLoader } from "../../contexts/loader-context";
+import { useNotifications } from "../../contexts/notifications-context";
 
 export function NewPlaylist({ createNewPlaylist }) {
     const [ newPlaylistFormVisible, setNewPlaylistFormVisible] = useState(false);
     const [ newPlaylist, setNewPlaylist] = useState('');
+    const { setLoading } = useLoader();
+    const { showNotification } = useNotifications();
 
     const showPlayListForm = () => {
         setNewPlaylistFormVisible(true);
     }
 
-    const createPlaylist = () => {
+    const createPlaylist = async () => {
         if(!newPlaylist) {
             // Show error that title cannot be empty
             alert("Title cannot be empty")
             return;
         }
-
-        createNewPlaylist(newPlaylist);
-        setNewPlaylistFormVisible(false);
-        setNewPlaylist("");
+        const body = {
+            title: newPlaylist,
+            items: []
+        }
+        setLoading(true);
+        try {
+            const resp = await axios.post('/api/playlists', JSON.stringify(body));
+            showNotification({ type: 'SUCCESS', message: 'Playlist created successfully'});
+            createNewPlaylist(resp.data.playlist);  
+            setNewPlaylistFormVisible(false);
+            setNewPlaylist("");
+        } catch( err ) {
+            showNotification({ type: 'ERROR', message: err});
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (

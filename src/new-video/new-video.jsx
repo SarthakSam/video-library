@@ -4,10 +4,17 @@ import styles from './new-video.module.css';
 import { useVideo } from '../contexts/video-context';
 import { ChangeRoute, EditField, UploadVideo } from '../actions';
 import { useStore } from '../contexts/store-context';
+import { useNotifications } from '../contexts/notifications-context';
+import { useLoader } from '../contexts/loader-context';
+import { useNavigate } from 'react-router';
 
 export function NewVideo() {
     const { state: { title, description, duration, thumbnailURL, videoURL, type  }, dispatch } = useVideo();
     const { dispatch: dispatchToStore } = useStore();
+    const { setLoading } = useLoader();
+    const { showNotification } = useNotifications();
+    const navigate = useNavigate();
+
 
     const onChange = (field, value) => {
         dispatch(new EditField({ field, value}))
@@ -34,13 +41,18 @@ export function NewVideo() {
             uploadedDate: (new Date()).toLocaleDateString(),
             comments: [],
         }
+        setLoading(true);
         try {
             const resp = await axios.post('/api/videos', JSON.stringify(body));
+            showNotification({ type: 'SUCCESS', message: 'Video uploaded successfully'});
             // console.log(resp.data.video);
             dispatchToStore( new UploadVideo( resp.data.video) );
             dispatchToStore( new ChangeRoute( { path: 'uploads', params: '' } ) );
+            navigate(`/`)
         } catch( err ) {
-            console.error(err);
+            showNotification({ type: 'ERROR', message: err});
+        } finally {
+            setLoading(false);
         }
     }
 

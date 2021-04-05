@@ -23,8 +23,8 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
             dispatch( new RemoveFromPlayList({playlistId: item.id, video}))
     }
 
-  const createNewPlaylist = (playlistTitle) => {
-        dispatch( new CreatePlayList({ title: playlistTitle, video }));
+  const createNewPlaylist = (playlist) => {
+        dispatch( new CreatePlayList({ playlist, video }));
         closePopup();
     }
 

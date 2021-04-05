@@ -7,20 +7,24 @@ import { PlaylistItem } from '../playlist-item/PlaylistItem';
 export function Playlist() {
     const { state } = useStore();
     const { id: playlistId } = useParams();
-    const [ videos, setVideos ] = useState(null);
+    const [ playlist, setPlaylist ] = useState(null);
 
     useEffect( () => {
         const curPlaylist = state.playlists.find( playlist => playlist.id === playlistId);
-        setVideos( curPlaylist? curPlaylist.items : state[playlistId] );
+        setPlaylist( curPlaylist? curPlaylist : state[playlistId] );
     }, [state, playlistId] );
 
     return (
-        <ul className="row " style={{ listStyle: 'none' }}>
-            { 
-                videos && videos.map( video => <li  key = { video.id } className="col-4 col-lg-4 col-md-6 col-sm-12 p-0">
-                        <PlaylistItem video = { video } />
-                </li>)
-            }
-        </ul>
+        <>
+            <h2> { playlist && playlist.title } </h2>
+            <br/>
+            <ul className="row " style={{ listStyle: 'none' }}>
+                { 
+                    playlist && playlist.items.length ? playlist.items.map( video => <li  key = { video.id } className="col-4 col-lg-4 col-md-6 col-sm-12 p-0">
+                            <PlaylistItem video = { video } />
+                    </li>) : <h4>Playlist is empty</h4>
+                }
+            </ul>
+        </>
     )
 }

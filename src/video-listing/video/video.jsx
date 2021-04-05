@@ -43,7 +43,7 @@ export function Video( { video, setSelectedVideo } ) {
                 <img className = { styles.img } src={ video.thumbnailURL } alt=""/>
                 <span className={ styles.badge + " badge bg-black text-white" }>{ video.duration }</span>
             </div>
-            <div class={ styles.card__body }>
+            <div className={ styles.card__body }>
                 <div className="avatar avatar--round">
                     <img src="https://yt3.ggpht.com/ytc/AAUvwnjuTxkQkUtBdXuoiwzMwXI_iLo0ATcXYeTmkB8XAA=s68-c-k-c0x00ffffff-no-rj" alt="" className="avatar__img"/>
                 </div>
