@@ -4,8 +4,8 @@ import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md'
 import { useParams } from 'react-router-dom';
 
-import { useLoader } from "../loader-context";
-import { useStore } from "../store-context";
+import { useLoader } from "../contexts/loader-context";
+import { useStore } from "../contexts/store-context";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
 

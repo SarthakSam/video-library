@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import styles from './video.module.css'
 import { Menu } from '../../common-components/menu/menu';
-import { useStore } from '../../store-context';
+import { useStore } from '../../contexts/store-context';
 import { AddToHistory, AddToPlayList } from '../../actions';
 import { watchLaterObj } from '../../static-data';
-import { useNotifications } from '../../notifications-context';
+import { useNotifications } from '../../contexts/notifications-context';
 
 export function Video( { video, setSelectedVideo } ) {
     const { dispatch, state: { playlists } } = useStore();

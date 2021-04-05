@@ -1,6 +1,6 @@
 import { FaEllipsisV } from 'react-icons/fa';
 
-import { useStore } from '../store-context';
+import { useStore } from '../contexts/store-context';
 import { AddToHistory } from '../actions';
 import styles from './PlaylistItem.module.css';
 import { useNavigate } from 'react-router';

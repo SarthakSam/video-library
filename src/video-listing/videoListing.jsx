@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useStore } from '../store-context';
+import { useStore } from '../contexts/store-context';
 import { Video } from './video/video';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
 

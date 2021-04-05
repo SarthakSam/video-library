@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaPlus } from 'react-icons/fa';
+// import axios from 'axios';
 
 import styles from './new-playlist.module.css';
 
@@ -17,6 +18,7 @@ export function NewPlaylist({ createNewPlaylist }) {
             alert("Title cannot be empty")
             return;
         }
+
         createNewPlaylist(newPlaylist);
         setNewPlaylistFormVisible(false);
         setNewPlaylist("");

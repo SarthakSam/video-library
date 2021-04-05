@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { useStore } from '../store-context';
+import { useStore } from '../contexts/store-context';
 import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
 import { ChangeRoute, InitializePlaylists } from '../actions';
@@ -9,8 +9,8 @@ import { FaHome, FaFileVideo, FaCloudUploadAlt, FaThumbsUp, FaThumbsDown } from 
 import { MdHistory, MdPlaylistPlay } from 'react-icons/md'
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useLoader } from '../loader-context';
-import { useNotifications } from '../notifications-context';
+import { useLoader } from '../contexts/loader-context';
+import { useNotifications } from '../contexts/notifications-context';
 
 export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();

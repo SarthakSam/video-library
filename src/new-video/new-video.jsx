@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 import styles from './new-video.module.css';
-import { useVideo } from '../video-context';
+import { useVideo } from '../contexts/video-context';
 import { ChangeRoute, EditField, UploadVideo } from '../actions';
-import { useStore } from '../store-context';
+import { useStore } from '../contexts/store-context';
 
 export function NewVideo() {
     const { state: { title, description, duration, thumbnailURL, videoURL, type  }, dispatch } = useVideo();

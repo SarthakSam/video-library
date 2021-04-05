@@ -1,4 +1,4 @@
-import { useNotifications } from '../../notifications-context';
+import { useNotifications } from '../../contexts/notifications-context';
 import styles from './Notification-container.module.css';
 import { Notification } from './notification/Notification';
 

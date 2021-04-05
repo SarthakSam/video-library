@@ -3,15 +3,15 @@ import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 
 import styles from './Content.module.css';
-import { useStore } from '../store-context';
+import { useStore } from '../contexts/store-context';
 import { VideoListing } from '../video-listing/videoListing';
 import { NewVideo } from '../new-video/new-video'; 
 import { Watch } from '../watch/watch';
-import { VideoProvider } from '../video-context';
+import { VideoProvider } from '../contexts/video-context';
 import { Playlist } from '../playlist/Playlist';
 import { InitializeVideoListing } from '../actions';
-import { useLoader } from '../loader-context';
-import { useNotifications } from '../notifications-context';
+import { useLoader } from '../contexts/loader-context';
+import { useNotifications } from '../contexts/notifications-context';
 
 export function Content() {
     const { dispatch } = useStore();

@@ -1,5 +1,5 @@
-import { actions } from './actions';
-import { watchLaterObj } from './static-data';
+import { actions } from '../actions';
+import { watchLaterObj } from '../static-data';
 
 export const initialState = {
     videos: [],

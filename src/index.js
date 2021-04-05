@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import {server} from './server/mock.api';
-import { StoreProvider } from './store-context';
-import { LoaderProvider } from './loader-context';
-import { NotificationsProvider } from './notifications-context';
+import { StoreProvider } from './contexts/store-context';
+import { LoaderProvider } from './contexts/loader-context';
+import { NotificationsProvider } from './contexts/notifications-context';
 
 server();
 

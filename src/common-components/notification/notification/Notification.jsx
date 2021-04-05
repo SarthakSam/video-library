@@ -1,7 +1,7 @@
 import { FaCheck, FaTimes, FaExclamation } from 'react-icons/fa';
 import styles from './Notification.module.css';
 import { useEffect } from 'react';
-import { useNotifications } from '../../../notifications-context';
+import { useNotifications } from '../../../contexts/notifications-context';
 
 export function Notification({ notification: { id, type, message, duration = 2000 } }) {
     const { deleteNotification } = useNotifications();
