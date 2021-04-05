@@ -14,7 +14,7 @@ import { useLoader } from '../loader-context';
 import { useNotifications } from '../notifications-context';
 
 export function Content() {
-    const { state: { route: { path, params} }, dispatch } = useStore();
+    const { dispatch } = useStore();
     const { setLoading } = useLoader();
     const { showNotification } = useNotifications();
 

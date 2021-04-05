@@ -10,7 +10,7 @@ export function Notification({ notification: { id, type, message, duration = 200
         setTimeout( () =>{
             deleteNotification(id);
         }, duration );
-    }, [])
+    }, [id, duration, deleteNotification])
 
     return (
     <li className = {"col-12 p-0 " + styles.notification}>
