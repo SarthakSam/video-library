@@ -1,4 +1,4 @@
-import { actions } from '../actions';
+import { actions, LikeDislikeVideo } from '../actions';
 import { watchLaterObj } from '../static-data';
 
 export const initialState = {
@@ -8,7 +8,6 @@ export const initialState = {
     uploads: { title: 'Uploaded Videos', items: []},
     liked: { title: 'Liked Videos', items: []},
     disliked: { title: 'Disliked Videos', items: []},
-    route: { path: 'home', params: '' },
     user: 'user1'
 }
 
@@ -19,9 +18,9 @@ export function reducer(state, action) {
         case actions.CREATE_PLAYLIST:        return createPlayList(state, action);
         case actions.ADD_TO_PLAYLIST:        return addToPlayList(state, action);
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);
-        case actions.CHANGE_ROUTE:           return { ...state, route: { ...action.payload} };
         case actions.UPLOAD_VIDEO:           return { ...state, videos: [...state.videos, action.payload]};
         case actions.ADD_TO_HISTORY:         return { ...state, history: {...state.history, items: [ ...state.history.items, action.payload] } };
+        case actions.LIKE_DISLIKE_VIDEO:     return likeDislikeVideo(state, action);
         // case actions.REMOVE_FROM_HISTORY:    return removeFromHistory(state, action);
         default:                             return state;
     }
@@ -54,6 +53,18 @@ function removeFromPlayList(state, action) {
         return acc;
     } , []);
     return { ...state, playlists: changedPlaylist }
+}
+
+function likeDislikeVideo(state, action) {
+    const likedVideos = state.liked.items.filter( video => video.id !== action.payload.video.id );
+    const dislikedVideos = state.disliked.items.filter( video => video.id !== action.payload.video.id );
+    if( action.payload.isLiked ) {
+        likedVideos.push(action.payload.video);
+    }
+    if(action.payload.isDisliked) {
+        dislikedVideos.push(action.payload.video);
+    }
+    return { ...state, liked: { ...state.liked, items: likedVideos } , disliked: { ...state.disliked, items: dislikedVideos } };
 }
 
 // function removeFromHistory(state, action) {

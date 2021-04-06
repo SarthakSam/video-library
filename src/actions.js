@@ -9,7 +9,9 @@ export const actions = {
     EDIT_FIELD: 'EDIT_FIELD',
     RESET_FORM: 'RESET_FORM',
     ADD_TO_HISTORY: 'ADD_TO_HISTORY',
-    REMOVE_FROM_HISTORY: 'REMOVE_FROM_HISTORY'
+    REMOVE_FROM_HISTORY: 'REMOVE_FROM_HISTORY',
+    LIKE_DISLIKE_VIDEO: 'LIKE_DISLIKE_VIDEO',
+    UNLIKE_UNDISLIKE_VIDEO: 'UNLIKE_UNDISLIKE_VIDEO'
 }
 
 export class InitializeVideoListing {
@@ -78,6 +80,20 @@ export class EditField {
 export class UploadVideo {
     constructor(payload) {
         this.type = actions.UPLOAD_VIDEO;
+        this.payload = payload;
+    }
+}
+
+export class UnlikeUndislikeVideo {
+    constructor(payload) {
+        this.type = actions.UNLIKE_UNDISLIKE_VIDEO;
+        this.payload = payload;
+    }
+}
+
+export class LikeDislikeVideo {
+    constructor(payload) {
+        this.type = actions.LIKE_DISLIKE_VIDEO;
         this.payload = payload;
     }
 }
