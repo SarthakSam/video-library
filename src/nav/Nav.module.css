@@ -17,3 +17,17 @@ nav {
     width: 30vw;
     min-width: 12em;
 }
+
+.nav__title {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.nav__title > img {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    clip: rect(0, 30px, 30px, 0);
+    left: -15px;
+}
