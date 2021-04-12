@@ -1,12 +1,19 @@
 const express           = require('express'),
       app               = express(),
       bodyParser        = require('body-parser'),
+      cors              = require('cors'),
       videosRouter      = require('./apis/videos'),
       playlistsRouter   = require('./apis/playlists');
       
 const PORT = 3001;
 
 app.use(bodyParser.json());
+app.use(cors());
+
+app.use((req, res, next) => { 
+    console.log("request aai thi"); 
+    next(); 
+} );
 
 app.use('/videos', videosRouter);
 app.use('/playlists', playlistsRouter);
