@@ -7,13 +7,13 @@ const express           = require('express'),
       
 const PORT = 3001;
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 
-app.use((req, res, next) => { 
-    console.log("request aai thi"); 
-    next(); 
-} );
+// app.use((req, res, next) => { 
+//     console.log("request aai thi"); 
+//     next(); 
+// } );
 
 app.use('/videos', videosRouter);
 app.use('/playlists', playlistsRouter);
