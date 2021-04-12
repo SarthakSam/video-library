@@ -10,7 +10,7 @@ import { StoreProvider } from './contexts/store-context';
 import { LoaderProvider } from './contexts/loader-context';
 import { NotificationsProvider } from './contexts/notifications-context';
 
-server();
+// server();
 
 ReactDOM.render(
     <React.StrictMode>

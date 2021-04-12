@@ -12,6 +12,7 @@ import { Playlist } from '../playlist/Playlist';
 import { InitializeVideoListing } from '../actions';
 import { useLoader } from '../contexts/loader-context';
 import { useNotifications } from '../contexts/notifications-context';
+import { getURL } from '../api.config';
 
 export function Content() {
     const { dispatch } = useStore();
@@ -21,8 +22,10 @@ export function Content() {
     const getVideos = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('/api/videos')
-            dispatch(new InitializeVideoListing(res.data.videos) );
+            console.log(getURL( 'getVideos' ));
+            const res = await axios.get(getURL( 'getVideos' ));
+            console.log(res);
+            // dispatch(new InitializeVideoListing(res.data.videos) );
         }
         catch(err) {
             showNotification({type: 'ERROR', message: err})

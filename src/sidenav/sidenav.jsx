@@ -45,7 +45,7 @@ export function Sidenav() {
 
    
     useEffect( () => {
-        getPlaylists();
+        // getPlaylists();
     }, []);
 
     return (
