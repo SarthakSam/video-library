@@ -4,7 +4,6 @@ import { Notification } from './notification/Notification';
 
 export function NotificationContainer() {
     const { notifications } = useNotifications();
-    console.log(notifications);
 
     return (
         <ul className={styles.notification__container + " row"}>
