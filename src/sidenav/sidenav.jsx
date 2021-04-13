@@ -7,6 +7,7 @@ import { ChangeRoute, InitializePlaylists } from '../actions';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { FaHome, FaFileVideo, FaCloudUploadAlt, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { MdHistory, MdPlaylistPlay } from 'react-icons/md'
+import { BsClockFill } from 'react-icons/bs';
 import { useEffect } from 'react';
 import { useNotifications } from '../contexts/notifications-context';
 import { UseAxios } from '../custom-hooks/useAxios';
@@ -23,6 +24,7 @@ export function Sidenav() {
         'FaFileVideo': <FaFileVideo />,
         'FaThumbsUp': <FaThumbsUp />,
         'FaThumbsDown': <FaThumbsDown />,
+        'BsClockFill': <BsClockFill />
     }
     
     function changeRoute(route) {
@@ -31,7 +33,7 @@ export function Sidenav() {
    
     useEffect( () => {
         const getPlaylists = async () => {
-            apiCall('getPlaylists', null, (res) => {
+            apiCall('getPlaylists', 'get', null, (res) => {
                 dispatch(new InitializePlaylists(res.data.playlists) );
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message});
@@ -63,9 +65,11 @@ export function Sidenav() {
                 {
                     playlists.map( playlist => 
                     <li key = { playlist.id } onClick = { () => { changeRoute({ path: 'playlist', params: playlist.id }) } }>
-                        <NavLink to={ `playlist/${playlist.id}` } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
+                        <NavLink to={ playlist.goTo? playlist.goTo : `playlist/${playlist.id}` } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
                             <span className={styles.sidenav__listItem__icon}>
-                                <MdPlaylistPlay />
+                                {
+                                    playlist.icon? iconsMapping[playlist.icon] : <MdPlaylistPlay />
+                                }
                             </span>
                             <p className={styles.sidenav__listItem__text}>{ playlist.title }</p>
                         </NavLink>

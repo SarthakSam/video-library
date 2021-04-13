@@ -1,5 +1,4 @@
-import { actions, LikeDislikeVideo } from '../actions';
-import { watchLaterObj } from '../static-data';
+import { actions } from '../actions';
 
 export const initialState = {
     videos: [],
@@ -14,7 +13,7 @@ export const initialState = {
 export function reducer(state, action) {
     switch( action.type ) {
         case actions.INITIALIZE_VIDEOS:      return { ...state, videos: [...action.payload] };
-        case action.INITIALIZE_PLAYLISTS:    return { ...state, playlists: [watchLaterObj, ...action.payload] };
+        case action.INITIALIZE_PLAYLISTS:    return { ...state, playlists: [...action.payload] };
         case actions.CREATE_PLAYLIST:        return createPlayList(state, action);
         case actions.ADD_TO_PLAYLIST:        return addToPlayList(state, action);
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);
@@ -48,7 +47,7 @@ function removeFromPlayList(state, action) {
         return playlist;
     })
     changedPlaylist = changedPlaylist.reduce((acc, cur) => { 
-        if(cur.items.length > 0 || cur.id === watchLaterObj.id)
+        if(cur.items.length > 0 || cur.isPermanent)
            acc.push(cur); 
         return acc;
     } , []);

@@ -5,10 +5,10 @@ import axios from 'axios';
 export function UseAxios() {
     const { setLoading } = useLoader();
 
-    const apiCall = async (url, body, successCb, failureCb) => {
+    const apiCall = async (url, type, body, successCb, failureCb) => {
         try {
             setLoading(true);
-            const res = await axios.get(mapping[url], body);
+            const res = await axios[type](mapping[url], body);
             successCb(res);
         }
         catch(err) {

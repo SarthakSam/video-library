@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { FaPlus } from 'react-icons/fa';
-import axios from 'axios';
 
 import styles from './new-playlist.module.css';
 import { useLoader } from "../../contexts/loader-context";
 import { useNotifications } from "../../contexts/notifications-context";
+import { UseAxios } from '../../custom-hooks/useAxios';
 
 export function NewPlaylist({ createNewPlaylist }) {
     const [ newPlaylistFormVisible, setNewPlaylistFormVisible] = useState(false);
     const [ newPlaylist, setNewPlaylist] = useState('');
     const { setLoading } = useLoader();
     const { showNotification } = useNotifications();
+    const apiCall = UseAxios();
 
     const showPlayListForm = () => {
         setNewPlaylistFormVisible(true);
@@ -26,18 +27,15 @@ export function NewPlaylist({ createNewPlaylist }) {
             title: newPlaylist,
             items: []
         }
-        setLoading(true);
-        try {
-            const resp = await axios.post('/api/playlists', JSON.stringify(body));
+        apiCall('getPlaylists', 'post', body, (resp) => {
             showNotification({ type: 'SUCCESS', message: 'Playlist created successfully'});
             createNewPlaylist(resp.data.playlist);  
             setNewPlaylistFormVisible(false);
             setNewPlaylist("");
-        } catch( err ) {
-            showNotification({ type: 'ERROR', message: err});
-        } finally {
-            setLoading(false);
-        }
+        }, (err) => {
+            console.log(err);
+            showNotification({ type: 'ERROR', message: err.message});
+        })
     }
 
     return (

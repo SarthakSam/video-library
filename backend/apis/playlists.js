@@ -9,8 +9,11 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const playlist = req.body;
+    playlist['id'] = `${playlists.length}`;
+    console.log(playlist);
+
     playlists.push(playlist);
-    res.json(201).json({ message: "Success" });
+    res.status(201).json({ message: "Success", playlist });
 }); 
 
 router.get('/:id', (req, res) => {

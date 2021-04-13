@@ -34,3 +34,6 @@ app.listen(PORT, (err) => {
         console.log(`Server started at port ${PORT}`);
     }
 })
+
+// heroku local web => to run locally heroku
+// git subtree push --prefix path/to/subdirectory heroku master => to push to heroku

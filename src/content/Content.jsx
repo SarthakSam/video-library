@@ -19,7 +19,7 @@ export function Content() {
 
     useEffect(() => {
         const getVideos = async () => {
-            apiCall('getVideos', null, (res) => {
+            apiCall('getVideos', 'get', null, (res) => {
                 dispatch(new InitializeVideoListing(res.data.videos) );
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
