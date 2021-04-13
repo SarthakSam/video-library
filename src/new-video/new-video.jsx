@@ -1,5 +1,5 @@
-import axios from 'axios';
 
+import { UseAxios } from '../custom-hooks/useAxios';
 import styles from './new-video.module.css';
 import { useVideo } from '../contexts/video-context';
 import { ChangeRoute, EditField, UploadVideo } from '../actions';
@@ -14,6 +14,7 @@ export function NewVideo() {
     const { setLoading } = useLoader();
     const { showNotification } = useNotifications();
     const navigate = useNavigate();
+    const apiCall = UseAxios();
 
 
     const onChange = (field, value) => {
@@ -41,19 +42,16 @@ export function NewVideo() {
             uploadedDate: (new Date()).toLocaleDateString(),
             comments: [],
         }
-        setLoading(true);
-        try {
-            const resp = await axios.post('/api/videos', JSON.stringify(body));
+
+        apiCall('postVideo', 'post', body, (resp) => {
             showNotification({ type: 'SUCCESS', message: 'Video uploaded successfully'});
-            // console.log(resp.data.video);
-            dispatchToStore( new UploadVideo( resp.data.video) );
-            dispatchToStore( new ChangeRoute( { path: 'uploads', params: '' } ) );
-            navigate(`/`)
-        } catch( err ) {
-            showNotification({ type: 'ERROR', message: err});
-        } finally {
-            setLoading(false);
-        }
+                // console.log(resp.data.video);
+                dispatchToStore( new UploadVideo( resp.data.video) );
+                dispatchToStore( new ChangeRoute( { path: 'uploads', params: '' } ) );
+                navigate(`/`)
+        }, (err) => {
+            showNotification({ type: 'ERROR', message: err.message});
+        });
     }
 
     return (

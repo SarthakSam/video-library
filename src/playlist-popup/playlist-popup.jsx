@@ -6,7 +6,9 @@ import { NewPlaylist } from './new-playlist/new-playlist';
 
 export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
-    let { state: { playlists }, dispatch } = useStore();
+    let { state: { playlists: allPlaylists }, dispatch } = useStore();
+
+    let playlists = allPlaylists.slice(4);
 
     playlists = playlists.map( playlist => {
         return { ...playlist, containsCurrentVideo: playlist.items.some( item => item.id === video.id ) };

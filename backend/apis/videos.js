@@ -8,8 +8,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const video = req.body;
+    video['id'] = videos.length;
     videos.push(video);
-    res.json(201).json({ message: "Success" });
+    res.status(201).json({ message: "Success", video });
 }); 
 
 router.get('/:id', (req, res) => {

@@ -1,6 +1,6 @@
 export const mapping = {
     getVideos: '/videos',
-    postVideos: '/videos',
+    postVideo: '/videos',
     getPlaylists: '/playlists',
     postPlaylist: '/playlists',
 }
