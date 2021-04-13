@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 
 import styles from './Content.module.css';
@@ -10,41 +9,23 @@ import { Watch } from '../watch/watch';
 import { VideoProvider } from '../contexts/video-context';
 import { Playlist } from '../playlist/Playlist';
 import { InitializeVideoListing } from '../actions';
-import { useLoader } from '../contexts/loader-context';
 import { useNotifications } from '../contexts/notifications-context';
-import { getURL } from '../api.config';
+import { UseAxios } from '../custom-hooks/useAxios';
 
 export function Content() {
     const { dispatch } = useStore();
-    const { setLoading } = useLoader();
     const { showNotification } = useNotifications();
-
-    const getVideos = async () => {
-        try {
-            setLoading(true);
-            console.log(getURL( 'getVideos' ));
-            const res = await axios.get(getURL( 'getVideos' ));
-            console.log(res);
-            // dispatch(new InitializeVideoListing(res.data.videos) );
-        }
-        catch(err) {
-            showNotification({type: 'ERROR', message: err})
-        }
-        finally {
-            setLoading(false);
-        }
-    }
-
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         let no = Math.floor(Math.random() * 3);
-    //         console.log(no)
-    //         let types = ["SUCCESS", "WARNING", "ERROR"];
-    //         showNotification({ type: types[no] ,message: "Hi there aio aio"});
-    //     }, 2000);
-    // }, [])
+    const apiCall = UseAxios();
 
     useEffect(() => {
+        const getVideos = async () => {
+            apiCall('getVideos', null, (res) => {
+                dispatch(new InitializeVideoListing(res.data.videos) );
+            }, (err) => {
+                showNotification({type: 'ERROR', message: err.message})
+            });
+        }
+
         getVideos();
     }, []);
 

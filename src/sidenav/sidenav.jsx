@@ -8,13 +8,12 @@ import { MdKeyboardArrowRight } from 'react-icons/md';
 import { FaHome, FaFileVideo, FaCloudUploadAlt, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { MdHistory, MdPlaylistPlay } from 'react-icons/md'
 import { useEffect } from 'react';
-import axios from 'axios';
-import { useLoader } from '../contexts/loader-context';
 import { useNotifications } from '../contexts/notifications-context';
+import { UseAxios } from '../custom-hooks/useAxios';
 
 export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();
-    const { setLoading } = useLoader();
+    const apiCall = UseAxios();
     const { showNotification } = useNotifications();
 
     const iconsMapping = {
@@ -29,23 +28,16 @@ export function Sidenav() {
     function changeRoute(route) {
         dispatch( new ChangeRoute( route ) );
     }
-
-    const getPlaylists = async () => {
-        try {
-            setLoading(true);
-            const res = await axios.get('/api/playlists')
-            dispatch(new InitializePlaylists(res.data.playlists) );
-        } catch(err) {
-            console.log(err);
-            showNotification({type: 'ERROR', message: err})
-        } finally {
-            setLoading(false);
-        }
-    }
-
    
     useEffect( () => {
-        // getPlaylists();
+        const getPlaylists = async () => {
+            apiCall('getPlaylists', null, (res) => {
+                dispatch(new InitializePlaylists(res.data.playlists) );
+            }, (err) => {
+                showNotification({type: 'ERROR', message: err.message});
+            })
+        }
+        getPlaylists();
     }, []);
 
     return (
