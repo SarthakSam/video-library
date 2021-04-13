@@ -1,5 +1,4 @@
 import { useLoader } from "../contexts/loader-context";
-import { mapping } from '../api.config';
 import axios from 'axios';
 
 export function UseAxios() {
@@ -8,7 +7,7 @@ export function UseAxios() {
     const apiCall = async (url, type, body, successCb, failureCb) => {
         try {
             setLoading(true);
-            const res = await axios[type](mapping[url], body);
+            const res = await axios[type](url, body);
             successCb(res);
         }
         catch(err) {

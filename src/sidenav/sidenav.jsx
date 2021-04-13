@@ -11,6 +11,7 @@ import { BsClockFill } from 'react-icons/bs';
 import { useEffect } from 'react';
 import { useNotifications } from '../contexts/notifications-context';
 import { UseAxios } from '../custom-hooks/useAxios';
+import { mapping } from '../api.config';
 
 export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();
@@ -33,7 +34,7 @@ export function Sidenav() {
    
     useEffect( () => {
         const getPlaylists = async () => {
-            apiCall('getPlaylists', 'get', null, (res) => {
+            apiCall(mapping['getPlaylists'], 'get', null, (res) => {
                 dispatch(new InitializePlaylists(res.data.playlists) );
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message});
@@ -65,7 +66,7 @@ export function Sidenav() {
                 {
                     playlists.map( playlist => 
                     <li key = { playlist.id } onClick = { () => { changeRoute({ path: 'playlist', params: playlist.id }) } }>
-                        <NavLink to={ playlist.goTo? playlist.goTo : `playlist/${playlist.id}` } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
+                        <NavLink to={ `playlist/${playlist.id}` } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
                             <span className={styles.sidenav__listItem__icon}>
                                 {
                                     playlist.icon? iconsMapping[playlist.icon] : <MdPlaylistPlay />

@@ -8,27 +8,48 @@ import { useLoader } from "../contexts/loader-context";
 import { useStore } from "../contexts/store-context";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
+import { useNotifications } from '../contexts/notifications-context';
 
 import styles from './watch.module.css';
 import { LikeDislikeVideo } from "../actions";
+import { UseAxios } from '../custom-hooks/useAxios';
+import { mapping } from '../api.config';
 
 export function Watch() {
     const { id } = useParams();
-    const { state: { videos, liked, disliked }, dispatch } = useStore();
+    const { state: { liked, disliked }, dispatch } = useStore();
     const [video, setVideo] = useState(null);
-    const { setLoading } = useLoader();
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [isLiked, setIsLiked] = useState(false);
+    const [videos, setVideos] = useState([]);
     const [isDisliked, setIsDisliked] = useState(false);
+    const apiCall = UseAxios();
+    const { showNotification } = useNotifications();
+    
 
 
     useEffect( () => {
-        setLoading(true);
-        const selectedVideo = findVideo(videos, id);
-        setVideo( selectedVideo );
-        setLoading(false);
+        const getVideo = () => {
+            apiCall(`${mapping['getVideos']}/${id}`, 'get', null, (res) => {
+                setVideo( res.data.video );
+            }, (err) => {
+                showNotification({type: 'ERROR', message: err.message})
+            });
+        }
+        getVideo();
+    }, [id]);
 
-    }, [videos, id]);
+    useEffect(() => {
+        const getVideos = () => {
+            apiCall(mapping['getVideos'], 'get', null, (res) => {
+                setVideos(res.data.videos);
+            }, (err) => {
+                showNotification({type: 'ERROR', message: err.message})
+            });
+        }
+
+        getVideos();
+    }, []);
 
     useEffect( () => {
         const isLiked = !!findVideo(liked.items, id);

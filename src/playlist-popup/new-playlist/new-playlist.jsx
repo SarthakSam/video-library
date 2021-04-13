@@ -5,6 +5,7 @@ import styles from './new-playlist.module.css';
 import { useLoader } from "../../contexts/loader-context";
 import { useNotifications } from "../../contexts/notifications-context";
 import { UseAxios } from '../../custom-hooks/useAxios';
+import { mapping } from '../../api.config';
 
 export function NewPlaylist({ createNewPlaylist }) {
     const [ newPlaylistFormVisible, setNewPlaylistFormVisible] = useState(false);
@@ -27,7 +28,7 @@ export function NewPlaylist({ createNewPlaylist }) {
             title: newPlaylist,
             items: []
         }
-        apiCall('getPlaylists', 'post', body, (resp) => {
+        apiCall(mapping['getPlaylists'], 'post', body, (resp) => {
             showNotification({ type: 'SUCCESS', message: 'Playlist created successfully'});
             createNewPlaylist(resp.data.playlist);  
             setNewPlaylistFormVisible(false);

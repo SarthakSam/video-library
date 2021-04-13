@@ -7,11 +7,11 @@ import { useStore } from '../contexts/store-context';
 import { useNotifications } from '../contexts/notifications-context';
 import { useLoader } from '../contexts/loader-context';
 import { useNavigate } from 'react-router';
+import { mapping } from '../api.config';
 
 export function NewVideo() {
     const { state: { title, description, duration, thumbnailURL, videoURL, type  }, dispatch } = useVideo();
     const { dispatch: dispatchToStore } = useStore();
-    const { setLoading } = useLoader();
     const { showNotification } = useNotifications();
     const navigate = useNavigate();
     const apiCall = UseAxios();
@@ -43,7 +43,7 @@ export function NewVideo() {
             comments: [],
         }
 
-        apiCall('postVideo', 'post', body, (resp) => {
+        apiCall(mapping['postVideo'], 'post', body, (resp) => {
             showNotification({ type: 'SUCCESS', message: 'Video uploaded successfully'});
                 // console.log(resp.data.video);
                 dispatchToStore( new UploadVideo( resp.data.video) );

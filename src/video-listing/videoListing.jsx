@@ -1,23 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { useStore } from '../contexts/store-context';
 import { Video } from './video/video';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
+import { UseAxios } from '../custom-hooks/useAxios';
+import { useNotifications } from '../contexts/notifications-context';
+import { mapping } from '../api.config';
 
 export function VideoListing() {
-    const { state: {videos} } = useStore();
-    // const route = state.route;
+    const [videos, setVideos] = useState([]);
+    const apiCall = UseAxios();
+    const { showNotification } = useNotifications();
+
+
     const [selectedVideo, setSelectedVideo] = useState(null);
 
-    // const filterVideos = () => {
-    //     if( route in state ) {
-    //         return state[route];
-    //     }
-    //     let playlist = state.playlists.find( playlist => playlist.id === route );
-    //     return playlist? playlist.items : state.videos
-    // }
+    useEffect(() => {
+        const getVideos = () => {
+            apiCall(mapping['getVideos'], 'get', null, (res) => {
+                setVideos(res.data.videos);
+            }, (err) => {
+                showNotification({type: 'ERROR', message: err.message})
+            });
+        }
+        getVideos();
+    }, []);
 
-    // const filteredVideos = filterVideos();
+
     return (
         <>
            {
