@@ -2,13 +2,19 @@ const express           = require('express'),
       app               = express(),
       bodyParser        = require('body-parser'),
       cors              = require('cors'),
+      mongoose          = require('mongoose'),
       videosRouter      = require('./apis/videos'),
       playlistsRouter   = require('./apis/playlists');
       
 const PORT = process. env. PORT || 3001;
+const localDB = ' mongodb://localhost:27017/stream-it';
 
 app.use(cors());
 app.use(bodyParser.json());
+
+mongoose.connect(localDB, {useNewUrlParser: true, useUnifiedTopology: true})
+.then(() => console.log("DB connected"))
+.catch(console.log);
 
 // app.use((req, res, next) => { 
 //     console.log("request aai thi"); 
@@ -22,9 +28,20 @@ app.get('/', (req, res) => {
     res.send("Streamit Server");
 });
 
-app.get('*', (req, res) => {
-    res.status(404).send("no such route exists!!");
+app.use((req, res) => {
+    res.status(404).json({ error: "no such route exists!!" });
 })
+
+app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err)
+    }
+    res.status(500).json({ error: err });
+})
+
+// app.get('*', (req, res) => {
+//     res.status(404).send("no such route exists!!");
+// })
 
 app.listen(PORT, (err) => {
     if(err) {

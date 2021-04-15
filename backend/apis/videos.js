@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params;
     const video = videos.find(video => video.id === id);
-    video? res.json( { message: 'Success', video } ) : res.status(404).json( { message: 'No video found with this id'} )
+    video? res.json( { message: 'Success', video } ) : res.status(404).json( { error: 'No video found with this id'} )
 });
 
 module.exports = router;
