@@ -3,6 +3,7 @@ const express           = require('express'),
       bodyParser        = require('body-parser'),
       cors              = require('cors'),
       mongoose          = require('mongoose'),
+      seedVideos        = require('./seeds'),
       videosRouter      = require('./apis/videos'),
       playlistsRouter   = require('./apis/playlists');
       
@@ -13,7 +14,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 mongoose.connect(localDB, {useNewUrlParser: true, useUnifiedTopology: true})
-.then(() => console.log("DB connected"))
+.then(() => {
+    console.log("DB connected")
+    // seedVideos();
+})
 .catch(console.log);
 
 // app.use((req, res, next) => { 

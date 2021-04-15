@@ -1,22 +1,37 @@
 const express    = require('express'),
       router     = express.Router(),
-      videos     = require('../mock-data/videos');
+      Video      = require('../models/video.model');
 
-router.get('/', (req, res) => {
-    res.json({ videos, message: "Success" });
+router.get('/', async (req, res) => {
+    try {
+        const videos = await Video.find({});
+        res.json({ videos, message: "Success" });   
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ error: 'Something went wrong'});
+    }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const video = req.body;
-    video['id'] = videos.length;
-    videos.push(video);
-    res.status(201).json({ message: "Success", video });
+    try {
+        const savedVideo = await Video.create(video);
+        res.status(201).json({ message: "Success", video: savedVideo });
+    } catch(err) {
+        console.log(err);
+        res.status(500).json( { error: 'Unable to save video'} );
+    }
 }); 
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
-    const video = videos.find(video => video.id === id);
-    video? res.json( { message: 'Success', video } ) : res.status(404).json( { error: 'No video found with this id'} )
+    try {
+        const video = await Video.findById(id);
+        res.json( { message: 'Success', video } );
+    } catch( err ) {
+        console.log(err);
+        res.status(404).json( { error: 'No video found with this id'} )
+    }
 });
 
 module.exports = router;
