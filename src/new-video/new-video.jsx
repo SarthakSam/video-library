@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 import { mapping } from '../api.config';
 
 export function NewVideo() {
-    const { state: { title, description, duration, thumbnailURL, videoURL, type  }, dispatch } = useVideo();
+    const { state: { title, description, duration, thumbnailURL, videoURL, source  }, dispatch } = useVideo();
     const { dispatch: dispatchToStore } = useStore();
     const { showNotification } = useNotifications();
     const navigate = useNavigate();
@@ -32,9 +32,9 @@ export function NewVideo() {
             title, 
             description, 
             duration, 
-            thumbnailURL: type === 'YOUTUBE'? getThumbnailImageURLForYoutube(videoURL) : thumbnailURL, 
+            thumbnailURL: source === 'YOUTUBE'? getThumbnailImageURLForYoutube(videoURL) : thumbnailURL, 
             videoURL, 
-            type, 
+            source, 
             author: 'author1',
             views: 0,
             likes: 0,
@@ -77,7 +77,7 @@ export function NewVideo() {
             <br/>
 
             {
-                type !== 'YOUTUBE' && 
+                source !== 'YOUTUBE' && 
                 <>
                     <label className="form__label" htmlFor="title">Enter placeholder image link</label>
                     <div className="input input--fluid">

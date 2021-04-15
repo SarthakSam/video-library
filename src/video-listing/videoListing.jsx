@@ -32,7 +32,7 @@ export function VideoListing() {
                (videos.length > 0)? 
                 <ul className="row">
                     {
-                        videos.map( video => <Video key = { video.id } video = { video } setSelectedVideo = { setSelectedVideo } />)
+                        videos.map( video => <Video key = { video._id } video = { video } setSelectedVideo = { setSelectedVideo } />)
                     }
                 </ul> : 
                 <h2>Nothing to see here.</h2>

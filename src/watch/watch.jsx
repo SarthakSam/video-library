@@ -118,7 +118,7 @@ export function Watch() {
                             </div>
                             <ul className="row col-3 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
                                { 
-                                    videos.map( video => <li  key = { video.id } className="col-12 col-lg-4 col-md-6 col-sm-12 p-0">
+                                    videos.map( video => <li  key = { video._id } className="col-12 col-lg-4 col-md-6 col-sm-12 p-0">
                                          <PlaylistItem video = { video } />
                                     </li>)
                                }

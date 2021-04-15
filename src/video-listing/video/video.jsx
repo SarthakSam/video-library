@@ -29,7 +29,7 @@ export function Video( { video, setSelectedVideo } ) {
     const openVideo = (video) => {
         // dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
         dispatch( new AddToHistory( video ) );
-        navigate(`/watch/${video.id}`)
+        navigate(`/watch/${video._id}`)
     }
 
     const options = [

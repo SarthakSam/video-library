@@ -12,7 +12,7 @@ export const initialState = {
         uploadedDate: '',
         comments: [],
         duration: '',
-        type: 'YOUTUBE'
+        source: 'YOUTUBE'
 }
 
 export function reducer(state, action) {
