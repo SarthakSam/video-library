@@ -52,12 +52,12 @@ export function Watch() {
     }, []);
 
     useEffect( () => {
-        const isLiked = !!findVideo(liked.items, id);
+        const isLiked = !!findVideo(liked.videos, id);
         setIsLiked(isLiked);
     }, [liked]);
 
     useEffect( () => {
-        const isDisliked = !!findVideo(disliked.items, id);
+        const isDisliked = !!findVideo(disliked.videos, id);
         setIsDisliked(isDisliked);
     }, [disliked]);
 

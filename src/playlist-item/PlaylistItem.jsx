@@ -12,7 +12,7 @@ export function PlaylistItem({ video }) {
 
     const openVideo = (video) => {
         dispatch( new AddToHistory( video ) );
-        navigate(`/watch/${video.id}`)
+        navigate(`/watch/${video._id}`)
     }
 
     return (

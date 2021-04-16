@@ -3,6 +3,7 @@ export const mapping = {
     postVideo: '/videos',
     getPlaylists: '/playlists',
     postPlaylist: '/playlists',
+    updatePlaylist: '/playlists'
 }
 
 // const baseURL = 'localhost:3001';

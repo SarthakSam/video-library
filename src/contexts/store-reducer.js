@@ -3,10 +3,10 @@ import { actions } from '../actions';
 export const initialState = {
     videos: [],
     playlists: [],
-    history: { title: 'History', items: []},
-    uploads: { title: 'Uploaded Videos', items: []},
-    liked: { title: 'Liked Videos', items: []},
-    disliked: { title: 'Disliked Videos', items: []},
+    history: { title: 'History', videos: []},
+    uploads: { title: 'Uploaded Videos', videos: []},
+    liked: { title: 'Liked Videos', videos: []},
+    disliked: { title: 'Disliked Videos', videos: []},
     user: 'user1'
 }
 
@@ -18,7 +18,7 @@ export function reducer(state, action) {
         case actions.ADD_TO_PLAYLIST:        return addToPlayList(state, action);
         case actions.REMOVE_FROM_PLAYLIST:   return removeFromPlayList(state, action);
         case actions.UPLOAD_VIDEO:           return { ...state, videos: [...state.videos, action.payload]};
-        case actions.ADD_TO_HISTORY:         return { ...state, history: {...state.history, items: [ ...state.history.items, action.payload] } };
+        case actions.ADD_TO_HISTORY:         return { ...state, history: {...state.history, videos: [ ...state.history.videos, action.payload] } };
         case actions.LIKE_DISLIKE_VIDEO:     return likeDislikeVideo(state, action);
         // case actions.REMOVE_FROM_HISTORY:    return removeFromHistory(state, action);
         default:                             return state;
@@ -26,13 +26,13 @@ export function reducer(state, action) {
 }
 
 function createPlayList(state, action) {
-    return { ...state, playlists: [...state.playlists, { ...action.payload.playlist, items: [ action.payload.video ] }] }
+    return { ...state, playlists: [...state.playlists, { ...action.payload.playlist, videos: [ action.payload.video ] }] }
 }
 
 function addToPlayList(state, action) {
     let changedPlaylist = state.playlists.map( playlist => {
-        if(playlist.id === action.payload.playlistId) {
-            return { ...playlist, items: [...playlist.items, action.payload.video]};
+        if(playlist._id === action.payload.playlistId) {
+            return { ...playlist, videos: [...playlist.videos, action.payload.video]};
         }
         return playlist;
     })
@@ -41,13 +41,13 @@ function addToPlayList(state, action) {
 
 function removeFromPlayList(state, action) {
     let changedPlaylist = state.playlists.map( playlist => {
-        if(playlist.id === action.payload.playlistId) {
-            return { ...playlist, items: playlist.items.filter( item => item.id !== action.payload.video.id ) };
+        if(playlist._id === action.payload.playlistId) {
+            return { ...playlist, videos: playlist.videos.filter( item => item._id !== action.payload.video._id ) };
         }
         return playlist;
     })
     changedPlaylist = changedPlaylist.reduce((acc, cur) => { 
-        if(cur.items.length > 0 || cur.isPermanent)
+        if(cur.videos.length > 0 || cur.isPermanent)
            acc.push(cur); 
         return acc;
     } , []);
@@ -55,17 +55,17 @@ function removeFromPlayList(state, action) {
 }
 
 function likeDislikeVideo(state, action) {
-    const likedVideos = state.liked.items.filter( video => video.id !== action.payload.video.id );
-    const dislikedVideos = state.disliked.items.filter( video => video.id !== action.payload.video.id );
+    const likedVideos = state.liked.videos.filter( video => video._id !== action.payload.video._id );
+    const dislikedVideos = state.disliked.videos.filter( video => video._id !== action.payload.video._id );
     if( action.payload.isLiked ) {
         likedVideos.push(action.payload.video);
     }
     if(action.payload.isDisliked) {
         dislikedVideos.push(action.payload.video);
     }
-    return { ...state, liked: { ...state.liked, items: likedVideos } , disliked: { ...state.disliked, items: dislikedVideos } };
+    return { ...state, liked: { ...state.liked, videos: likedVideos } , disliked: { ...state.disliked, videos: dislikedVideos } };
 }
 
 // function removeFromHistory(state, action) {
-//     return { ...state, history: state.history.filter( video => video.id !== action.payload.id )};
+//     return { ...state, history: state.history.filter( video => video._id !== action.payload._id )};
 // }

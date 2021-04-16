@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useStore } from '../contexts/store-context';
 import styles from './sidenav.module.css';
 import { staticRoutes } from '../static-data';
-import { ChangeRoute, InitializePlaylists } from '../actions';
+import { InitializePlaylists } from '../actions';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { FaHome, FaFileVideo, FaCloudUploadAlt, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import { MdHistory, MdPlaylistPlay } from 'react-icons/md'
@@ -28,10 +28,6 @@ export function Sidenav() {
         'BsClockFill': <BsClockFill />
     }
     
-    function changeRoute(route) {
-        dispatch( new ChangeRoute( route ) );
-    }
-   
     useEffect( () => {
         const getPlaylists = async () => {
             apiCall(mapping['getPlaylists'], 'get', null, (res) => {
@@ -52,7 +48,7 @@ export function Sidenav() {
             <ul className={ styles.sidenav__list }>
                 {
                     staticRoutes.map( route => 
-                    <li key = { route.id } onClick = { () => { changeRoute( route.goTo) } } >
+                    <li key = { route.id }>
                         <NavLink to={ route.goTo } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
                             <span className={styles.sidenav__listItem__icon}>
                                 { iconsMapping[route.icon] }
@@ -65,8 +61,8 @@ export function Sidenav() {
             <ul className={ styles.sidenav__list }>
                 {
                     playlists.map( playlist => 
-                    <li key = { playlist.id } onClick = { () => { changeRoute({ path: 'playlist', params: playlist.id }) } }>
-                        <NavLink to={ `playlist/${playlist.id}` } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
+                    <li key = { playlist._id }>
+                        <NavLink to={ `playlist/${playlist._id}` } className = { styles.sidenav__listItem + " " } activeClassName={ styles.active }>
                             <span className={styles.sidenav__listItem__icon}>
                                 {
                                     playlist.icon? iconsMapping[playlist.icon] : <MdPlaylistPlay />

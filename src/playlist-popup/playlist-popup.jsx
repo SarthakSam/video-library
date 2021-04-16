@@ -1,33 +1,70 @@
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaVuejs } from 'react-icons/fa';
 import { useStore } from '../contexts/store-context';
 import styles from './playlist-popup.module.css';
 import { AddToPlayList, CreatePlayList, RemoveFromPlayList } from '../actions';
 import { NewPlaylist } from './new-playlist/new-playlist';
+import { UseAxios } from '../custom-hooks/useAxios';
+import { mapping } from '../api.config';
+import { useNotifications } from "../contexts/notifications-context";
 
 export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
-    let { state: { playlists: allPlaylists }, dispatch } = useStore();
+    let { state: { playlists }, dispatch } = useStore();
+    const apiCall = UseAxios();
+    const { showNotification } = useNotifications();
 
-    let playlists = allPlaylists.slice(4);
+    // let playlists = allPlaylists.slice(4);
 
     playlists = playlists.map( playlist => {
-        return { ...playlist, containsCurrentVideo: playlist.items.some( item => item.id === video.id ) };
+        return { ...playlist, containsCurrentVideo: playlist.videos.some( item => item._id === video._id ) };
     })    
 
     const closePopup = () => {
         setSelectedVideo(null);
     }
 
-    const addToPlayList = (item, checked) => {
-        if(checked)
-            dispatch( new AddToPlayList({playlistId: item.id, video}))
-        else
-            dispatch( new RemoveFromPlayList({playlistId: item.id, video}))
+    const addToPlayList = (playlist, checked) => {
+        let videos = playlist.videos;
+        let action;
+        if(checked) {
+            videos = [...videos, video];
+            action = new AddToPlayList({playlistId: playlist._id, video});
+        }
+        else {
+            videos = videos.filter( item => item._id !== video._id );
+            action = new RemoveFromPlayList({playlistId: playlist._id, video});
+        }
+
+        const onSuccess = (res) => {
+            showNotification({ type: 'SUCCESS', message: 'Video added to playlist'});
+            dispatch( action );
+        }
+
+         const onFailure = (err) => {
+            console.log(err);
+            showNotification({ type: 'ERROR', message: 'Something went wrong... Please try again after sometime'});
+        }
+        updateVideosInPlaylist(playlist._id, videos, onSuccess, onFailure);
     }
 
-  const createNewPlaylist = (playlist) => {
-        dispatch( new CreatePlayList({ playlist, video }));
-        closePopup();
+    const createNewPlaylist = (playlist) => {
+        const onSuccess = (res) => {
+            showNotification({ type: 'SUCCESS', message: 'Playlist created successfully'});
+            dispatch( new CreatePlayList({ playlist, video }));
+            closePopup();
+        }
+
+        const onFailure = (err) => {
+            console.log(err);
+            showNotification({ type: 'ERROR', message: err.message});
+        }
+
+        updateVideosInPlaylist(playlist._id, [video._id], onSuccess, onFailure);
+    }
+
+    const updateVideosInPlaylist = (id, videos, successCallback, failureCallback) => {
+        const body = { videos };
+        apiCall(`${mapping['updatePlaylist']}/${id}`, 'put', body, successCallback, failureCallback);
     }
 
 
@@ -42,9 +79,9 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
                     <ul className={ styles.playlist }>
                         {
                             playlists.map( item => 
-                            <li key = { item.id} className={ styles.playlist__item }>
-                                <input type="checkbox" id={item.id} onChange = { (e) => addToPlayList(item, e.target.checked) } defaultChecked = { item.containsCurrentVideo } />
-                                <label className={styles.playlist__label} htmlFor={item.id}>{item.title}</label>
+                            <li key = { item._id} className={ styles.playlist__item }>
+                                <input type="checkbox" id={item._id} onChange = { (e) => addToPlayList(item, e.target.checked) } defaultChecked = { item.containsCurrentVideo } />
+                                <label className={styles.playlist__label} htmlFor={item._id}>{item.title}</label>
                             </li> )
                         }
                     </ul>
