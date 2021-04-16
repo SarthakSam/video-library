@@ -34,4 +34,15 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// route.post('/:id/like', async (req, res) => {
+//     const { id } = req.params;
+//     try {
+//         const video = await Video.findByIdAndUpdate(id);
+//         res.json( { message: 'Success', video } );
+//     } catch( err ) {
+//         console.log(err);
+//         res.status(404).json( { error: 'No video found with this id'} )
+//     }  
+// });
+
 module.exports = router;
