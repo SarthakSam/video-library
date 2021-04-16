@@ -8,18 +8,22 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { StoreProvider } from './contexts/store-context';
 import { LoaderProvider } from './contexts/loader-context';
 import { NotificationsProvider } from './contexts/notifications-context';
+import { AuthProvider } from './contexts/auth-context';
 
 ReactDOM.render(
     <React.StrictMode>
-      <StoreProvider>
-        <LoaderProvider>
-          <NotificationsProvider>
-            <Router>
-              <App />              
-            </Router>
-          </NotificationsProvider>
-        </LoaderProvider>
-      </StoreProvider>
+      <AuthProvider>
+        <StoreProvider>
+          <LoaderProvider>
+            <NotificationsProvider>
+              <Router>
+                <App />              
+              </Router>
+            </NotificationsProvider>
+          </LoaderProvider>
+        </StoreProvider>
+      </AuthProvider>
+      
     </React.StrictMode>,
   document.getElementById('root')
 );

@@ -6,21 +6,23 @@ import { NewVideo } from '../new-video/new-video';
 import { Watch } from '../watch/watch';
 import { VideoProvider } from '../contexts/video-context';
 import { Playlist } from '../playlist/Playlist';
+import { PrivateRoute } from '../private-route/PrivateRoute';
+import { Login } from '../login/Login';
 
 export function Content() {
-   
     return (
         <div className = { styles.content }>
              <Routes>
                 <Route path="/" element={<VideoListing />} />
                 <Route path="/home" element={<VideoListing />} />
-                <Route path="/uploads/new" element={ <VideoProvider>
+                <PrivateRoute path="/uploads/new" element={ <VideoProvider>
                     <NewVideo />
-                </VideoProvider>} />
+                </VideoProvider>
+                } />
                 <Route path="watch/:id" element={<Watch />} />
-                <Route path="playlist/:id" element={<Playlist />} />
+                <PrivateRoute path="playlist/:id" element={<Playlist />} />
+                <Route path="login" element={<Login />} />
             </Routes>
-            
             {/* { path === 'home' && <VideoListing />}
             { path === 'uploads/new' && 
                 <VideoProvider>
