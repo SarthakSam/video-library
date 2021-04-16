@@ -4,8 +4,9 @@ const express           = require('express'),
       cors              = require('cors'),
       mongoose          = require('mongoose'),
       seedVideos        = require('./seeds'),
-      videosRouter      = require('./apis/videos'),
-      playlistsRouter   = require('./apis/playlists');
+      videosRouter      = require('./apis/videos.api'),
+      playlistsRouter   = require('./apis/playlists.api'),
+      userRouter        = require('./apis/user.api');
       
 const PORT = process. env. PORT || 3001;
 const localDB = ' mongodb://localhost:27017/stream-it';
@@ -25,6 +26,7 @@ mongoose.connect(localDB, {useNewUrlParser: true, useUnifiedTopology: true})
 //     next(); 
 // } );
 
+app.use('/', userRouter);
 app.use('/videos', videosRouter);
 app.use('/playlists', playlistsRouter);
 
