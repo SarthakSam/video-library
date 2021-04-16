@@ -3,7 +3,7 @@ import styles from './Notification.module.css';
 import { useEffect } from 'react';
 import { useNotifications } from '../../../contexts/notifications-context';
 
-export function Notification({ notification: { id, type, message, duration = 2000 } }) {
+export function Notification({ notification: { id, type, message, duration = 3000 } }) {
     const { deleteNotification } = useNotifications();
 
     useEffect(() => {

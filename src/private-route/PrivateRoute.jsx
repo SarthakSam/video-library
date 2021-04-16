@@ -1,4 +1,4 @@
-import { Route, Navigate, useLocation } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 
 import { useAuth } from '../contexts/auth-context';
 
@@ -8,5 +8,5 @@ export function PrivateRoute({ path, ...rest}) {
 
     if(user)
         return <Route path = {path} {...rest} /> 
-    return <Navigate state = { state } to = '/login' replace />
+    return <Navigate state = { state } to = '/signin' replace />
 }

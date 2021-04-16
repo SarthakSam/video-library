@@ -35,3 +35,8 @@ a {
     clip: rect(0, 30px, 30px, 0);
     left: -15px;
 }
+
+.active {
+    background: var(--app-primary-color);
+    color: var(--color-blue);
+}

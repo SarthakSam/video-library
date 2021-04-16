@@ -7,7 +7,8 @@ import { Watch } from '../watch/watch';
 import { VideoProvider } from '../contexts/video-context';
 import { Playlist } from '../playlist/Playlist';
 import { PrivateRoute } from '../private-route/PrivateRoute';
-import { Login } from '../login/Login';
+import { Signin } from '../signin/Signin';
+import { Signup } from '../signup/Signup';
 
 export function Content() {
     return (
@@ -19,9 +20,10 @@ export function Content() {
                     <NewVideo />
                 </VideoProvider>
                 } />
-                <Route path="watch/:id" element={<Watch />} />
-                <PrivateRoute path="playlist/:id" element={<Playlist />} />
-                <Route path="login" element={<Login />} />
+                <Route path="/watch/:id" element={<Watch />} />
+                <PrivateRoute path="/playlist/:id" element={<Playlist />} />
+                <Route path="/signin" element={<Signin />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
             {/* { path === 'home' && <VideoListing />}
             { path === 'uploads/new' && 

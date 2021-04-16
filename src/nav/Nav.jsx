@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import styles from './Nav.module.css';
 import { FaSearch } from 'react-icons/fa';
@@ -20,14 +20,22 @@ export function Nav() {
                         <FaSearch />
                     </li>
                 </ul>
-                <ul className="nav__list">
-                    <li className="nav__item">
-                        {
-                          user? <Link to="/" >Sarthak</Link> :
-                          <Link to="/login" >Login</Link>
-                        }
-                    </li>                
-                </ul>
+                {
+                    user? 
+                    <ul className="nav__list">
+                        <li className="nav__item">
+                                <Link to="/" >{user.username}</Link>
+                        </li>
+                    </ul> : 
+                    <ul className="nav__list">
+                        <li className="nav__item">
+                            <NavLink to="/signin" activeClassName={ styles.active }>Signin</NavLink>
+                        </li>
+                        <li className="nav__item">
+                            <NavLink to="/signup" activeClassName={ styles.active }>Signup</NavLink>
+                        </li>
+                    </ul>
+                }
             </div>
         </nav>
     )

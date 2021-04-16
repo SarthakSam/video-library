@@ -25,7 +25,7 @@ router.post('/signin', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
     const user = req.body;
-    if(!user.username || !user.password) {
+    if(!user.username || !user.password1 || !user.password2) {
         return res.status(500).json({ error: 'Please fill mandatory fields'});
     }
     if(user.password1 !== user.password2) {
@@ -37,7 +37,9 @@ router.post('/signup', async (req, res) => {
             res.status(500).json({ error: 'User with this username already exists' });
          }
          else {
-            const newUser = await User.create(user);
+            const { password1, password2, ...rest } = user;
+            rest['password'] = password1;
+            const newUser = await User.create(rest);
             res.status(201).json({ message: `Hello ${newUser.username}`, user: newUser });
          }
     } catch(err) {
