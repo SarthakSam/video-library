@@ -8,7 +8,8 @@ router.post('/signin', async (req, res) => {
         const foundUser = await User.findOne({ username: user.username });
         if(foundUser) {
             if(foundUser.password === req.body.password) {
-                res.json({ message: `Hello ${foundUser.username}`, user: foundUser })
+                const { username, email } = foundUser;
+                res.json({ message: `Hello ${foundUser.username}`, user: { username, email} })
             } else {
                 res.status(500).json({ error: 'Incorrect password' });
             }
@@ -40,7 +41,8 @@ router.post('/signup', async (req, res) => {
             const { password1, password2, ...rest } = user;
             rest['password'] = password1;
             const newUser = await User.create(rest);
-            res.status(201).json({ message: `Hello ${newUser.username}`, user: newUser });
+            const { username, email } = foundUser;
+            res.status(201).json({ message: `Hello ${newUser.username}`, user: { username, email} });
          }
     } catch(err) {
         console.log(err);

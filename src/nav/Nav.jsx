@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 
 import styles from './Nav.module.css';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaUser } from 'react-icons/fa';
 import { useAuth } from '../contexts/auth-context';
 
 export function Nav() {
@@ -24,7 +24,7 @@ export function Nav() {
                     user? 
                     <ul className="nav__list">
                         <li className="nav__item">
-                                <Link to="/" >{user.username}</Link>
+                                <Link to="/" ><FaUser />{user.username}</Link>
                         </li>
                     </ul> : 
                     <ul className="nav__list">
