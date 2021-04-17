@@ -6,12 +6,14 @@ import { NewPlaylist } from './new-playlist/new-playlist';
 import { UseAxios } from '../custom-hooks/useAxios';
 import { mapping } from '../api.config';
 import { useNotifications } from "../contexts/notifications-context";
+import { useAuth } from '../contexts/auth-context';
 
 export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
     let { state: { playlists }, dispatch } = useStore();
     const apiCall = UseAxios();
     const { showNotification } = useNotifications();
+    const { user } = useAuth();
 
     // let playlists = allPlaylists.slice(4);
 
@@ -64,7 +66,8 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
     const updateVideosInPlaylist = (id, videos, successCallback, failureCallback) => {
         const body = { videos };
-        apiCall('put', successCallback, failureCallback, `${mapping['updatePlaylist']}/${id}`, body);
+        const config = { headers: { authToken: user._id } }
+        apiCall('put', successCallback, failureCallback, `${mapping['updatePlaylist']}/${id}`, body, config);
     }
 
     return (

@@ -5,12 +5,14 @@ import styles from './new-playlist.module.css';
 import { useNotifications } from "../../contexts/notifications-context";
 import { UseAxios } from '../../custom-hooks/useAxios';
 import { mapping } from '../../api.config';
+import { useAuth } from "../../contexts/auth-context";
 
 export function NewPlaylist({ createNewPlaylist }) {
     const [ newPlaylistFormVisible, setNewPlaylistFormVisible] = useState(false);
     const [ newPlaylist, setNewPlaylist] = useState('');
     const { showNotification } = useNotifications();
     const apiCall = UseAxios();
+    const {user} = useAuth();
 
     const showPlayListForm = () => {
         setNewPlaylistFormVisible(true);
@@ -26,6 +28,7 @@ export function NewPlaylist({ createNewPlaylist }) {
             title: newPlaylist,
             videos: []
         }
+        const config = { headers: { authToken: user._id } }
         apiCall('post', (resp) => {
             // showNotification({ type: 'SUCCESS', message: 'Playlist created successfully'});
             createNewPlaylist(resp.data.playlist);  
@@ -34,7 +37,7 @@ export function NewPlaylist({ createNewPlaylist }) {
         }, (err) => {
             console.log(err);
             showNotification({ type: 'ERROR', message: err.message});
-        }, mapping['getPlaylists'], body)
+        }, mapping['getPlaylists'], body, config)
     }
 
     return (
