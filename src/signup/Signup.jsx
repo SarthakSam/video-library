@@ -17,7 +17,8 @@ export function Signup() {
     const apiCall = UseAxios();
     const {showNotification} = useNotifications();
 
-    const signup = () => {
+    const signup = (event) => {
+        event.preventDefault();
         if(password1 !== password2) {
             showNotification({ type: 'ERROR', message: 'Password doesnt match'});
             return
@@ -36,7 +37,7 @@ export function Signup() {
     }
 
     return (
-        <div className={`row ${styles.form__container}`}>
+        <div className={`row ${styles.form__container}`} onSubmit = {signup}>
                 <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`}>
                     <div className={`${styles.title}`}>
                         <h3 className="h3">Streamit</h3>
@@ -65,7 +66,7 @@ export function Signup() {
                         </div> 
                     </div>
                     <br/>
-                    <button type="button" className={`btn btn--primary ${styles.signup}`} onClick = {signup}>Signup</button>
+                    <button type="button" className={`btn btn--primary ${styles.signup}`}>Signup</button>
                 </form>
         </div>
     )

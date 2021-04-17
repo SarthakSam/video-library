@@ -16,7 +16,8 @@ export function Signin() {
     const apiCall = UseAxios();
     const {showNotification} = useNotifications();
 
-    const signin = () => {
+    const signin = (event) => {
+        event.preventDefault();
         apiCall('post', (res) => {
             setUser(res.data.user);
             navigate(state?.from? state.from : '/home' );
@@ -28,7 +29,7 @@ export function Signin() {
 
     return (
         <div className={`row ${styles.form__container}`}>
-                <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`}>
+                <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`} onSubmit = {signin}>
                     <div className={`${styles.title}`}>
                         <h3 className="h3">Streamit</h3>
                         <br/>
@@ -51,7 +52,7 @@ export function Signin() {
                         </div> 
                     </div>
                     <br/>
-                    <button type="button" className={`btn btn--primary ${styles.signin}`} onClick = {signin}>Signin</button>
+                    <button className={`btn btn--primary ${styles.signin}`} >Signin</button>
                 </form>
         </div>
     )
