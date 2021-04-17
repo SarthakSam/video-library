@@ -5,7 +5,7 @@ import { useVideo } from '../contexts/video-context';
 import { ChangeRoute, EditField, UploadVideo } from '../actions';
 import { useStore } from '../contexts/store-context';
 import { useNotifications } from '../contexts/notifications-context';
-import { useLoader } from '../contexts/loader-context';
+import { useAuth } from '../contexts/auth-context';
 import { useNavigate } from 'react-router';
 import { mapping } from '../api.config';
 
@@ -15,6 +15,7 @@ export function NewVideo() {
     const { showNotification } = useNotifications();
     const navigate = useNavigate();
     const apiCall = UseAxios();
+    const { user } = useAuth();
 
 
     const onChange = (field, value) => {
@@ -35,12 +36,17 @@ export function NewVideo() {
             thumbnailURL: source === 'YOUTUBE'? getThumbnailImageURLForYoutube(videoURL) : thumbnailURL, 
             videoURL, 
             source, 
-            author: 'author1',
+            author: user._id,
             views: 0,
             likes: 0,
             dislike: 0,
             uploadedDate: (new Date()).toLocaleDateString(),
             comments: [],
+        }
+        const config = {
+            headers: {
+                authtoken: user._id
+            }
         }
 
         apiCall('post', (resp) => {
@@ -51,7 +57,7 @@ export function NewVideo() {
                 navigate(`/`)
         }, (err) => {
             showNotification({ type: 'ERROR', message: err.message});
-        } , mapping['postVideo'] , body);
+        } , mapping['postVideo'] , body, config);
     }
 
     return (

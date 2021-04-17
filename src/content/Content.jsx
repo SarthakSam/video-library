@@ -22,6 +22,7 @@ export function Content() {
                 } />
                 <Route path="/watch/:id" element={<Watch />} />
                 <PrivateRoute path="/playlist/:id" element={<Playlist />} />
+                <PrivateRoute path="/uploads" element={<Playlist apiEndPoint = "uploads" />} />
                 <Route path="/signin" element={<Signin />} />
                 <Route path="/signup" element={<Signup />} />
             </Routes>

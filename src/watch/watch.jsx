@@ -51,15 +51,15 @@ export function Watch() {
         getVideos();
     }, []);
 
-    useEffect( () => {
-        const isLiked = !!findVideo(liked.videos, id);
-        setIsLiked(isLiked);
-    }, [liked]);
+    // useEffect( () => {
+    //     const isLiked = !!findVideo(liked.videos, id);
+    //     setIsLiked(isLiked);
+    // }, [liked]);
 
-    useEffect( () => {
-        const isDisliked = !!findVideo(disliked.videos, id);
-        setIsDisliked(isDisliked);
-    }, [disliked]);
+    // useEffect( () => {
+    //     const isDisliked = !!findVideo(disliked.videos, id);
+    //     setIsDisliked(isDisliked);
+    // }, [disliked]);
 
     const findVideo = (videos, id) => {
         const val = videos.find(video => video.id === id );

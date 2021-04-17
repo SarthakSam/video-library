@@ -3,11 +3,10 @@ import { actions } from '../actions';
 export const initialState = {
     videos: [],
     playlists: [],
-    history: { title: 'History', videos: []},
-    uploads: { title: 'Uploaded Videos', videos: []},
-    liked: { title: 'Liked Videos', videos: []},
-    disliked: { title: 'Disliked Videos', videos: []},
-    user: 'user1'
+    // history: { title: 'History', videos: []},
+    // uploads: { title: 'Uploaded Videos', videos: []},
+    // liked: { title: 'Liked Videos', videos: []},
+    // disliked: { title: 'Disliked Videos', videos: []},
 }
 
 export function reducer(state, action) {
