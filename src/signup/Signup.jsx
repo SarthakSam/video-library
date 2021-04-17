@@ -22,13 +22,13 @@ export function Signup() {
             showNotification({ type: 'ERROR', message: 'Password doesnt match'});
             return
         }
-        apiCall(mapping['signup'], 'post', { username, password1, password2 }, (res) => {
+        apiCall('post', (res) => {
             setUser(res.data.user);
             navigate(state?.from? state.from : '/home' );
             showNotification({ type: 'SUCCESS', message: res.data.message});
         }, (err) => {
             showNotification({ type: 'ERROR', message: err.message});
-        })
+        }, mapping['signup'], { username, password1, password2 }, )
     }
 
     const onPwd2Change = (e) => {

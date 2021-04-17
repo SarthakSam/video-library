@@ -30,22 +30,22 @@ export function Watch() {
 
     useEffect( () => {
         const getVideo = () => {
-            apiCall(`${mapping['getVideos']}/${id}`, 'get', null, (res) => {
+            apiCall('get', (res) => {
                 setVideo( res.data.video );
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
-            });
+            }, `${mapping['getVideos']}/${id}`);
         }
         getVideo();
     }, [id]);
 
     useEffect(() => {
         const getVideos = () => {
-            apiCall(mapping['getVideos'], 'get', null, (res) => {
+            apiCall('get', (res) => {
                 setVideos(res.data.videos);
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
-            });
+            }, mapping['getVideos']);
         }
 
         getVideos();

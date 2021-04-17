@@ -12,11 +12,13 @@ import { useEffect } from 'react';
 import { useNotifications } from '../contexts/notifications-context';
 import { UseAxios } from '../custom-hooks/useAxios';
 import { mapping } from '../api.config';
+import { useAuth } from '../contexts/auth-context';
 
 export function Sidenav() {
     const { state: { playlists }, dispatch} = useStore();
     const apiCall = UseAxios();
     const { showNotification } = useNotifications();
+    const { user } = useAuth();
 
     const iconsMapping = {
         'FaHome': <FaHome />,
@@ -30,14 +32,17 @@ export function Sidenav() {
     
     useEffect( () => {
         const getPlaylists = async () => {
-            apiCall(mapping['getPlaylists'], 'get', null, (res) => {
+            const config = { headers: { authToken: user._id } }
+            apiCall('get', (res) => {
                 dispatch(new InitializePlaylists(res.data.playlists) );
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message});
-            })
+            }, mapping['getPlaylists'], config );
         }
-        getPlaylists();
-    }, []);
+        if(user) {
+            getPlaylists();
+        }
+    }, [user]);
 
     return (
         <aside className = { styles.sidenav }>

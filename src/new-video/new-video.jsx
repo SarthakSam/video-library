@@ -43,7 +43,7 @@ export function NewVideo() {
             comments: [],
         }
 
-        apiCall(mapping['postVideo'], 'post', body, (resp) => {
+        apiCall('post', (resp) => {
             showNotification({ type: 'SUCCESS', message: 'Video uploaded successfully'});
                 // console.log(resp.data.video);
                 dispatchToStore( new UploadVideo( resp.data.video) );
@@ -51,7 +51,7 @@ export function NewVideo() {
                 navigate(`/`)
         }, (err) => {
             showNotification({ type: 'ERROR', message: err.message});
-        });
+        } , mapping['postVideo'] , body);
     }
 
     return (

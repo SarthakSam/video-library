@@ -26,7 +26,7 @@ export function NewPlaylist({ createNewPlaylist }) {
             title: newPlaylist,
             videos: []
         }
-        apiCall(mapping['getPlaylists'], 'post', body, (resp) => {
+        apiCall('post', (resp) => {
             // showNotification({ type: 'SUCCESS', message: 'Playlist created successfully'});
             createNewPlaylist(resp.data.playlist);  
             setNewPlaylistFormVisible(false);
@@ -34,7 +34,7 @@ export function NewPlaylist({ createNewPlaylist }) {
         }, (err) => {
             console.log(err);
             showNotification({ type: 'ERROR', message: err.message});
-        })
+        }, mapping['getPlaylists'], body)
     }
 
     return (

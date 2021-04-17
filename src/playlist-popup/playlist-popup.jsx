@@ -64,9 +64,8 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
     const updateVideosInPlaylist = (id, videos, successCallback, failureCallback) => {
         const body = { videos };
-        apiCall(`${mapping['updatePlaylist']}/${id}`, 'put', body, successCallback, failureCallback);
+        apiCall('put', successCallback, failureCallback, `${mapping['updatePlaylist']}/${id}`, body);
     }
-
 
     return (
         <div className={ styles.popup__container + " popup__container popup--small" }>

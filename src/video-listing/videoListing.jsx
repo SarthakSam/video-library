@@ -16,11 +16,11 @@ export function VideoListing() {
 
     useEffect(() => {
         const getVideos = () => {
-            apiCall(mapping['getVideos'], 'get', null, (res) => {
+            apiCall('get', (res) => {
                 setVideos(res.data.videos);
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
-            });
+            }, mapping['getVideos']);
         }
         getVideos();
     }, []);

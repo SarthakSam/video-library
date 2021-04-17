@@ -17,13 +17,13 @@ export function Signin() {
     const {showNotification} = useNotifications();
 
     const signin = () => {
-        apiCall(mapping['signin'], 'post', { username, password }, (res) => {
+        apiCall('post', (res) => {
             setUser(res.data.user);
             navigate(state?.from? state.from : '/home' );
             showNotification({ type: 'SUCCESS', message: res.data.message});
         }, (err) => {
             showNotification({ type: 'ERROR', message: err.message});
-        })
+        }, mapping['signin'], { username, password }, null)
     }
 
     return (

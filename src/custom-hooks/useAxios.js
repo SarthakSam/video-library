@@ -4,10 +4,10 @@ import axios from 'axios';
 export function UseAxios() {
     const { setLoading } = useLoader();
 
-    const apiCall = async (url, type, body, successCb, failureCb) => {
+    const apiCall = async (type, successCb, failureCb, ...rest) => {
         try {
             setLoading(true);
-            const res = await axios[type](url, body);
+            const res = await axios[type](...rest);
             successCb(res);
         }
         catch(err) {
