@@ -6,7 +6,7 @@ const userSchema = new Schema({
     email: { type: String},
     password: { type: String, required: true},
     playlists: [{ type: Schema.Types.ObjectId, ref: 'Playlist'}],
-    // uploads: [{ type: Schema.Types.ObjectId, ref: 'Video'}]
+    uploads: [{ type: Schema.Types.ObjectId, ref: 'Video'}]
 });
 
 const User = model('user', userSchema);

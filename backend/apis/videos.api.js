@@ -1,6 +1,8 @@
-const express    = require('express'),
-      router     = express.Router(),
-      Video      = require('../models/video.model');
+const express           = require('express'),
+      router            = express.Router(),
+      Video             = require('../models/video.model'),
+      User              = require('../models/user.model'),
+      isAuthenticated   = require('../middlewares/isAuthenticated');
 
 router.get('/', async (req, res) => {
     try {
@@ -12,10 +14,16 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
     const video = req.body;
+    const user = req.user;
     try {
         const savedVideo = await Video.create(video);
+        const updatedUser = await User.findByIdAndUpdate(user._id, {
+            $set: {
+                uploads: [...user.uploads, savedVideo]
+            }
+        })
         res.status(201).json({ message: "Success", video: savedVideo });
     } catch(err) {
         console.log(err);

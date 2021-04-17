@@ -1,6 +1,7 @@
-const express = require('express'),
-      router  = express.Router(),
-      User    = require('../models/user.model');
+const express           = require('express'),
+      router            = express.Router(),
+      User              = require('../models/user.model'),
+      isAuthenticated   = require('../middlewares/isAuthenticated');
 
 router.post('/signin', async (req, res) => {
     const user = req.body;
@@ -47,6 +48,18 @@ router.post('/signup', async (req, res) => {
         console.log(err);
         res.status(err.statusCode).json({error: err});
     } 
+});
+
+router.get('/uploads', isAuthenticated , async (req, res) => {
+    const user = req.user;
+    console.log(user);
+    try {
+        const videos = (await User.findById(user.id).populate('uploads')).uploads;
+        console.log(videos);
+        res.status(200).send({ message: 'Success', videos });
+    } catch(err) {
+        res.status(500).json({error: err});
+    }
 });
 
 module.exports = router;

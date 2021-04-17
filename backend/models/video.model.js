@@ -6,7 +6,7 @@ const videoSchema = new Schema({
     thumbnailURL: { type: String, required: true },
     description: String,
     videoURL: { type: String, required: true },
-    // author: { type: Schema.Types.ObjectId, ref: 'User' , required: true },
+    author: { type: Schema.Types.ObjectId, ref: 'User' , required: true },
     views: { type: Number, default: 0 },
     likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' , required: true }],
     dislikedBy: [{ type: Schema.Types.ObjectId, ref: 'User' , required: true }],
