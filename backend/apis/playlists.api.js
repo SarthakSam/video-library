@@ -1,10 +1,12 @@
 const express  = require('express'),
       router   = express.Router(),
+      User     = require('../models/user.model'),
       Playlist = require('../models/playlist.model');
 
 router.get('/', async (req, res) => {
+    const user = req.user;
     try {
-        const playlists = await Playlist.find({}).populate('videos');
+        const playlists = (await User.findById(user._id).populate('playlists').populate('videos')).playlists;
         res.json({ playlists, message: "Success" });
     } catch(err) {
         console.log(err);
@@ -13,9 +15,15 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    const user = req.user;
     const playlist = req.body;
     try {
         const savedPlaylist = await Playlist.create(playlist);
+        const updatedUser = await User.findByIdAndUpdate(user._id, { 
+            $set: {
+                playlists: [...user.playlists, savedPlaylist]
+            }
+        })
         res.status(201).json({ playlist: savedPlaylist, message: "Success" });
     } catch(err) {
         console.log(err);

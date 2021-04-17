@@ -8,12 +8,11 @@ router.post('/signin', async (req, res) => {
         const foundUser = await User.findOne({ username: user.username });
         if(foundUser) {
             if(foundUser.password === req.body.password) {
-                const { username, email } = foundUser;
-                res.json({ message: `Hello ${foundUser.username}`, user: { username, email} })
+                const { username, email, _id } = foundUser;
+                res.json({ message: `Hello ${foundUser.username}`, user: { username, email, _id} })
             } else {
                 res.status(500).json({ error: 'Incorrect password' });
             }
-           res.status(500).json({ error: 'User with this username already exists' });
         }
         else {
            res.status(500).json({ error: `No such user exists. Please signup`});
@@ -41,8 +40,8 @@ router.post('/signup', async (req, res) => {
             const { password1, password2, ...rest } = user;
             rest['password'] = password1;
             const newUser = await User.create(rest);
-            const { username, email } = foundUser;
-            res.status(201).json({ message: `Hello ${newUser.username}`, user: { username, email} });
+            const { username, email, _id } = foundUser;
+            res.status(201).json({ message: `Hello ${newUser.username}`, user: { username, email, _id} });
          }
     } catch(err) {
         console.log(err);
