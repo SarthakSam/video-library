@@ -5,6 +5,7 @@ import { PlayListPopup } from '../playlist-popup/playlist-popup';
 import { UseAxios } from '../custom-hooks/useAxios';
 import { useNotifications } from '../contexts/notifications-context';
 import { mapping } from '../api.config';
+import { formatDate } from '../utils';
 
 export function VideoListing() {
     const [videos, setVideos] = useState([]);
@@ -17,7 +18,11 @@ export function VideoListing() {
     useEffect(() => {
         const getVideos = () => {
             apiCall('get', (res) => {
-                setVideos(res.data.videos);
+                const videos = res.data.videos.map( video => { 
+                    video.uploadedDate = formatDate(video.uploadedDate);
+                    return video;
+                })
+                setVideos(videos);
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
             }, mapping['getVideos']);

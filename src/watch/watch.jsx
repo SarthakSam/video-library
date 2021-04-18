@@ -12,6 +12,7 @@ import styles from './watch.module.css';
 import { UseAxios } from '../custom-hooks/useAxios';
 import { mapping } from '../api.config';
 import { useAuth } from "../contexts/auth-context";
+import { formatDate } from '../utils';
 
 export function Watch() {
     const { id } = useParams();
@@ -29,7 +30,12 @@ export function Watch() {
     useEffect( () => {
         const getVideo = () => {
             apiCall('get', (res) => {
-                setVideo( res.data.video );
+                let video = res.data.video;
+                video = {
+                    ...res.data.video,
+                    uploadedDate: formatDate(video.uploadedDate)
+                }
+                setVideo( video );
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
             }, `${mapping['getVideos']}/${id}`);
@@ -40,7 +46,11 @@ export function Watch() {
     useEffect(() => {
         const getVideos = () => {
             apiCall('get', (res) => {
-                setVideos(res.data.videos);
+                const videos = res.data.videos.map( video => { 
+                    video.uploadedDate = formatDate(video.uploadedDate);
+                    return video;
+                })
+                setVideos(videos);
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
             }, mapping['getVideos']);
@@ -103,6 +113,7 @@ export function Watch() {
                                 <YoutubePlayer src={ video.videoURL } allowFullScreen width="100%" height="100%"/>
                                 <div className={styles.card__body }>
                                     <p className="card__title">{ video.title }</p>
+                                    <p className="card__meta">{ video.author?.username }</p>
                                     <div className="row spaceBetween">
                                         <ul className={styles.watch__list}>
                                             <li className={ "card__meta " + styles.watch__list__item }>{ video.views } views</li>

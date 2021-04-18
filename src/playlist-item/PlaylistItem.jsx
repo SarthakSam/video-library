@@ -20,7 +20,7 @@ export function PlaylistItem({ video }) {
                 </div>
                 <div className={ styles.card__content }>
                     <p className={ styles.card__title }>{ video.title.length > 20 ? `${video.title.substring(0, 20)}...` : video.title.substring(0, 20)  }</p>
-                    <p className="card__meta">{ video.author }</p>
+                    <p className="card__meta">{ video.author?.username }</p>
                     <ul className={styles.watch__list}>
                         <li className={ "card__meta " + styles.watch__list__item }>{ video.views } views</li>
                         <li className={ "card__meta " + styles.watch__list__item }>{ video.uploadedDate }</li>

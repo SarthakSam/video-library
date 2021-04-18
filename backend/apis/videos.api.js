@@ -1,12 +1,12 @@
 const express           = require('express'),
       router            = express.Router(),
-      Video             = require('../models/video.model'),
       User              = require('../models/user.model'),
+      Video             = require('../models/video.model'),
       isAuthenticated   = require('../middlewares/isAuthenticated');
 
 router.get('/', async (req, res) => {
     try {
-        const videos = await Video.find({});
+        const videos = await Video.find({}).populate('author', 'username');
         res.json({ videos, message: "Success" });   
     } catch(err) {
         console.log(err);
@@ -88,7 +88,7 @@ router.post('/:id/likeDislike', isAuthenticated, async (req, res) => {
 
 router.param('id', async (req, res, next, id) => {
     try {
-        const video = await Video.findById(id);
+        const video = await Video.findById(id).populate('author', 'username');
         if(!video) {
            return res.status(500).json({ error: 'Error while retrieving the video'});
         }

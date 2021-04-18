@@ -65,9 +65,11 @@ export function Video( { video, setSelectedVideo } ) {
                 </div>
                 <div className={ styles.card__info }>
                     <p className={ styles.card__title } >{ video.title }</p>
-                    <p className="card__meta">{ video.author }</p>
-                    <span className="card__meta">{ video.views }</span>
-                    <span className="card__meta">{ video.uploadedDate }</span>
+                    <p className="card__meta">{ video.author?.username }</p>
+                    <div className="row spaceBetween">
+                        <span className="card__meta">{ video.views } views</span>
+                        <span className="card__meta">Uploaded on { video.uploadedDate }</span>
+                    </div>
                 </div>
                 <Menu className="col-1 m-0 p-0" icon = { <FaEllipsisV/> } options = { options } />
             </div>
