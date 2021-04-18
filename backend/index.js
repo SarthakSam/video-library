@@ -10,12 +10,14 @@ const express           = require('express'),
       isAuthenticated   = require('./middlewares/isAuthenticated');
       
 const PORT = process. env. PORT || 3001;
-const localDB = ' mongodb://localhost:27017/stream-it';
+// const localDB = 'mongodb://localhost:27017/stream-it';
+const deployDb = 'mongodb+srv://Sarthak:Sarthak@mycluster.dxrov.mongodb.net/stream-it?retryWrites=true&w=majority'
+// const deployDb = "mongodb://Sarthak:Sarthak@main-shard-00-00-03xkr.mongodb.net:27017,main-shard-00-01-03xkr.mongodb.net:27017,main-shard-00-02-03xkr.mongodb.net:27017/main?ssl=true&replicaSet=Main-shard-0&authSource=admin&retryWrites=true"
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(localDB, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(deployDb, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log("DB connected")
     // seedVideos();
