@@ -47,21 +47,21 @@ export function Signup() {
                     </div>
                     <div>
                         <label htmlFor="username">Enter username</label>
-                        <div class="input input--icon input--fluid">
+                        <div className="input input--icon input--fluid">
                             <input type="text" placeholder="Enter text" id="username" value = {username} onChange = { (e) => {setusername(e.target.value)} } />
                         </div> 
                     </div>
                         <br/>
                     <div>
                         <label htmlFor="password">Enter password</label>
-                        <div class="input input--icon input--fluid">
+                        <div className="input input--icon input--fluid">
                             <input type="password" placeholder="Enter text" id="password" value = {password1} onChange = { (e) => {setpassword1(e.target.value)} } />
                         </div> 
                     </div>
                     <br/>
                     <div>
                         <label htmlFor="password">Re-Enter password</label>
-                        <div class="input input--icon input--fluid">
+                        <div className="input input--icon input--fluid">
                             <input type="password" placeholder="Enter text" id="password" value = {password2} onChange = { onPwd2Change } />
                         </div> 
                     </div>

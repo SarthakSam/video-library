@@ -38,17 +38,17 @@ export function Signin() {
                     </div>
                     <div>
                         <label htmlFor="username">Enter username</label>
-                        <div class="input input--icon input--fluid">
+                        <div className="input input--icon input--fluid">
                             <input type="text" placeholder="Enter text" id="username" value = {username} onChange = { (e) => {setusername(e.target.value)} } />
-                            <i class="fa fa-search"></i>
+                            <i className="fa fa-search"></i>
                         </div> 
                     </div>
                         <br/>
                     <div>
                         <label htmlFor="password">Enter password</label>
-                        <div class="input input--icon input--fluid">
+                        <div className="input input--icon input--fluid">
                             <input type="password" placeholder="Enter text" id="password" value = {password} onChange = { (e) => {setpassword(e.target.value)} } />
-                            <i class="fa fa-search"></i>
+                            <i className="fa fa-search"></i>
                         </div> 
                     </div>
                     <br/>
