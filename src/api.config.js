@@ -5,8 +5,14 @@ export const mapping = {
     postPlaylist: '/playlists',
     updatePlaylist: '/playlists',
     signin: '/signin',
-    signup: '/signup'
+    signup: '/signup',
+    uploads: '/uploads',
+    likeDislikeVideo: '/likeDislike'
 }
+
+// export const getURL(url, params) {
+//     return `${url}`
+// }
 
 // const baseURL = 'localhost:3001';
 

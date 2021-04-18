@@ -32,13 +32,48 @@ router.post('/', isAuthenticated, async (req, res) => {
 }); 
 
 router.get('/:id', async (req, res) => {
-    const { id } = req.params;
+    return res.status(200).json( { message: 'Success', video: req.video } );
+    // const { id } = req.params;
+    // try {
+    //     const video = await Video.findById(id);
+    //     res.json( { message: 'Success', video } );
+    // } catch( err ) {
+    //     console.log(err);
+    //     res.status(404).json( { error: 'No video found with this id'} )
+    // }
+});
+
+router.post('/:id/likeDislike', isAuthenticated, async (req, res) => {
+    const user = req.user;
+    const body = req.body;
+    const video = req.video;
+    try {
+        video.likedBy = video.likedBy.filter( userId => !userId.equals(user._id) );
+        video.dislikedBy = video.dislikedBy.filter( userId => !userId.equals(user._id));
+        if(body['isLiked']) {
+            video.likedBy.push(user._id);
+        } else if( body['isDisliked']) {
+            video.dislikedBy.push(user._id);
+        }
+        const updatedVideo = await video.save();
+        res.status(200).json({ video: updatedVideo, message: 'success' });
+    } catch(err) {
+        res.status(500).json({ error: err });
+    }
+});
+
+router.param('id', async (req, res, next, id) => {
     try {
         const video = await Video.findById(id);
-        res.json( { message: 'Success', video } );
+        if(!video) {
+           return res.status(500).json({ error: 'Error while retrieving the video'});
+        }
+        req.video = video;
+        next();
+        // return res.status(200).json( { message: 'Success', video } );
     } catch( err ) {
         console.log(err);
-        res.status(404).json( { error: 'No video found with this id'} )
+        res.status(404).json( { error: err} );
     }
 });
 

@@ -4,29 +4,28 @@ import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md'
 import { useParams } from 'react-router-dom';
 
-import { useLoader } from "../contexts/loader-context";
-import { useStore } from "../contexts/store-context";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
 import { useNotifications } from '../contexts/notifications-context';
 
 import styles from './watch.module.css';
-import { LikeDislikeVideo } from "../actions";
 import { UseAxios } from '../custom-hooks/useAxios';
 import { mapping } from '../api.config';
+import { useAuth } from "../contexts/auth-context";
 
 export function Watch() {
     const { id } = useParams();
-    const { state: { liked, disliked }, dispatch } = useStore();
     const [video, setVideo] = useState(null);
     const [selectedVideo, setSelectedVideo] = useState(null);
-    const [isLiked, setIsLiked] = useState(false);
     const [videos, setVideos] = useState([]);
-    const [isDisliked, setIsDisliked] = useState(false);
+    const [isLikedOrDisliked, setIsLikedOrDisliked] = useState("");
+    // const [isDisliked, setIsDisliked] = useState("");
     const apiCall = UseAxios();
+    const { user } = useAuth();
     const { showNotification } = useNotifications();
-    
-
+    const LIKED = 'LIKED';
+    const DISLIKED = 'DISLIKED';
+    const NONE = 'NONE;'
 
     useEffect( () => {
         const getVideo = () => {
@@ -51,18 +50,28 @@ export function Watch() {
         getVideos();
     }, []);
 
-    // useEffect( () => {
-    //     const isLiked = !!findVideo(liked.videos, id);
-    //     setIsLiked(isLiked);
-    // }, [liked]);
+    useEffect( () => {
+        if(!isLikedOrDisliked && video && user) {
+            const isVideoLiked = findVideo(video.likedBy, user._id);
+            if(isVideoLiked) {
+                setIsLikedOrDisliked(LIKED);
+                return;
+            }
+            const isVideoDisliked = findVideo(video.dislikedBy, user._id);
+            if(isVideoDisliked) {
+                setIsLikedOrDisliked(DISLIKED);
+                return;
+            }
+        }
+    }, [video, user]);
 
     // useEffect( () => {
-    //     const isDisliked = !!findVideo(disliked.videos, id);
-    //     setIsDisliked(isDisliked);
-    // }, [disliked]);
+    //     const isDisliked = video && user && !disliked && findVideo(video.dislikedBy, user._id);
+    //     setIsDisliked(!!isDisliked);
+    // }, [video, user]);
 
     const findVideo = (videos, id) => {
-        const val = videos.find(video => video.id === id );
+        const val = videos.find(temp => temp === id );
         return val
     }
 
@@ -71,11 +80,25 @@ export function Watch() {
     }
 
     const onLikeButtonClick = (e) => {
-        dispatch( new LikeDislikeVideo({ video, isLiked: e.target.checked }) );
+        const config = { headers: { authtoken: user._id } };
+        const body = { isLiked: e.target.checked  };
+        apiCall('post', (res) => {
+            setIsLikedOrDisliked( body.isLiked? LIKED : NONE );
+            setVideo(res.data.video);
+        }, (err) => {
+            showNotification({type: 'ERROR', message: err.message})
+        }, `/videos/${id}/${mapping['likeDislikeVideo']}`, body, config);
     }
 
     const onDislikeButtonClick = (e) => {
-        dispatch( new LikeDislikeVideo({ video, isDisliked: e.target.checked }));
+        const config = { headers: { authtoken: user._id } };
+        const body = { isDisliked: e.target.checked  };
+        apiCall('post', (res) => {
+            setIsLikedOrDisliked( body.isDisliked? DISLIKED : NONE );
+            setVideo(res.data.video);
+        }, (err) => {
+            showNotification({type: 'ERROR', message: err.message})
+        }, `/videos/${id}/${mapping['likeDislikeVideo']}`, body, config);
     }    
 
     return (
@@ -93,15 +116,15 @@ export function Watch() {
                                         </ul>
                                         <ul className={styles.watch__list } >
                                             <li className={ ` ${styles.watch__list__item} ${styles.button} ` }>
-                                                <input type="checkbox" id="like__checkbox" className = { styles.state__checkbox } onChange = { onLikeButtonClick } checked = { isLiked }/>
-                                                <label htmlFor="like__checkbox" className = { `${isLiked? styles.active : ''}` }>
-                                                    <FaThumbsUp style = {{ margin: '0 0.2em' }}/> { video.likes }
+                                                <input type="checkbox" id="like__checkbox" className = { styles.state__checkbox } onChange = { onLikeButtonClick } checked = { isLikedOrDisliked === LIKED }/>
+                                                <label htmlFor="like__checkbox" className = { `${isLikedOrDisliked === LIKED? styles.active : ''}` }>
+                                                    <FaThumbsUp style = {{ margin: '0 0.2em' }}/> { video.likedBy.length }
                                                 </label>
                                             </li>
                                             <li className={ ` ${styles.watch__list__item} ${styles.button} ` }>
-                                                <input type="checkbox" id="dislike__checkbox" className = { styles.state__checkbox } onChange = { onDislikeButtonClick }  checked = { isDisliked }/>
-                                                <label htmlFor="dislike__checkbox" className = { `${isDisliked? styles.active : ''}` }>
-                                                    <FaThumbsDown style = {{ margin: '0 0.2em' }} />{ video.dislikes }
+                                                <input type="checkbox" id="dislike__checkbox" className = { styles.state__checkbox } onChange = { onDislikeButtonClick }  checked = { isLikedOrDisliked === DISLIKED }/>
+                                                <label htmlFor="dislike__checkbox" className = { `${isLikedOrDisliked === DISLIKED? styles.active : ''}` }>
+                                                    <FaThumbsDown style = {{ margin: '0 0.2em' }} />{ video.dislikedBy.length }
                                                 </label>
                                             </li>
                                             <li className={ ` ${styles.watch__list__item} ${styles.button} ` } onClick = { showAddToPlaylistPopup }>
