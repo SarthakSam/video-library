@@ -7,7 +7,7 @@ const playlistSchema = new Schema({
     thumbnailURL: String,
     visibility: { type: String, default: 'PRIVATE'},
     icon: String,
-    goTo: String,
+    // goTo: String,
     videos: [{ type: Schema.Types.ObjectId, ref: 'Video'}],
     isPermanent: Boolean
 });

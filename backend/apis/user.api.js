@@ -1,6 +1,7 @@
 const express           = require('express'),
       router            = express.Router(),
       User              = require('../models/user.model'),
+      Playlist          = require('../models/playlist.model'),
       isAuthenticated   = require('../middlewares/isAuthenticated');
 
 router.post('/signin', async (req, res) => {
@@ -24,7 +25,7 @@ router.post('/signin', async (req, res) => {
    }
 });
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res, next) => {
     const user = req.body;
     if(!user.username || !user.password1 || !user.password2) {
         return res.status(500).json({ error: 'Please fill mandatory fields'});
@@ -33,7 +34,7 @@ router.post('/signup', async (req, res) => {
         return res.status(500).json({ error: 'Password doesnot match'});
     }
     try {
-         const foundUser = await User.findOne({ username: user.name });
+         const foundUser = await User.findOne({ username: user.username });
          if(foundUser) {
             res.status(500).json({ error: 'User with this username already exists' });
          }
@@ -41,13 +42,27 @@ router.post('/signup', async (req, res) => {
             const { password1, password2, ...rest } = user;
             rest['password'] = password1;
             const newUser = await User.create(rest);
-            const { username, email, _id } = foundUser;
-            res.status(201).json({ message: `Hello ${newUser.username}`, user: { username, email, _id} });
+            req.user = newUser;
+            // const { username, email, _id } = newUser;
+            // req.user = { username, email, _id };
+            next();
          }
     } catch(err) {
         console.log(err);
         res.status(err.statusCode).json({error: err});
     } 
+}, async (req, res, next) => {
+    const playlist = {
+        title: 'Watch Later',
+        icon: 'BsClockFill',
+        isPermanent: true
+    }
+    const watchLaterPlaylist = await Playlist.create(playlist);
+    const user = req.user;
+    user.playlists.push(watchLaterPlaylist);
+    await user.save();
+    const { username, email, _id } = user;
+    res.status(201).json({ message: `Hello ${user.username}`, user: { username, email, _id } });
 });
 
 router.get('/uploads', isAuthenticated , async (req, res) => {

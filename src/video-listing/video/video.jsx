@@ -5,21 +5,37 @@ import styles from './video.module.css'
 import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../contexts/store-context';
 import { AddToPlayList } from '../../actions';
-import { watchLaterObj } from '../../static-data';
 import { useNotifications } from '../../contexts/notifications-context';
+import { useAuth } from '../../contexts/auth-context';
+import { UseAxios } from '../../custom-hooks/useAxios';
+import { mapping } from '../../api.config';
 
 export function Video( { video, setSelectedVideo } ) {
     const { dispatch, state: { playlists } } = useStore();
     const { showNotification } = useNotifications();
     const navigate = useNavigate();
+    const { user } = useAuth();
+    const apiCall = UseAxios();
 
     const saveToWatchLater = () => {
-        const videosInWatchLater = playlists.find( playlist => playlist.id === watchLaterObj.id );
-        if(videosInWatchLater.items.find( item => item.id === video.id )) {
+        const watchLater = playlists.find( playlist => playlist.title.toUpperCase() === 'WATCH LATER' );
+        if(watchLater.videos.find( item => item._id === video._id )) {
             showNotification({type: 'ERROR', message: 'Video already present in watch later'});
             return;
         }
-        dispatch( new AddToPlayList({ playlistId: watchLaterObj.id, video }) );
+        let videos = [...watchLater.videos, video];
+        const body = { videos };
+        const config = { headers: { authToken: user._id } }
+        const onSuccess = (res) => {
+            showNotification({ type: 'SUCCESS', message: 'Video added to watch later'});
+            dispatch( new AddToPlayList({ playlistId: watchLater._id, video }) );
+        }
+
+         const onFailure = (err) => {
+            console.log(err);
+            showNotification({ type: 'ERROR', message: 'Something went wrong... Please try again after sometime'});
+        }
+        apiCall('put', onSuccess, onFailure, `${mapping['updatePlaylist']}/${watchLater._id}`, body, config);
     }
 
     const openPlaylistPopup = () => {
