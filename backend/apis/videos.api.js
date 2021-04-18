@@ -31,6 +31,30 @@ router.post('/', isAuthenticated, async (req, res) => {
     }
 }); 
 
+router.get('/liked', isAuthenticated , async (req, res) => {
+    const user = req.user;
+    console.log(user);
+    try {
+        const videos = await Video.find({ likedBy: user._id });
+        res.status(200).send({ message: 'Success', videos });
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error: err});
+    }
+});
+
+router.get('/disliked', isAuthenticated , async (req, res) => {
+    const user = req.user;
+    console.log(user);
+    try {
+        const videos = await Video.find({ dislikedBy: user._id });
+        console.log(videos);
+        res.status(200).send({ message: 'Success', videos });
+    } catch(err) {
+        res.status(500).json({error: err});
+    }
+});
+
 router.get('/:id', async (req, res) => {
     return res.status(200).json( { message: 'Success', video: req.video } );
     // const { id } = req.params;

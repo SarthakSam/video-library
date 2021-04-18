@@ -7,6 +7,8 @@ export const mapping = {
     signin: '/signin',
     signup: '/signup',
     uploads: '/uploads',
+    liked: '/videos/liked',
+    disliked: '/videos/disliked',
     likeDislikeVideo: '/likeDislike'
 }
 

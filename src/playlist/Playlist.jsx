@@ -7,7 +7,7 @@ import { useStore } from "../contexts/store-context";
 import { UseAxios } from "../custom-hooks/useAxios";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 
-export function Playlist({ apiEndPoint }) {
+export function Playlist() {
     const { state } = useStore();
     const { id: playlistId } = useParams();
     const [ playlist, setPlaylist ] = useState(null);

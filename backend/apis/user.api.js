@@ -52,7 +52,6 @@ router.post('/signup', async (req, res) => {
 
 router.get('/uploads', isAuthenticated , async (req, res) => {
     const user = req.user;
-    console.log(user);
     try {
         const videos = (await User.findById(user.id).populate('uploads')).uploads;
         console.log(videos);

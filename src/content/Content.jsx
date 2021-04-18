@@ -9,6 +9,7 @@ import { Playlist } from '../playlist/Playlist';
 import { PrivateRoute } from '../private-route/PrivateRoute';
 import { Signin } from '../signin/Signin';
 import { Signup } from '../signup/Signup';
+import { Library } from '../library/Library';
 
 export function Content() {
     return (
@@ -22,7 +23,10 @@ export function Content() {
                 } />
                 <Route path="/watch/:id" element={<Watch />} />
                 <PrivateRoute path="/playlist/:id" element={<Playlist />} />
-                <PrivateRoute path="/uploads" element={<Playlist apiEndPoint = "uploads" />} />
+                <PrivateRoute path="user/:id" element={<Library />} />
+                {/* <PrivateRoute path="user/liked" element={<Playlist />} />
+                <PrivateRoute path="user/disliked" element={<Playlist />} /> */}
+
                 <Route path="/signin" element={<Signin />} />
                 <Route path="/signup" element={<Signup />} />
             </Routes>
