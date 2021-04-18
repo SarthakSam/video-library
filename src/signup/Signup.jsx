@@ -37,8 +37,8 @@ export function Signup() {
     }
 
     return (
-        <div className={`row ${styles.form__container}`} onSubmit = {signup}>
-                <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`}>
+        <div className={`row ${styles.form__container}`} >
+                <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`} onSubmit = {signup}>
                     <div className={`${styles.title}`}>
                         <h3 className="h3">Streamit</h3>
                         <br/>
@@ -53,20 +53,20 @@ export function Signup() {
                     </div>
                         <br/>
                     <div>
-                        <label htmlFor="password">Enter password</label>
+                        <label htmlFor="password1">Enter password</label>
                         <div className="input input--icon input--fluid">
-                            <input type="password" placeholder="Enter text" id="password" value = {password1} onChange = { (e) => {setpassword1(e.target.value)} } />
+                            <input type="password" placeholder="Enter password" id="password1" value = {password1} onChange = { (e) => {setpassword1(e.target.value)} } />
                         </div> 
                     </div>
                     <br/>
                     <div>
-                        <label htmlFor="password">Re-Enter password</label>
+                        <label htmlFor="password2">Re-Enter password</label>
                         <div className="input input--icon input--fluid">
-                            <input type="password" placeholder="Enter text" id="password" value = {password2} onChange = { onPwd2Change } />
+                            <input type="password" placeholder="Re-Enter password" id="password2" value = {password2} onChange = { onPwd2Change } />
                         </div> 
                     </div>
                     <br/>
-                    <button type="button" className={`btn btn--primary ${styles.signup}`}>Signup</button>
+                    <button className={`btn btn--primary ${styles.signup}`}>Signup</button>
                 </form>
         </div>
     )

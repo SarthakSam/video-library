@@ -102,7 +102,7 @@ export function Watch() {
             setVideo(res.data.video);
         }, (err) => {
             showNotification({type: 'ERROR', message: err.message})
-        }, `/videos/${id}/${mapping['likeDislikeVideo']}`, body, config);
+        }, `/videos/${id}${mapping['likeDislikeVideo']}`, body, config);
     }    
 
     return (
