@@ -6,7 +6,14 @@ const express  = require('express'),
 router.get('/', async (req, res) => {
     const user = req.user;
     try {
-        const playlists = (await User.findById(user._id).populate('playlists').populate('videos')).playlists;
+        const playlists = (await User.findById(user._id).populate({
+            path: 'playlists',
+            populate: { 
+                path: 'videos'
+            }
+        })).playlists
+        console.log(playlists);
+
         res.json({ playlists, message: "Success" });
     } catch(err) {
         console.log(err);

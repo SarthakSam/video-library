@@ -19,7 +19,6 @@ export function Watch() {
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [videos, setVideos] = useState([]);
     const [isLikedOrDisliked, setIsLikedOrDisliked] = useState("");
-    // const [isDisliked, setIsDisliked] = useState("");
     const apiCall = UseAxios();
     const { user } = useAuth();
     const { showNotification } = useNotifications();
@@ -64,11 +63,6 @@ export function Watch() {
             }
         }
     }, [video, user]);
-
-    // useEffect( () => {
-    //     const isDisliked = video && user && !disliked && findVideo(video.dislikedBy, user._id);
-    //     setIsDisliked(!!isDisliked);
-    // }, [video, user]);
 
     const findVideo = (videos, id) => {
         const val = videos.find(temp => temp === id );

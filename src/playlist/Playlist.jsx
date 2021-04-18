@@ -11,25 +11,23 @@ export function Playlist({ apiEndPoint }) {
     const { state } = useStore();
     const { id: playlistId } = useParams();
     const [ playlist, setPlaylist ] = useState(null);
-    const { user } = useAuth();
-    const apiCall = UseAxios();
-    const { showNotification } = useNotifications();
+    // const { user } = useAuth();
+    // const apiCall = UseAxios();
+    // const { showNotification } = useNotifications();
 
     useEffect( () => {
-        if(playlistId) {
-            const curPlaylist = state.playlists.find( playlist => playlist._id === playlistId);
-            setPlaylist( curPlaylist? curPlaylist : state[playlistId] );    
-        }
+        const curPlaylist = state.playlists.find( playlist => playlist._id === playlistId);
+        setPlaylist( curPlaylist? curPlaylist : state[playlistId] );    
     }, [state, playlistId] );
 
-    useEffect( () => {
-        const config = { headers: { authtoken: user._id } };
-        apiCall('get', (res) => {
-            setPlaylist( res.data );
-        }, (err) => {
-            showNotification({ type: 'ERROR', message: 'Something went wrong'});
-        }, apiEndPoint ,config);
-    }, [apiEndPoint] );
+    // useEffect( () => {
+    //     const config = { headers: { authtoken: user._id } };
+    //     apiCall('get', (res) => {
+    //         setPlaylist( res.data );
+    //     }, (err) => {
+    //         showNotification({ type: 'ERROR', message: 'Something went wrong'});
+    //     }, apiEndPoint ,config);
+    // }, [apiEndPoint] );
 
     return (
         <>

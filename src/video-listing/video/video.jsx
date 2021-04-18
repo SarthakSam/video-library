@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './video.module.css'
 import { Menu } from '../../common-components/menu/menu';
 import { useStore } from '../../contexts/store-context';
-import { AddToHistory, AddToPlayList } from '../../actions';
+import { AddToPlayList } from '../../actions';
 import { watchLaterObj } from '../../static-data';
 import { useNotifications } from '../../contexts/notifications-context';
 
