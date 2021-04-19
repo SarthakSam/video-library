@@ -145,7 +145,7 @@ export function Watch() {
                                                 </label>
                                             </li>
                                             <li className={ ` ${styles.watch__list__item} ${styles.button} ` } onClick = { showAddToPlaylistPopup }>
-                                                <label><MdPlaylistPlay /> Watch</label>
+                                                <label><MdPlaylistPlay /> Save</label>
                                             </li>
                                         </ul>
 

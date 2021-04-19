@@ -1,14 +1,16 @@
 import { useLoader } from "../contexts/loader-context";
 import axios from 'axios';
 
+const baseURL = "https://stream-itt.herokuapp.com";
+
 export function UseAxios() {
     const { setLoading } = useLoader();
 
-    const apiCall = async (method, successCb, failureCb, ...rest) => {
-        rest[0] = "https://stream-itt.herokuapp.com" + rest[0];
+    const apiCall = async (method, successCb, failureCb, url, ...rest) => {
+        url = baseURL + url;
         try {
             setLoading(true);
-            const res = await axios[method](...rest);
+            const res = await axios[method](url, ...rest);
             successCb(res);
         }
         catch(err) {
