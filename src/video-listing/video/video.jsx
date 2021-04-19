@@ -18,9 +18,13 @@ export function Video( { video, setSelectedVideo } ) {
     const apiCall = UseAxios();
 
     const saveToWatchLater = () => {
+        if(!user) {
+            showNotification({ type: 'ERROR', message: 'Please signin to add video to watch later' });
+            return;
+        }
         const watchLater = playlists.find( playlist => playlist.title.toUpperCase() === 'WATCH LATER' );
         if(watchLater.videos.find( item => item._id === video._id )) {
-            showNotification({type: 'ERROR', message: 'Video already present in watch later'});
+            showNotification({type: 'WARNING', message: 'Video already present in watch later'});
             return;
         }
         let videos = [...watchLater.videos, video];
@@ -39,6 +43,10 @@ export function Video( { video, setSelectedVideo } ) {
     }
 
     const openPlaylistPopup = () => {
+        if(!user) {
+            showNotification({ type: 'ERROR', message: 'Want to create your own playlist... Please Signin' });
+            return;
+        }
         setSelectedVideo(video);
     }
 
