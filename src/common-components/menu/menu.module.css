@@ -10,9 +10,9 @@
     border: none;
 }
 
-.dropdown__toggle:focus ~ .dropdown__menu{
+/* .dropdown__toggle:focus ~ .dropdown__menu{
     opacity: 1;
-}
+} */
 
 .dropdown__toggle::after {
     display: none;
@@ -22,7 +22,7 @@
     list-style: none;
     width: max-content;
     display: flex;
-    opacity: 0;
+    /* opacity: 0; */
     left: -150px;
 }
 

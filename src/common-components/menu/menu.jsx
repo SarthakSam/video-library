@@ -1,6 +1,19 @@
+import { useState } from 'react';
 import styles from './menu.module.css';
 
 export function Menu({icon, options, id}) {
+
+    const [visible, setVisible] = useState(false);
+
+    const onFocus = function() {
+        setVisible( true );
+    }
+
+    const onBlur = function() {
+        setTimeout( () => {
+            setVisible(false);
+        }, 200)
+    }
 
     const stopEventPropogation = (event) => {
         event.stopPropagation();
@@ -11,27 +24,24 @@ export function Menu({icon, options, id}) {
         option.action();
     }
 
-
     return (
         <div className ={ styles.dropdown + " dropdown" } tabIndex="0">
-            <button className={ styles.dropdown__toggle + " dropdown__toggle" }  onClick = { stopEventPropogation }>
-                { icon }
+            <button className={ styles.dropdown__toggle + " dropdown__toggle" }  onFocus={ onFocus } onBlur={ onBlur } onClick={stopEventPropogation}>
+            { icon }
             </button>
-            
-        <ul className={ styles.dropdown__menu + " dropdown__menu" }>
             {
-                options.map( (option, index) => 
-                    <li key = { index } className = { styles.dropdown__item + " dropdown__item" }
-                    onClick = { (e) => { optionClicked(e, option) } }>
-                         { option.title }
-                    </li>)
+                visible &&
+                <ul className={ styles.dropdown__menu + " dropdown__menu" }>
+                {
+                    options.map( (option, index) => 
+                        <li key = { index } className = { styles.dropdown__item + " dropdown__item" }
+                        onClick = { (e) => { optionClicked(e, option) } }>
+                             { option.title }
+                        </li>)
+                }
+            </ul>
+    
             }
-            {/* <a class="dropdown__item">Something 1</a>
-            <a class="dropdown__item">Something 2 </a>
-            <a class="dropdown__item">Something 3</a>
-            <div class="dropdown__divider"></div>
-            <a class="dropdown__item">Something else here</a> */}
-        </ul>
     </div>
     )
 }
