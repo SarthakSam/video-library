@@ -122,7 +122,7 @@ export function Watch() {
         <>
             {
                 video && <div className={"row " + styles.watch}>
-                            <div className={"card col-9 col-xl-12 col-lg-12 col-md-12 col-sm-12 " + styles.video__container }>
+                            <div className={"card col-8 col-xl-12 col-lg-12 col-md-12 col-sm-12 " + styles.video__container }>
                                 <YoutubePlayer src={ video.videoURL } allowFullScreen width="100%" height="100%"/>
                                 <div className={styles.card__body }>
                                     <p className="card__title">{ video.title }</p>
@@ -157,7 +157,7 @@ export function Watch() {
 
                                 </div>
                             </div>
-                            <ul className="row col-3 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
+                            <ul className="row col-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
                                { 
                                     videos.map( video => <li  key = { video._id } className="col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12 p-0">
                                          <PlaylistItem video = { video } />
