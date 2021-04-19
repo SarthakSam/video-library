@@ -17,17 +17,10 @@ export function Playlist() {
 
     useEffect( () => {
         const curPlaylist = state.playlists.find( playlist => playlist._id === playlistId);
-        setPlaylist( curPlaylist? curPlaylist : state[playlistId] );    
+        if(curPlaylist) {
+            setPlaylist( curPlaylist );    
+        }
     }, [state, playlistId] );
-
-    // useEffect( () => {
-    //     const config = { headers: { authtoken: user._id } };
-    //     apiCall('get', (res) => {
-    //         setPlaylist( res.data );
-    //     }, (err) => {
-    //         showNotification({ type: 'ERROR', message: 'Something went wrong'});
-    //     }, apiEndPoint ,config);
-    // }, [apiEndPoint] );
 
     return (
         <>

@@ -80,10 +80,18 @@ export function Watch() {
     }
 
     const showAddToPlaylistPopup = () => {
+        if(!user) {
+            showNotification({type: 'ERROR', message: 'Please signin to make your own playlist'});
+            return;
+        }
         setSelectedVideo(video);
     }
 
     const onLikeButtonClick = (e) => {
+        if(!user) {
+            showNotification({type: 'ERROR', message: 'Like this video? Please signin to make your opinion count'});
+            return;
+        }
         const config = { headers: { authtoken: user._id } };
         const body = { isLiked: e.target.checked  };
         apiCall('post', (res) => {
@@ -91,10 +99,14 @@ export function Watch() {
             setVideo(res.data.video);
         }, (err) => {
             showNotification({type: 'ERROR', message: err.message})
-        }, `/videos/${id}/${mapping['likeDislikeVideo']}`, body, config);
+        }, `/videos/${id}${mapping['likeDislikeVideo']}`, body, config);
     }
 
     const onDislikeButtonClick = (e) => {
+        if(!user) {
+            showNotification({type: 'ERROR', message: 'Dislike this video? Please signin to make your opinion count'});
+            return;
+        }
         const config = { headers: { authtoken: user._id } };
         const body = { isDisliked: e.target.checked  };
         apiCall('post', (res) => {
