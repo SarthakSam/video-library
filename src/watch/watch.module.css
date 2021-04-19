@@ -1,5 +1,5 @@
 .watch {
-    padding: var(--padding-1);
+    padding: var(--padding-point5) 0;
 }
 
 .video__container {

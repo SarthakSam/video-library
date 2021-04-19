@@ -3,11 +3,12 @@ import { YoutubePlayer } from "reactjs-media";
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import { MdPlaylistPlay } from 'react-icons/md'
 import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
 import { useNotifications } from '../contexts/notifications-context';
-
 import styles from './watch.module.css';
 import { UseAxios } from '../custom-hooks/useAxios';
 import { mapping } from '../api.config';
@@ -121,7 +122,7 @@ export function Watch() {
         <>
             {
                 video && <div className={"row " + styles.watch}>
-                            <div className={"card col-9 col-lg-12 col-md-12 col-sm-12 " + styles.video__container }>
+                            <div className={"card col-9 col-xl-12 col-lg-12 col-md-12 col-sm-12 " + styles.video__container }>
                                 <YoutubePlayer src={ video.videoURL } allowFullScreen width="100%" height="100%"/>
                                 <div className={styles.card__body }>
                                     <p className="card__title">{ video.title }</p>
@@ -151,14 +152,14 @@ export function Watch() {
 
                                     </div>
                                     <hr/>
-                                    <p className="card__description">{ video.description }</p>
+                                    <p className="card__description"><ReactMarkdown remarkPlugins={[gfm]} children={video.description} /></p>
                                     {/* <hr/> */}
 
                                 </div>
                             </div>
-                            <ul className="row col-3 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
+                            <ul className="row col-3 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
                                { 
-                                    videos.map( video => <li  key = { video._id } className="col-12 col-lg-4 col-md-6 col-sm-12 p-0">
+                                    videos.map( video => <li  key = { video._id } className="col-12 col-xl-4 col-lg-4 col-md-6 col-sm-12 p-0">
                                          <PlaylistItem video = { video } />
                                     </li>)
                                }
