@@ -16,7 +16,7 @@ const deployDb = 'mongodb+srv://Sarthak:Sarthak@mycluster.dxrov.mongodb.net/stre
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(localDB, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(deployDb, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log("DB connected")
     // seedVideos();
