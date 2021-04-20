@@ -80,6 +80,8 @@ export function NewVideo() {
             <div className="input input--fluid">
                 <input type="text" placeholder="Enter url" name='videoURL' value = { videoURL } onChange = { (e) => { onChange('videoURL', e.target.value) } }/>
             </div>
+            <span className="h6"><strong>NOTE :</strong> Paste the url that comes up when we click on share button of video</span>
+
             <br/>
 
             {
