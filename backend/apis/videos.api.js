@@ -19,11 +19,13 @@ router.post('/', isAuthenticated, async (req, res) => {
     const user = req.user;
     try {
         const savedVideo = await Video.create(video);
-        const updatedUser = await User.findByIdAndUpdate(user._id, {
-            $set: {
-                uploads: [...user.uploads, savedVideo]
-            }
-        })
+        user.uploads = [...user.uploads, savedVideo];
+        await user.save();
+        // const updatedUser = await User.findByIdAndUpdate(user._id, {
+        //     $set: {
+        //         uploads: [...user.uploads, savedVideo]
+        //     }
+        // })
         res.status(201).json({ message: "Success", video: savedVideo });
     } catch(err) {
         console.log(err);
@@ -48,7 +50,6 @@ router.get('/disliked', isAuthenticated , async (req, res) => {
     console.log(user);
     try {
         const videos = await Video.find({ dislikedBy: user._id });
-        console.log(videos);
         res.status(200).send({ message: 'Success', videos });
     } catch(err) {
         res.status(500).json({error: err});

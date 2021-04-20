@@ -2,7 +2,7 @@ const mongoose =          require('mongoose'),
       { Schema, model } = mongoose;
 
 const playlistSchema = new Schema({
-    title: { type: String, required: true},
+    title: { type: String, required: "PLaylist title is mandatory"},
     description: String,
     thumbnailURL: String,
     visibility: { type: String, default: 'PRIVATE'},

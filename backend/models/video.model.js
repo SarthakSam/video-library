@@ -2,18 +2,18 @@ const mongoose          = require('mongoose'),
       {Schema , model } = mongoose;
 
 const videoSchema = new Schema({
-    title: { type: String, required: true },
-    thumbnailURL: { type: String, required: true },
+    title: { type: String, required: "Video cannot be uploaded without a title" },
+    thumbnailURL: { type: String, required: "Thumbnail Image is mandatory" },
     description: String,
-    videoURL: { type: String, required: true },
+    videoURL: { type: String, required: "Video link is mandatory" },
     author: { type: Schema.Types.ObjectId, ref: 'user' , required: true },
     views: { type: Number, default: 0 },
     likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' , required: true }],
     dislikedBy: [{ type: Schema.Types.ObjectId, ref: 'User' , required: true }],
     // uploadedDate: { type: Date, default: Date.now },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', required: true }],
-    duration: { type: String, required: true },
-    source: { type: String, required: true }
+    duration: { type: String, required: "Duration of video is mandatory" },
+    source: { type: String, required: "Source is mandatory" }
 }, { timestamps: { createdAt: 'uploadedDate'} });
 
 const Video = model('Video', videoSchema);

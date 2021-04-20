@@ -68,8 +68,8 @@ router.post('/signup', async (req, res, next) => {
 router.get('/uploads', isAuthenticated , async (req, res) => {
     const user = req.user;
     try {
-        const videos = (await User.findById(user.id).populate('uploads')).uploads;
-        console.log(videos);
+        const videos = (await user.populate('uploads').execPopulate()).uploads;
+        // const videos = (await User.findById(user.id).populate('uploads')).uploads;
         res.status(200).send({ message: 'Success', videos });
     } catch(err) {
         res.status(500).json({error: err});

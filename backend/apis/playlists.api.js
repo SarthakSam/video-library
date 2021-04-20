@@ -6,13 +6,14 @@ const express  = require('express'),
 router.get('/', async (req, res) => {
     const user = req.user;
     try {
-        const playlists = (await User.findById(user._id).populate({
-            path: 'playlists',
-            populate: { 
-                path: 'videos'
-            }
-        })).playlists
-        console.log(playlists);
+        // const playlists = (await user.populate({
+        //     path: 'playlists',
+        //     populate: { 
+        //         path: 'videos'
+        //     }
+        // })).playlists
+        const { playlists } = await user.populate({ path: 'playlists', populate: { path: 'videos' } }).execPopulate();
+        // console.log(playlists);
 
         res.json({ playlists, message: "Success" });
     } catch(err) {
@@ -26,11 +27,13 @@ router.post('/', async (req, res) => {
     const playlist = req.body;
     try {
         const savedPlaylist = await Playlist.create(playlist);
-        const updatedUser = await User.findByIdAndUpdate(user._id, { 
-            $set: {
-                playlists: [...user.playlists, savedPlaylist]
-            }
-        })
+        user.playlists = [...user.playlists, savedPlaylist];
+        await user.save();
+        // const updatedUser = await User.findByIdAndUpdate(user._id, { 
+        //     $set: {
+        //         playlists: [...user.playlists, savedPlaylist]
+        //     }
+        // })
         res.status(201).json({ playlist: savedPlaylist, message: "Success" });
     } catch(err) {
         console.log(err);
@@ -39,14 +42,8 @@ router.post('/', async (req, res) => {
 }); 
 
 router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        const playlist = await Playlist.findById(id).populate('videos');
-        res.json({ playlist, message: "Success" });
-    } catch(err) {
-        console.log(err);
-        res.status(500).json({ error: 'Unable to fetch playlist' });
-    }
+    const playlist = req.playlist;
+    res.json({ playlist, message: "Success" });
 });
 
 router.put('/:id', async (req, res) => {
@@ -62,5 +59,17 @@ router.put('/:id', async (req, res) => {
         res.status(500).json({ error: 'Unable to save playlist' });
     }
 });
+
+router.param("id", async (req, res, next, id) => {
+    try {
+        const playlist = await Playlist.findById(id);
+        if(!playlist)
+            return res.status(500).json({ error: "Error while fetching playlist" });
+        req.playlist = playlist;
+        next();
+    } catch(err) {
+        return res.status(404).json({ error: err });
+    }
+})
 
 module.exports = router;
