@@ -42,6 +42,9 @@ export function Sidenav() {
         if(user) {
             getPlaylists();
         }
+        else {
+            dispatch(new InitializePlaylists([]) );
+        }
     }, [user]);
 
     return (

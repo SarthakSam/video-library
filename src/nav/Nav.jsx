@@ -1,11 +1,18 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import styles from './Nav.module.css';
 import { FaSearch, FaUser } from 'react-icons/fa';
+import { GrLogout } from 'react-icons/gr';
 import { useAuth } from '../contexts/auth-context';
 
 export function Nav() {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
+    const navigate = useNavigate();
+
+    const logout = () => {
+        setUser(null);
+        navigate('/');
+    }
 
     return (
         <nav className = "nav">
@@ -25,6 +32,9 @@ export function Nav() {
                     <ul className="nav__list">
                         <li className="nav__item">
                                 <Link to="/" ><FaUser />{user.username}</Link>
+                        </li>
+                        <li className="nav__item" onClick = { logout }>
+                            <GrLogout />Logout
                         </li>
                     </ul> : 
                     <ul className="nav__list">
