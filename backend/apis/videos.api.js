@@ -57,15 +57,15 @@ router.get('/disliked', isAuthenticated , async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    return res.status(200).json( { message: 'Success', video: req.video } );
-    // const { id } = req.params;
-    // try {
-    //     const video = await Video.findById(id);
-    //     res.json( { message: 'Success', video } );
-    // } catch( err ) {
-    //     console.log(err);
-    //     res.status(404).json( { error: 'No video found with this id'} )
-    // }
+    const video = req.video;
+    video.views++;
+    try {
+        await video.save();
+    } catch( err ) {
+        console.log(err);
+    } finally {
+        return res.status(200).json( { message: 'Success', video: req.video } );
+    }
 });
 
 router.post('/:id/likeDislike', isAuthenticated, async (req, res) => {
