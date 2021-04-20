@@ -97,7 +97,7 @@ export function NewVideo() {
 
             <label className="form__label" htmlFor="title">Enter video duration</label>
             <div className="input input--fluid">
-                <input type="time" name='duration' value = { duration } onChange = { (e) => { onChange('duration', e.target.value) } }/>
+                <input type="time" name='duration' step="2" value = { duration } onChange = { (e) => { onChange('duration', e.target.value) } }/>
             </div>
             <br/>
             
