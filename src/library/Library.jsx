@@ -16,7 +16,7 @@ export function Library() {
     const { showNotification } = useNotifications();
 
     useEffect( () => {
-        console.log(apiEndPoint);
+        // console.log(apiEndPoint);
         const config = { headers: { authtoken: user._id } };
         apiCall('get', (res) => {
             res.data.videos = res.data?.videos.map( video => {

@@ -22,10 +22,10 @@ export function Nav() {
             </span>
             <div className="nav__content">
                 <ul className={"nav__list " + styles.search__input__container}>
-                    <li className={"input input--icon " + styles.search__input}>
+                    {/* <li className={"input input--icon " + styles.search__input}>
                         <input type="search" placeholder="search"/>
                         <FaSearch />
-                    </li>
+                    </li> */}
                 </ul>
                 {
                     user? 
