@@ -1,0 +1,16 @@
+.commentButton {
+    justify-content: flex-end;
+}
+
+ul {
+    list-style: none;
+}
+
+ul > ul {
+    margin-left: var(--padding-2);
+    margin-top: var(--padding-point5);
+}
+
+.comments__container {
+    margin-top: var(--padding-1);
+}

@@ -18,7 +18,11 @@ export function Content() {
                 <Route path="/" element={<VideoListing />} />
                 <Route path="/home" element={<VideoListing />} />
                 <PrivateRoute path="/uploads/new" element={ <NewVideo /> } />
-                <Route path="/watch/:id" element={<Watch />} />
+                <Route path="/watch/:id" element={
+                    <VideoProvider>
+                        <Watch />
+                    </VideoProvider>
+                } />
                 <PrivateRoute path="/playlist/:id" element={<Playlist />} />
                 <PrivateRoute path="user/:id" element={<Library />} />
                 {/* <PrivateRoute path="user/liked" element={<Playlist />} />

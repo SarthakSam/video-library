@@ -9,8 +9,10 @@ import styles from './VideoDescription.module.css';
 import { UseAxios } from '../../custom-hooks/useAxios';
 import { mapping } from '../../api.config';
 import { useAuth } from "../../contexts/auth-context";
+import { SetLikesAndDislikes } from '../../actions';
+import { useVideo } from "../../contexts/video-context";
 
-export function VideoDescription( { _id : id, title, description, author, views, uploadedDate, likedBy, dislikedBy, openPlaylistPopup, setLikesAndDislikes } ) {
+export function VideoDescription( { openPlaylistPopup } ) {
 
     const [isLikedOrDisliked, setIsLikedOrDisliked] = useState("");
     const apiCall = UseAxios();
@@ -19,6 +21,9 @@ export function VideoDescription( { _id : id, title, description, author, views,
     const LIKED = 'LIKED';
     const DISLIKED = 'DISLIKED';
     const NONE = 'NONE;'
+    const { dispatch, state: { video: {
+        _id : id, title, description, author, views, uploadedDate, likedBy, dislikedBy, 
+    } } } = useVideo();
 
     useEffect( () => {
         if(!isLikedOrDisliked && user) {
@@ -38,6 +43,10 @@ export function VideoDescription( { _id : id, title, description, author, views,
     const findVideo = (arr, id) => {
         const val = arr.find(temp => temp === id );
         return val
+    }
+
+    const setLikesAndDislikes = ({likedBy, dislikedBy}) => {
+        dispatch( new SetLikesAndDislikes( { likedBy, dislikedBy } ));
     }
 
     const showAddToPlaylistPopup = () => {

@@ -4,14 +4,15 @@ export const actions = {
     CREATE_PLAYLIST: 'CREATE_PLAYLIST',
     ADD_TO_PLAYLIST: 'ADD_TO_PLAYLIST',
     REMOVE_FROM_PLAYLIST: 'REMOVE_FROM_PLAYLIST',
-    CHANGE_ROUTE: 'CHANGE_ROUTE',
     UPLOAD_VIDEO: 'UPLOAD_VIDEO',
-    EDIT_FIELD: 'EDIT_FIELD',
-    RESET_FORM: 'RESET_FORM',
     ADD_TO_HISTORY: 'ADD_TO_HISTORY',
     REMOVE_FROM_HISTORY: 'REMOVE_FROM_HISTORY',
     LIKE_DISLIKE_VIDEO: 'LIKE_DISLIKE_VIDEO',
-    UNLIKE_UNDISLIKE_VIDEO: 'UNLIKE_UNDISLIKE_VIDEO'
+    UNLIKE_UNDISLIKE_VIDEO: 'UNLIKE_UNDISLIKE_VIDEO',
+    INITIALIZE_VIDEO: 'INITIALIZE_VIDEO',
+    SET_LIKE_AND_DISLIKES: 'SET_LIKE_AND_DISLIKES',
+    ADD_COMMENT_ON_VIDEO: 'ADD_COMMENT_ON_VIDEO',
+    ADD_REPLY_ON_COMMENT: 'ADD_REPLY_ON_COMMENT'
 }
 
 export class InitializeVideoListing {
@@ -62,38 +63,30 @@ export class RemoveFromPlayList {
         this.payload = payload;
     }
 }
-
-export class ChangeRoute {
+export class InitializeVideo {
     constructor(payload) {
-        this.type = actions.CHANGE_ROUTE;
+        this.type = actions.INITIALIZE_VIDEOS;
         this.payload = payload;
     }
 }
 
-export class EditField {
+export class SetLikesAndDislikes {
     constructor(payload) {
-        this.type = actions.EDIT_FIELD;
+        this.type = actions.SET_LIKE_AND_DISLIKES;
         this.payload = payload;
     }
 }
 
-export class UploadVideo {
+export class AddCommentToVideo {
     constructor(payload) {
-        this.type = actions.UPLOAD_VIDEO;
+        this.type = actions.ADD_COMMENT_ON_VIDEO;
         this.payload = payload;
     }
 }
 
-export class UnlikeUndislikeVideo {
+export class AddReplyOnComment {
     constructor(payload) {
-        this.type = actions.UNLIKE_UNDISLIKE_VIDEO;
-        this.payload = payload;
-    }
-}
-
-export class LikeDislikeVideo {
-    constructor(payload) {
-        this.type = actions.LIKE_DISLIKE_VIDEO;
+        this.type = actions.ADD_REPLY_ON_COMMENT;
         this.payload = payload;
     }
 }

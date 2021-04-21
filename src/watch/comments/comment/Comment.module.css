@@ -1,0 +1,35 @@
+.comment {
+    display: grid;
+    grid-template-rows: 2em auto;
+    grid-template-columns: 3em 0.8em auto;
+    width: 100%;
+    grid-template-areas: "avatar . header"
+                         "avatar . body";
+}
+
+.avatar {
+    grid-area: avatar;
+    height: 50px;
+    width: 50px;
+}
+
+.comment__header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+}
+
+.comment__body {
+    grid-area: body;
+    font-weight: 500;
+}
+
+.comment__author {
+    text-transform: capitalize;
+    padding-right: 0.5em;
+}
+
+.comment__date {
+    color: var(--color-dark-grey);
+    font-size: 0.9rem;
+}

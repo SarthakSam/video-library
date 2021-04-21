@@ -6,7 +6,7 @@ const commentSchema = new Schema({
     content: { type: String, required: 'Cannot post empty comment'},
     author: { type: Schema.Types.ObjectId, ref: 'user', required: true },
     comments: [{type: Schema.Types.ObjectId, ref: "comment"}]
-})
+}, { timestamps: true })
 
 commentSchema
     .pre('findOne', Populate('author', 'username'))

@@ -10,14 +10,18 @@ import { mapping } from '../api.config';
 import { formatDate } from '../utils';
 import { VideoDescription } from './video-description/VideoDescription';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
+import { Comments } from './comments/Comments';
+import { useVideo } from '../contexts/video-context';
+import { InitializeVideo } from '../actions';
 
 export function Watch() {
     const { id } = useParams();
-    const [video, setVideo] = useState(null);
+    // const [video, setVideo] = useState(null);
     const [videos, setVideos] = useState([]);
     const apiCall = UseAxios();
     const { showNotification } = useNotifications();
     const [selectedVideo, setSelectedVideo] = useState(null);
+    const { dispatch, state: { video } } = useVideo();
 
     useEffect( () => {
         const getVideo = () => {
@@ -25,9 +29,9 @@ export function Watch() {
                 let video = res.data.video;
                 video = {
                     ...res.data.video,
-                    uploadedDate: formatDate(video.uploadedDate)
+                    uploadedDate: formatDate(video.uploadedDate),
                 }
-                setVideo( video );
+                dispatch( new InitializeVideo(video) )
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
             }, `${mapping['getVideos']}/${id}`);
@@ -55,17 +59,14 @@ export function Watch() {
         setSelectedVideo(video);
     }
 
-    const setLikesAndDislikes = ({likedBy, dislikedBy}) => {
-        setVideo( video => ({ ...video, likedBy, dislikedBy }) );
-    }
-
     return (
         <>
             {
                 video && <div className={"row " + styles.watch}>
                             <div className={"card col-8 col-xl-12 col-lg-12 col-md-12 col-sm-12 " + styles.video__container }>
                                 <YoutubePlayer src={ video.videoURL } allowFullScreen width="100%" height="100%"/>
-                                <VideoDescription { ...video } openPlaylistPopup = { openPlaylistPopup } setLikesAndDislikes = {setLikesAndDislikes} />
+                                <VideoDescription openPlaylistPopup = { openPlaylistPopup }/>
+                                <Comments />
                             </div>
                             <ul className="row col-4 col-xl-12 col-lg-12 col-md-12 col-sm-12 p-0 m-0 " style={{ listStyle: 'none' }}>
                                { 
