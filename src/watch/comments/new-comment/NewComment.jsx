@@ -1,11 +1,17 @@
 import { useState } from "react"
 
-export function NewComment({ visible, onCancel, onSubmit }) {
+export function NewComment({ visible, onCancel: closeForm, onSubmit }) {
     const [comment, setComment] = useState("");
 
     const formSubmit = (e) => {
         e.preventDefault();  
+        setComment("");
         onSubmit(comment)
+    }
+
+    const onCancel = () => {
+        setComment("");
+        closeForm();
     }
 
     return (
@@ -17,8 +23,8 @@ export function NewComment({ visible, onCancel, onSubmit }) {
                                 <input type="text" placeholder="Add a public comment" value = { comment } onChange = { (e) => { setComment(e.target.value) } } />
                             </div> 
                             <div className="buttons row col-12 p-0" style={{ justifyContent: 'flex-end' }}>
-                                    <button className="btn btn--danger btn--inverted col-2 col-md-3 col-sm-5" onClick = { onCancel }>Cancel</button>
-                                    <button className="btn btn--primary btn--inverted col-2 col-md-3 col-sm-5">Comment</button>
+                                    <button className="btn btn--danger btn--inverted " style={{ marginRight: '0.5em' }} onClick = { onCancel }>Cancel</button>
+                                    <button className="btn btn--primary btn--inverted ">Comment</button>
                             </div>
                         </form>
     

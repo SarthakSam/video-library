@@ -7,7 +7,7 @@ import { UseAxios } from '../../custom-hooks/useAxios';
 import { getUrl } from '../../api.config';
 import { useNotifications } from '../../contexts/notifications-context';
 import { useVideo } from '../../contexts/video-context';
-import { AddCommentToVideo } from '../../actions';
+import { AddCommentToVideo, AddReplyOnComment } from '../../actions';
 
 export function Comments() {
 
@@ -36,6 +36,23 @@ export function Comments() {
         apiCall('post', (res) => {
             dispatch( new AddCommentToVideo(res.data.comment) );
             showNotification( { type: 'SUCCESS', message: 'Comment posted successfully' } );
+            setNewCommentBoxVisible(false);
+        }, (err) => {
+            showNotification({ type: 'ERROR', message: err.error })
+        }, url, body, config)
+    }
+
+    const postReply = (comment, commentId) => {
+        const config = {
+            headers: {
+                authtoken: user._id
+            }
+        }
+        const body = { comment };
+        const url = getUrl('reply', { id: videoId, commentId });
+        apiCall('post', (res) => {
+            dispatch( new AddReplyOnComment({ reply: res.data.comment, commentId }) );
+            showNotification( { type: 'SUCCESS', message: 'Comment posted successfully' } );
         }, (err) => {
             showNotification({ type: 'ERROR', message: err.error })
         }, url, body, config)
@@ -55,11 +72,11 @@ export function Comments() {
                 comments?.length? <ul className={`col-12 p-0 ${styles.comments}`}> {
                     comments.map( comment => (
                             <>
-                                <li key = {comment._id} className={`${styles.comment}`} ><Comment {...comment} /></li>
+                                <li key = {comment._id} className={`${styles.comment}`} ><Comment {...comment} canBeReplied postReply = { postReply } /></li>
                                 {
                                     comment.comments && <ul> {
                                             comment.comments.map(subComment => <li key = { subComment._id } className={`${styles.comment}`}><Comment {...subComment} /></li>)                                     
-                                        }
+                                    }
                                     </ul>
                                 }
                             </>    

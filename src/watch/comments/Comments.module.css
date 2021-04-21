@@ -7,8 +7,8 @@ ul {
 }
 
 ul > ul {
+    margin: var(--padding-1) 0;
     margin-left: var(--padding-2);
-    margin-top: var(--padding-point5);
 }
 
 .comments__container {

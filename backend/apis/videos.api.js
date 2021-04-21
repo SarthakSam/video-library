@@ -99,7 +99,7 @@ router.post('/:id/comments/:videoId/comments', isAuthenticated, async (req, res)
         comment.comments.push(newComment);
         comment = await comment.save();
         // console.log(comment)
-        res.status(201).json({ message: 'success', comment });
+        res.status(201).json({ message: 'success', comment: newComment });
     } catch(err) {
         console.log(err);
         res.status(500).json({error: err});

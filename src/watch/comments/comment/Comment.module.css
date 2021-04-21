@@ -33,3 +33,16 @@
     color: var(--color-dark-grey);
     font-size: 0.9rem;
 }
+
+.reply__btn {
+    color: var(--color-dark-grey);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0.2em;
+}
+
+.reply__btn:hover {
+    background: var(--color-grey);
+    padding: 0.2em;
+    border-radius: 0.2em;
+}

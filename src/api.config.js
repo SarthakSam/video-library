@@ -11,7 +11,7 @@ export const mapping = {
     disliked: '/videos/disliked',
     likeDislikeVideo: '/likeDislike',
     comment: '/videos/:id/comments',
-    reply: '/videos/:id/comments/:commentId'
+    reply: '/videos/:id/comments/:commentId/comments'
 }
 
 export const getUrl = (url, params) => {
