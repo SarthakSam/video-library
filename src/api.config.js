@@ -9,12 +9,17 @@ export const mapping = {
     uploads: '/uploads',
     liked: '/videos/liked',
     disliked: '/videos/disliked',
-    likeDislikeVideo: '/likeDislike'
+    likeDislikeVideo: '/likeDislike',
+    comment: '/videos/:id/comments',
+    reply: '/videos/:id/comments/:commentId'
 }
 
-// export const getURL(url, params) {
-//     return `${url}`
-// }
+export const getUrl = (url, params) => {
+    return Object.keys(params).reduce( (newUrl, param) => {
+        newUrl = newUrl.replace(`:${param}`, String(params[param]));
+        return newUrl;
+    }, mapping[url] );
+}
 
 // const baseURL = 'localhost:3001';
 
