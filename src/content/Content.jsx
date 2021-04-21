@@ -17,10 +17,7 @@ export function Content() {
              <Routes>
                 <Route path="/" element={<VideoListing />} />
                 <Route path="/home" element={<VideoListing />} />
-                <PrivateRoute path="/uploads/new" element={ <VideoProvider>
-                    <NewVideo />
-                </VideoProvider>
-                } />
+                <PrivateRoute path="/uploads/new" element={ <NewVideo /> } />
                 <Route path="/watch/:id" element={<Watch />} />
                 <PrivateRoute path="/playlist/:id" element={<Playlist />} />
                 <PrivateRoute path="user/:id" element={<Library />} />

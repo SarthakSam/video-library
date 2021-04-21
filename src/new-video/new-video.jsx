@@ -1,17 +1,14 @@
 
 import { UseAxios } from '../custom-hooks/useAxios';
 import styles from './new-video.module.css';
-import { useVideo } from '../contexts/video-context';
-import { ChangeRoute, EditField, UploadVideo } from '../actions';
-import { useStore } from '../contexts/store-context';
 import { useNotifications } from '../contexts/notifications-context';
 import { useAuth } from '../contexts/auth-context';
 import { useNavigate } from 'react-router';
 import { mapping } from '../api.config';
+import { useState } from 'react';
 
 export function NewVideo() {
-    const { state: { title, description, duration, thumbnailURL, videoURL, source  }, dispatch } = useVideo();
-    const { dispatch: dispatchToStore } = useStore();
+    const [video, setVideo] = useState({ title: '', description: '', duration: '', thumbnailURL: '', videoURL: '', source: 'YOUTUBE'  });
     const { showNotification } = useNotifications();
     const navigate = useNavigate();
     const apiCall = UseAxios();
@@ -19,7 +16,7 @@ export function NewVideo() {
 
 
     const onChange = (field, value) => {
-        dispatch(new EditField({ field, value}))
+        setVideo({ ...video, [field]: value });
     }
 
     const getThumbnailImageURLForYoutube = (videoURL) => {
@@ -29,20 +26,7 @@ export function NewVideo() {
 
     const submitForm = async (event) => {
         event.preventDefault();
-        const body = {
-            title, 
-            description, 
-            duration, 
-            thumbnailURL: source === 'YOUTUBE'? getThumbnailImageURLForYoutube(videoURL) : thumbnailURL, 
-            videoURL, 
-            source, 
-            author: user._id,
-            views: 0,
-            likes: 0,
-            dislike: 0,
-            uploadedDate: (new Date()).toLocaleDateString(),
-            comments: [],
-        }
+        const body = { ...video, thumbnailURL: video.source === 'YOUTUBE'? getThumbnailImageURLForYoutube(video.videoURL) : video.thumbnailURL };
         const config = {
             headers: {
                 authtoken: user._id
@@ -51,9 +35,6 @@ export function NewVideo() {
 
         apiCall('post', (resp) => {
             showNotification({ type: 'SUCCESS', message: 'Video uploaded successfully'});
-                // console.log(resp.data.video);
-                dispatchToStore( new UploadVideo( resp.data.video) );
-                dispatchToStore( new ChangeRoute( { path: 'uploads', params: '' } ) );
                 navigate(`/`)
         }, (err) => {
             showNotification({ type: 'ERROR', message: err.message});
@@ -67,29 +48,29 @@ export function NewVideo() {
             
             <label className="form__label" htmlFor="title">Enter video title</label>
             <div className="input input--fluid">
-                <input type="text" placeholder="Enter title" name='title' value = { title } onChange = { (e) => { onChange('title', e.target.value) } } />
+                <input type="text" placeholder="Enter title" name='title' value = { video.title } onChange = { (e) => { onChange('title', e.target.value) } } />
             </div>
             <br/>
 
             <label className="form__label" htmlFor="title">Enter video description</label>
-            <textarea className="textarea textarea--fluid" placeholder="Enter description" name='description' value = { description } onChange = { (e) => { onChange('description', e.target.value) } }>
+            <textarea className="textarea textarea--fluid" placeholder="Enter description" name='description' value = { video.description } onChange = { (e) => { onChange('description', e.target.value) } }>
             </textarea>
             <br/>
 
             <label className="form__label" htmlFor="title">Enter video url</label>
             <div className="input input--fluid">
-                <input type="text" placeholder="Enter url" name='videoURL' value = { videoURL } onChange = { (e) => { onChange('videoURL', e.target.value) } }/>
+                <input type="text" placeholder="Enter url" name='videoURL' value = { video.videoURL } onChange = { (e) => { onChange('videoURL', e.target.value) } }/>
             </div>
             <span className="h6"><strong>NOTE :</strong> Paste the url that comes up when we click on share button of video</span>
 
             <br/>
 
             {
-                source !== 'YOUTUBE' && 
+                video.source !== 'YOUTUBE' && 
                 <>
                     <label className="form__label" htmlFor="title">Enter placeholder image link</label>
                     <div className="input input--fluid">
-                        <input type="text" placeholder="Enter image url" name='thumbnailURL' value = { thumbnailURL } onChange = { (e) => { onChange('thumbnailURL', e.target.value) } } />
+                        <input type="text" placeholder="Enter image url" name='thumbnailURL' value = { video.thumbnailURL } onChange = { (e) => { onChange('thumbnailURL', e.target.value) } } />
                     </div>
                     <br/>
                 </>
@@ -97,7 +78,7 @@ export function NewVideo() {
 
             <label className="form__label" htmlFor="title">Enter video duration</label>
             <div className="input input--fluid">
-                <input type="time" name='duration' step="2" value = { duration } onChange = { (e) => { onChange('duration', e.target.value) } }/>
+                <input type="time" name='duration' step="2" value = { video.duration } onChange = { (e) => { onChange('duration', e.target.value) } }/>
             </div>
             <br/>
             

@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
 router.post('/', isAuthenticated, async (req, res) => {
     const video = req.body;
     const user = req.user;
+    video.author = user._id
     try {
         const savedVideo = await Video.create(video);
         user.uploads = [...user.uploads, savedVideo];
@@ -78,7 +79,7 @@ router.post('/:id/comments', isAuthenticated, async (req, res) => {
         const comment = await Comment.create({ content, author });
         video.comments.push(comment);
         video = await video.save();
-        res.status(201).json({ message: 'success', video });
+        res.status(201).json({ message: 'success', comment });
     } catch(err) {
         console.log(err);
         res.status(500).json({error: err});
@@ -97,8 +98,8 @@ router.post('/:id/comments/:videoId/comments', isAuthenticated, async (req, res)
         }
         comment.comments.push(newComment);
         comment = await comment.save();
-        console.log(comment)
-        res.status(201).json({ message: 'success', video });
+        // console.log(comment)
+        res.status(201).json({ message: 'success', comment });
     } catch(err) {
         console.log(err);
         res.status(500).json({error: err});
