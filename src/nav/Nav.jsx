@@ -17,7 +17,7 @@ export function Nav() {
     return (
         <nav className = "nav">
             <span className={`nav__title ${ styles.nav__title }`}>
-                <img src="logo.jpg" alt=""/>    
+                <img src="/logo.jpg" alt=""/>    
                 <Link to="/" >Streamit</Link>
             </span>
             <div className="nav__content">
