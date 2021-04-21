@@ -2,6 +2,7 @@ const express           = require('express'),
       router            = express.Router(),
       User              = require('../models/user.model'),
       Video             = require('../models/video.model'),
+      Comment           = require('../models/comment.model'),
       isAuthenticated   = require('../middlewares/isAuthenticated');
 
 router.get('/', async (req, res) => {
@@ -57,16 +58,59 @@ router.get('/disliked', isAuthenticated , async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    const video = req.video;
-    video.views++;
     try {
-        await video.save();
-    } catch( err ) {
+        const video = await Video.findById(req.params.id).populate('comments').lean();
+        res.status(200).json( { message: 'Success', video: video } );
+    } catch(err) {
         console.log(err);
-    } finally {
-        return res.status(200).json( { message: 'Success', video: req.video } );
+        res.status(500).json({ error: err });
+    }
+    // const video = req.video;
+    // video.views++;
+    // try {
+    //     await video.save();
+    // } catch( err ) {
+    //     console.log(err);
+    // } finally {
+    //     return res.status(200).json( { message: 'Success', video: req.video } );
+    // }
+});
+
+router.post('/:id/comments', isAuthenticated, async (req, res) => {
+    const content = req.body.comment;
+    const author = req.user;
+    let video = req.video;
+    try {
+        const comment = await Comment.create({ content, author });
+        video.comments.push(comment);
+        video = await video.save();
+        res.status(201).json({ message: 'success', video });
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error: err});
     }
 });
+
+router.post('/:id/comments/:videoId/comments', isAuthenticated, async (req, res) => {
+    const content = req.body.comment;
+    const author = req.user;
+    let video = req.video;
+    try {
+        const newComment = await Comment.create({ content, author });
+        let comment = await Comment.findById(req.params.videoId);
+        if(!comment) {
+            return res.status(500).json({error: "No such comment exists"});
+        }
+        comment.comments.push(newComment);
+        comment = await comment.save();
+        console.log(comment)
+        res.status(201).json({ message: 'success', video });
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error: err});
+    }
+});
+
 
 router.post('/:id/likeDislike', isAuthenticated, async (req, res) => {
     const user = req.user;
