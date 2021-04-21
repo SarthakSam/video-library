@@ -58,22 +58,16 @@ router.get('/disliked', isAuthenticated , async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+    let video = req.video;
     try {
-        const video = await Video.findById(req.params.id).populate('comments').lean();
+        video.views++;
+        await video.save();
+        video = await video.populate('comments').execPopulate();
         res.status(200).json( { message: 'Success', video: video } );
     } catch(err) {
         console.log(err);
         res.status(500).json({ error: err });
     }
-    // const video = req.video;
-    // video.views++;
-    // try {
-    //     await video.save();
-    // } catch( err ) {
-    //     console.log(err);
-    // } finally {
-    //     return res.status(200).json( { message: 'Success', video: req.video } );
-    // }
 });
 
 router.post('/:id/comments', isAuthenticated, async (req, res) => {
