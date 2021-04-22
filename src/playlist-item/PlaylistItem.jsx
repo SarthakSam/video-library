@@ -37,7 +37,7 @@ export function PlaylistItem({ video, playlistId }) {
     }
 
     const options = [
-        {title: 'Remove from playlist', action: removeFromPlayList},
+        // {title: 'Remove from playlist', action: removeFromPlayList},
     ]
 
     return (
