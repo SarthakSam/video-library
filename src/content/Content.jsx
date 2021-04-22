@@ -25,21 +25,10 @@ export function Content() {
                 } />
                 <PrivateRoute path="/playlist/:id" element={<Playlist />} />
                 <PrivateRoute path="user/:id" element={<Library />} />
-                {/* <PrivateRoute path="user/liked" element={<Playlist />} />
-                <PrivateRoute path="user/disliked" element={<Playlist />} /> */}
 
                 <Route path="/signin" element={<Signin />} />
                 <Route path="/signup" element={<Signup />} />
             </Routes>
-            {/* { path === 'home' && <VideoListing />}
-            { path === 'uploads/new' && 
-                <VideoProvider>
-                    <NewVideo />
-                </VideoProvider>
-             }
-            { path === 'history' && <Playlist id = "history"  /> }
-            { path === 'playlist' && <Playlist id = { params } /> }
-            { path === 'watch' && <Watch id = { params } /> } */}
         </div>
     )
 }

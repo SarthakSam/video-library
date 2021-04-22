@@ -21,20 +21,20 @@ export function PlaylistItem({ video, playlistId }) {
         navigate(`/watch/${video._id}`)
     }
 
-    const removeFromPlayList = () => {
-        const config = {
-            headers: {
-                authtoken: user._id
-            }
-        }
-        const url = getUrl('removeVideoFromPlaylist', { id: playlistId, videoId: video._id });
-        apiCall('post', (res) => {
-            showNotification({ type: 'SUCCESS', message: 'Video removed from playlist successfully'});
-            dispatch( new RemoveFromPlayList({ playlistId, videoId: video._id }) );
-        }, (err) => {
-            showNotification({ type: 'ERROR', message: err});
-        }, url, null, config);
-    }
+    // const removeFromPlayList = () => {
+    //     const config = {
+    //         headers: {
+    //             authtoken: user._id
+    //         }
+    //     }
+    //     const url = getUrl('removeVideoFromPlaylist', { id: playlistId, videoId: video._id });
+    //     apiCall('post', (res) => {
+    //         showNotification({ type: 'SUCCESS', message: 'Video removed from playlist successfully'});
+    //         dispatch( new RemoveFromPlayList({ playlistId, videoId: video._id }) );
+    //     }, (err) => {
+    //         showNotification({ type: 'ERROR', message: err});
+    //     }, url, null, config);
+    // }
 
     const options = [
         // {title: 'Remove from playlist', action: removeFromPlayList},

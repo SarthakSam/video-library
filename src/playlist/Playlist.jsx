@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useAuth } from "../contexts/auth-context";
-import { useNotifications } from "../contexts/notifications-context";
+// import { useAuth } from "../contexts/auth-context";
+// import { useNotifications } from "../contexts/notifications-context";
 
 import { useStore } from "../contexts/store-context";
-import { UseAxios } from "../custom-hooks/useAxios";
+// import { UseAxios } from "../custom-hooks/useAxios";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
 
 export function Playlist() {
