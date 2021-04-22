@@ -60,6 +60,19 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.post('/:id/removeFromPlaylists/:videoId', async (req, res) => {
+    const playlist = req.playlist;
+    const { videoId } = req.params;
+    try {
+        playlist.videos = playlist.videos.filter(video => !video._id.equals(videoId));
+        await playlist.save();
+        res.status(201).json({message: 'success', videoId});
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error: err});
+    }
+}) 
+
 router.param("id", async (req, res, next, id) => {
     try {
         const playlist = await Playlist.findById(id);

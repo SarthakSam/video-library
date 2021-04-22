@@ -2,13 +2,43 @@ import { FaEllipsisV } from 'react-icons/fa';
 
 import styles from './PlaylistItem.module.css';
 import { useNavigate } from 'react-router';
+import { Menu } from '../common-components/menu/menu';
+import { UseAxios } from '../custom-hooks/useAxios';
+import { RemoveFromPlayList } from '../actions';
+import { getUrl } from '../api.config';
+import { useAuth } from '../contexts/auth-context';
+import { useNotifications } from '../contexts/notifications-context';
+import { useStore } from '../contexts/store-context';
 
-export function PlaylistItem({ video }) {
+export function PlaylistItem({ video, playlistId }) {
     const navigate = useNavigate();
+    const apiCall = UseAxios();
+    const { user } = useAuth();
+    const { showNotification } = useNotifications();
+    const { dispatch } = useStore();
 
     const openVideo = (video) => {
         navigate(`/watch/${video._id}`)
     }
+
+    const removeFromPlayList = () => {
+        const config = {
+            headers: {
+                authtoken: user._id
+            }
+        }
+        const url = getUrl('removeVideoFromPlaylist', { id: playlistId, videoId: video._id });
+        apiCall('post', (res) => {
+            showNotification({ type: 'SUCCESS', message: 'Video removed from playlist successfully'});
+            dispatch( new RemoveFromPlayList({ playlistId, videoId: video._id }) );
+        }, (err) => {
+            showNotification({ type: 'ERROR', message: err});
+        }, url, null, config);
+    }
+
+    const options = [
+        {title: 'Remove from playlist', action: removeFromPlayList},
+    ]
 
     return (
         <div className={ styles.playlistItem } onClick = { () => openVideo(video) }>
@@ -26,9 +56,7 @@ export function PlaylistItem({ video }) {
                         <li className={ "card__meta " + styles.watch__list__item }>{ video.uploadedDate }</li>
                     </ul>
                 </div>
-                <span className={ styles.option }>
-                    <FaEllipsisV />
-                </span>
+                <Menu className="col-1 m-0 p-0" icon = { <FaEllipsisV/> } options = { options } />
         </div>
     )
 }

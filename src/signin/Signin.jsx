@@ -23,7 +23,7 @@ export function Signin() {
             navigate(state?.from? state.from : '/home' );
             showNotification({ type: 'SUCCESS', message: res.data.message});
         }, (err) => {
-            showNotification({ type: 'ERROR', message: err.message});
+            showNotification({ type: 'ERROR', message: err});
         }, mapping['signin'], { username, password }, null)
     }
 

@@ -58,7 +58,7 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
 
         const onFailure = (err) => {
             console.log(err);
-            showNotification({ type: 'ERROR', message: err.message});
+            showNotification({ type: 'ERROR', message: err});
         }
 
         updateVideosInPlaylist(playlist._id, [video._id], onSuccess, onFailure);

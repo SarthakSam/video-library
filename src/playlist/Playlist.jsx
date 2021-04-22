@@ -29,7 +29,7 @@ export function Playlist() {
             <ul className="row " style={{ listStyle: 'none' }}>
                 { 
                     playlist && playlist.videos.length ? playlist.videos.map( video => <li  key = { video._id } className="col-4 col-lg-4 col-md-6 col-sm-12 p-0">
-                            <PlaylistItem video = { video } />
+                            <PlaylistItem video = { video } playlistId= { playlist._id } />
                     </li>) : <h4>Nothing to show Here</h4>
                 }
             </ul>

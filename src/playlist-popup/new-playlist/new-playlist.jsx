@@ -36,7 +36,7 @@ export function NewPlaylist({ createNewPlaylist }) {
             setNewPlaylist("");
         }, (err) => {
             console.log(err);
-            showNotification({ type: 'ERROR', message: err.message});
+            showNotification({ type: 'ERROR', message: err});
         }, mapping['getPlaylists'], body, config)
     }
 

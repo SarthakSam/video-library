@@ -10,13 +10,13 @@ const express           = require('express'),
       isAuthenticated   = require('./middlewares/isAuthenticated');
       
 const PORT = process. env. PORT || 3001;
-const localDB = 'mongodb://localhost:27017/stream-it';
+const localDb = 'mongodb://localhost:27017/stream-it';
 const deployDb = 'mongodb+srv://Sarthak:Sarthak@mycluster.dxrov.mongodb.net/stream-it?retryWrites=true&w=majority'
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(deployDb, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(localDb, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log("DB connected")
     // seedVideos();

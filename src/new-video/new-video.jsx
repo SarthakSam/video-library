@@ -37,7 +37,7 @@ export function NewVideo() {
             showNotification({ type: 'SUCCESS', message: 'Video uploaded successfully'});
                 navigate(`/`)
         }, (err) => {
-            showNotification({ type: 'ERROR', message: err.message});
+            showNotification({ type: 'ERROR', message: err});
         } , mapping['postVideo'] , body, config);
     }
 

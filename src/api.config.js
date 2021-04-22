@@ -11,7 +11,8 @@ export const mapping = {
     disliked: '/videos/disliked',
     likeDislikeVideo: '/likeDislike',
     comment: '/videos/:id/comments',
-    reply: '/videos/:id/comments/:commentId/comments'
+    reply: '/videos/:id/comments/:commentId/comments',
+    removeVideoFromPlaylist: '/playlists/:id/removeFromPlaylists/:videoId'
 }
 
 export const getUrl = (url, params) => {
@@ -20,9 +21,3 @@ export const getUrl = (url, params) => {
         return newUrl;
     }, mapping[url] );
 }
-
-// const baseURL = 'localhost:3001';
-
-// export const getURL = (requestName) => {
-//     return baseURL + mapping[requestName];
-// }

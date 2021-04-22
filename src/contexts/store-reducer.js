@@ -41,7 +41,7 @@ function addToPlayList(state, action) {
 function removeFromPlayList(state, action) {
     let changedPlaylist = state.playlists.map( playlist => {
         if(playlist._id === action.payload.playlistId) {
-            return { ...playlist, videos: playlist.videos.filter( item => item._id !== action.payload.video._id ) };
+            return { ...playlist, videos: playlist.videos.filter( item => item._id !== action.payload.videoId ) };
         }
         return playlist;
     })

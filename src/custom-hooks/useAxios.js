@@ -7,14 +7,23 @@ export function UseAxios() {
     const { setLoading } = useLoader();
 
     const apiCall = async (method, successCb, failureCb, url, ...rest) => {
-        url = baseURL + url;
+        // url = baseURL + url;
         try {
             setLoading(true);
             const res = await axios[method](url, ...rest);
             successCb(res);
         }
-        catch(err) {
-            failureCb(err);
+        catch(error) {
+            if (error.response) {
+                if(typeof error.response.data.error === 'string')
+                    failureCb(error.response.data.error);
+                else
+                    failureCb(error.response.statusText);
+            } else if (error.request) {
+                failureCb(error.request);
+            } else {
+                failureCb(error.message);
+            }
         }
         finally {
             setLoading(false);
