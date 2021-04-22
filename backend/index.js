@@ -11,7 +11,7 @@ const express           = require('express'),
       
 const PORT = process. env. PORT || 3001;
 const localDb = 'mongodb://localhost:27017/stream-it';
-const deployDb = 'mongodb+srv://Sarthak:Sarthak@mycluster.dxrov.mongodb.net/stream-it?retryWrites=true&w=majority'
+const deployDb = `mongodb+srv://${ process.env.DBUSER }:${ process.env.DBPASSWORD }@mycluster.dxrov.mongodb.net/stream-it?retryWrites=true&w=majority`
 
 app.use(cors());
 app.use(bodyParser.json());
