@@ -28,32 +28,37 @@ export function Signin() {
     }
 
     return (
-        <div className={`row ${styles.form__container}`}>
-                <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`} onSubmit = {signin}>
-                    <div className={`${styles.title}`}>
-                        <h3 className="h3">Streamit</h3>
+        <div className = { styles.container }>
+                <video autoPlay muted loop className = { styles.background }>
+                     <source src="/background7.mp4" type="video/mp4" />
+                </video>
+                <div className={`row ${styles.form__container}`}>
+                    <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`} onSubmit = {signin}>
+                        <div className={`${styles.title}`}>
+                            <h2 className="h2" style={{}}>Streamit</h2>
+                            <br/>
+                            <h3 className="h3">Sign in</h3>
+                            <br/>
+                        </div>
+                        <div>
+                            <label htmlFor="username">Enter username</label>
+                            <div className="input input--icon input--fluid">
+                                <input type="text" placeholder="Enter username" id="username" value = {username} onChange = { (e) => {setusername(e.target.value)} } />
+                                <i className="fa fa-search"></i>
+                            </div> 
+                        </div>
+                            <br/>
+                        <div>
+                            <label htmlFor="password">Enter password</label>
+                            <div className="input input--icon input--fluid">
+                                <input type="password" placeholder="Enter password" id="password" value = {password} onChange = { (e) => {setpassword(e.target.value)} } />
+                                <i className="fa fa-search"></i>
+                            </div> 
+                        </div>
                         <br/>
-                        <h4 className="h4">Sign in</h4>
-                        <br/>
-                    </div>
-                    <div>
-                        <label htmlFor="username">Enter username</label>
-                        <div className="input input--icon input--fluid">
-                            <input type="text" placeholder="Enter text" id="username" value = {username} onChange = { (e) => {setusername(e.target.value)} } />
-                            <i className="fa fa-search"></i>
-                        </div> 
-                    </div>
-                        <br/>
-                    <div>
-                        <label htmlFor="password">Enter password</label>
-                        <div className="input input--icon input--fluid">
-                            <input type="password" placeholder="Enter text" id="password" value = {password} onChange = { (e) => {setpassword(e.target.value)} } />
-                            <i className="fa fa-search"></i>
-                        </div> 
-                    </div>
-                    <br/>
-                    <button className={`btn btn--primary ${styles.signin}`} >Signin</button>
-                </form>
+                        <button className={`btn btn--primary ${styles.signin}`} >Signin</button>
+                    </form>
+                </div>         
         </div>
     )
 }

@@ -37,37 +37,43 @@ export function Signup() {
     }
 
     return (
-        <div className={`row ${styles.form__container}`} >
+        <div className = { styles.container }>
+            <video autoPlay muted loop className = { styles.background }>
+                <source src="/background7.mp4" type="video/mp4" />
+            </video>
+            <div className={`row ${styles.form__container}`}>
                 <form className={`col-6 col-lg-8 col-md-10 col-sm-12 ${styles.form}`} onSubmit = {signup}>
                     <div className={`${styles.title}`}>
-                        <h3 className="h3">Streamit</h3>
+                        <h2 className="h2" style={{}}>Streamit</h2>
                         <br/>
-                        <h4 className="h4">Sign up</h4>
+                        <h3 className="h3">Sign up</h3>
                         <br/>
                     </div>
                     <div>
                         <label htmlFor="username">Enter username</label>
                         <div className="input input--icon input--fluid">
-                            <input type="text" placeholder="Enter text" id="username" value = {username} onChange = { (e) => {setusername(e.target.value)} } />
+                            <input type="text" placeholder="Enter username" id="username" value = {username} onChange = { (e) => {setusername(e.target.value)} } />
+                            <i className="fa fa-search"></i>
                         </div> 
                     </div>
                         <br/>
-                    <div>
-                        <label htmlFor="password1">Enter password</label>
-                        <div className="input input--icon input--fluid">
-                            <input type="password" placeholder="Enter password" id="password1" value = {password1} onChange = { (e) => {setpassword1(e.target.value)} } />
-                        </div> 
-                    </div>
-                    <br/>
-                    <div>
-                        <label htmlFor="password2">Re-Enter password</label>
-                        <div className="input input--icon input--fluid">
-                            <input type="password" placeholder="Re-Enter password" id="password2" value = {password2} onChange = { onPwd2Change } />
-                        </div> 
-                    </div>
-                    <br/>
-                    <button className={`btn btn--primary ${styles.signup}`}>Signup</button>
+                        <div>
+                            <label htmlFor="password1">Enter password</label>
+                            <div className="input input--icon input--fluid">
+                                <input type="password" placeholder="Enter password" id="password1" value = {password1} onChange = { (e) => {setpassword1(e.target.value)} } />
+                            </div> 
+                        </div>
+                        <br/>
+                        <div>
+                            <label htmlFor="password2">Re-Enter password</label>
+                            <div className="input input--icon input--fluid">
+                                <input type="password" placeholder="Re-Enter password" id="password2" value = {password2} onChange = { onPwd2Change } />
+                            </div> 
+                        </div>
+                        <br/>
+                    <button className={`btn btn--primary ${styles.signup}`} >Signup</button>
                 </form>
+            </div>         
         </div>
     )
 }

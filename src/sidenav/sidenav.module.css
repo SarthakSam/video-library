@@ -81,7 +81,7 @@
 @media screen and (max-width: 992px) {
     .sidenav {
         width: max-content;
-        max-width: 300px;;
+        max-width: 300px;
     }
 
     .sidenav__toggle:checked ~ .sidenav__list .sidenav__listItem__text {
