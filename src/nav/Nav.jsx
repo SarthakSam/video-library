@@ -1,17 +1,29 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import styles from './Nav.module.css';
 import { FaSearch, FaUser } from 'react-icons/fa';
 import { GrLogout } from 'react-icons/gr';
 import { useAuth } from '../contexts/auth-context';
+import { ConfirmationDialog } from '../common-components/confirmation-dialog/ConfirmationDialog';
 
 export function Nav() {
     const { user, setUser } = useAuth();
     const navigate = useNavigate();
+    const [logoutDialogVisible, setLogoutPopupVisible] = useState(false);
 
     const logout = () => {
+        setLogoutPopupVisible(true);
+    }
+
+    const onSubmit = () => {
+        setLogoutPopupVisible(false);
         setUser(null);
         navigate('/');
+    }
+
+    const onCancel = () => {
+        setLogoutPopupVisible(false);
     }
 
     return (
@@ -47,6 +59,12 @@ export function Nav() {
                     </ul>
                 }
             </div>
+            {
+                logoutDialogVisible && 
+                <ConfirmationDialog title = "Logout" onSubmit = { onSubmit } onCancel = { onCancel }>
+                    <p>Are you sure you want to logout?</p>
+                </ConfirmationDialog>
+            }
         </nav>
     )
 }
