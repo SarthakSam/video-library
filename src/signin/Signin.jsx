@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/auth-context';
 import styles from './Signin.module.css';
 import { UseAxios } from '../custom-hooks/useAxios';
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 import { useNotifications } from '../contexts/notifications-context';
 
 export function Signin() {
@@ -24,7 +24,7 @@ export function Signin() {
             showNotification({ type: 'SUCCESS', message: res.data.message});
         }, (err) => {
             showNotification({ type: 'ERROR', message: err});
-        }, mapping['signin'], { username, password }, null)
+        }, getUrl('signin'), { username, password }, null)
     }
 
     return (

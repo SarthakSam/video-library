@@ -4,7 +4,7 @@ import styles from './playlist-popup.module.css';
 import { AddToPlayList, CreatePlayList, RemoveFromPlayList } from '../actions';
 import { NewPlaylist } from './new-playlist/new-playlist';
 import { UseAxios } from '../custom-hooks/useAxios';
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 import { useNotifications } from "../contexts/notifications-context";
 import { useAuth } from '../contexts/auth-context';
 
@@ -67,7 +67,7 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
     const updateVideosInPlaylist = (id, videos, successCallback, failureCallback) => {
         const body = { videos };
         const config = { headers: { authToken: user._id } }
-        apiCall('put', successCallback, failureCallback, `${mapping['updatePlaylist']}/${id}`, body, config);
+        apiCall('put', successCallback, failureCallback, `${getUrl('updatePlaylist')}/${id}`, body, config);
     }
 
     return (

@@ -3,19 +3,19 @@ import { FaEllipsisV } from 'react-icons/fa';
 import styles from './PlaylistItem.module.css';
 import { useNavigate } from 'react-router';
 import { Menu } from '../common-components/menu/menu';
-import { UseAxios } from '../custom-hooks/useAxios';
-import { RemoveFromPlayList } from '../actions';
-import { getUrl } from '../api.config';
-import { useAuth } from '../contexts/auth-context';
-import { useNotifications } from '../contexts/notifications-context';
-import { useStore } from '../contexts/store-context';
+// import { UseAxios } from '../custom-hooks/useAxios';
+// import { RemoveFromPlayList } from '../actions';
+// import { getUrl } from '../api.config';
+// import { useAuth } from '../contexts/auth-context';
+// import { useNotifications } from '../contexts/notifications-context';
+// import { useStore } from '../contexts/store-context';
 
 export function PlaylistItem({ video, playlistId }) {
     const navigate = useNavigate();
-    const apiCall = UseAxios();
-    const { user } = useAuth();
-    const { showNotification } = useNotifications();
-    const { dispatch } = useStore();
+    // const apiCall = UseAxios();
+    // const { user } = useAuth();
+    // const { showNotification } = useNotifications();
+    // const { dispatch } = useStore();
 
     const openVideo = (video) => {
         navigate(`/watch/${video._id}`)

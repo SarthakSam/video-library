@@ -7,7 +7,7 @@ import gfm from 'remark-gfm';
 import { useNotifications } from '../../contexts/notifications-context';
 import styles from './VideoDescription.module.css';
 import { UseAxios } from '../../custom-hooks/useAxios';
-import { mapping } from '../../api.config';
+import { getUrl } from '../../api.config';
 import { useAuth } from "../../contexts/auth-context";
 import { SetLikesAndDislikes } from '../../actions';
 import { useVideo } from "../../contexts/video-context";
@@ -69,7 +69,7 @@ export function VideoDescription( { openPlaylistPopup } ) {
             setLikesAndDislikes(res.data.video);
         }, (err) => {
             showNotification({type: 'ERROR', message: err.message})
-        }, `/videos/${id}${mapping['likeDislikeVideo']}`, body, config);
+        }, getUrl('likeDislikeVideo', { videoId: id }), body, config);
     }
 
     const onDislikeButtonClick = (e) => {
@@ -84,7 +84,7 @@ export function VideoDescription( { openPlaylistPopup } ) {
             setLikesAndDislikes(res.data.video);
         }, (err) => {
             showNotification({type: 'ERROR', message: err.message})
-        }, `/videos/${id}${mapping['likeDislikeVideo']}`, body, config);
+        }, getUrl('likeDislikeVideo', { videoId: id }), body, config);
     }    
 
 

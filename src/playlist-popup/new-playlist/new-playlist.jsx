@@ -4,7 +4,7 @@ import { FaPlus } from 'react-icons/fa';
 import styles from './new-playlist.module.css';
 import { useNotifications } from "../../contexts/notifications-context";
 import { UseAxios } from '../../custom-hooks/useAxios';
-import { mapping } from '../../api.config';
+import { getUrl } from '../../api.config';
 import { useAuth } from "../../contexts/auth-context";
 
 export function NewPlaylist({ createNewPlaylist }) {
@@ -20,8 +20,7 @@ export function NewPlaylist({ createNewPlaylist }) {
 
     const createPlaylist = async () => {
         if(!newPlaylist) {
-            // Show error that title cannot be empty
-            alert("Title cannot be empty")
+            showNotification({ type: 'WARNING', message: "Title cannot be empty" })
             return;
         }
         const body = {
@@ -30,14 +29,13 @@ export function NewPlaylist({ createNewPlaylist }) {
         }
         const config = { headers: { authToken: user._id } }
         apiCall('post', (resp) => {
-            // showNotification({ type: 'SUCCESS', message: 'Playlist created successfully'});
             createNewPlaylist(resp.data.playlist);  
             setNewPlaylistFormVisible(false);
             setNewPlaylist("");
         }, (err) => {
             console.log(err);
             showNotification({ type: 'ERROR', message: err});
-        }, mapping['getPlaylists'], body, config)
+        }, getUrl('getPlaylists'), body, config)
     }
 
     return (

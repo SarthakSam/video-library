@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/auth-context';
 import styles from './Signup.module.css';
 import { UseAxios } from '../custom-hooks/useAxios';
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 import { useNotifications } from '../contexts/notifications-context';
 
 export function Signup() {
@@ -29,7 +29,7 @@ export function Signup() {
             showNotification({ type: 'SUCCESS', message: res.data.message});
         }, (err) => {
             showNotification({ type: 'ERROR', message: err});
-        }, mapping['signup'], { username, password1, password2 }, )
+        }, getUrl('signup'), { username, password1, password2 }, )
     }
 
     const onPwd2Change = (e) => {

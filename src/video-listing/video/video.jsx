@@ -8,7 +8,7 @@ import { AddToPlayList } from '../../actions';
 import { useNotifications } from '../../contexts/notifications-context';
 import { useAuth } from '../../contexts/auth-context';
 import { UseAxios } from '../../custom-hooks/useAxios';
-import { mapping } from '../../api.config';
+import { getUrl } from '../../api.config';
 
 export function Video( { video, setSelectedVideo } ) {
     const { dispatch, state: { playlists } } = useStore();
@@ -39,7 +39,7 @@ export function Video( { video, setSelectedVideo } ) {
             console.log(err);
             showNotification({ type: 'ERROR', message: 'Something went wrong... Please try again after sometime'});
         }
-        apiCall('put', onSuccess, onFailure, `${mapping['updatePlaylist']}/${watchLater._id}`, body, config);
+        apiCall('put', onSuccess, onFailure, getUrl('updatePlaylist', { playlistId: watchLater._id } ), body, config);
     }
 
     const openPlaylistPopup = () => {
@@ -51,8 +51,6 @@ export function Video( { video, setSelectedVideo } ) {
     }
 
     const openVideo = (video) => {
-        // dispatch( new ChangeRoute({ path: 'watch', params: video.id }));
-        // dispatch( new AddToHistory( video ) );
         navigate(`/watch/${video._id}`)
     }
 

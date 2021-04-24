@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useAuth } from "../contexts/auth-context";
 import { useNotifications } from "../contexts/notifications-context";
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 
 import { UseAxios } from "../custom-hooks/useAxios";
 import { PlaylistItem } from '../playlist-item/PlaylistItem';
@@ -25,7 +25,7 @@ export function Library() {
             setPlaylist( res.data );
         }, (err) => {
             showNotification({ type: 'ERROR', message: 'Something went wrong'});
-        }, mapping[apiEndPoint] ,config);
+        }, getUrl(apiEndPoint) ,config);
     }, [apiEndPoint] );
 
     return (

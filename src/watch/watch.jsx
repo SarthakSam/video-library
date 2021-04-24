@@ -6,7 +6,7 @@ import { PlaylistItem } from '../playlist-item/PlaylistItem';
 import { useNotifications } from '../contexts/notifications-context';
 import styles from './watch.module.css';
 import { UseAxios } from '../custom-hooks/useAxios';
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 import { formatDate } from '../utils';
 import { VideoDescription } from './video-description/VideoDescription';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
@@ -34,7 +34,7 @@ export function Watch() {
                 dispatch( new InitializeVideo(video) )
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
-            }, `${mapping['getVideos']}/${id}`);
+            }, getUrl('getSpecificVideo', { videoId: id } ));
         }
         getVideo();
     }, [id]);
@@ -49,7 +49,7 @@ export function Watch() {
                 setVideos(videos);
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
-            }, mapping['getVideos']);
+            }, getUrl('getVideos') );
         }
 
         getVideos();

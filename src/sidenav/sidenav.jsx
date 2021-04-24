@@ -11,7 +11,7 @@ import { BsClockFill } from 'react-icons/bs';
 import { useEffect } from 'react';
 import { useNotifications } from '../contexts/notifications-context';
 import { UseAxios } from '../custom-hooks/useAxios';
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 import { useAuth } from '../contexts/auth-context';
 
 export function Sidenav() {
@@ -37,7 +37,7 @@ export function Sidenav() {
                 dispatch(new InitializePlaylists(res.data.playlists) );
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message});
-            }, mapping['getPlaylists'], config );
+            }, getUrl('getPlaylists'), config );
         }
         if(user) {
             getPlaylists();

@@ -4,7 +4,7 @@ import styles from './new-video.module.css';
 import { useNotifications } from '../contexts/notifications-context';
 import { useAuth } from '../contexts/auth-context';
 import { useNavigate } from 'react-router';
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 import { useState } from 'react';
 
 export function NewVideo() {
@@ -38,7 +38,7 @@ export function NewVideo() {
                 navigate(`/`)
         }, (err) => {
             showNotification({ type: 'ERROR', message: err});
-        } , mapping['postVideo'] , body, config);
+        } , getUrl('postVideo') , body, config);
     }
 
     return (
@@ -78,7 +78,7 @@ export function NewVideo() {
 
             <label className="form__label" htmlFor="title">Enter video duration</label>
             <div className="input input--fluid">
-                <input type="time" name='duration' step="2" value = { video.duration } onChange = { (e) => { onChange('duration', e.target.value) } }/>
+                <input type="time" name='duration' step="2" value = { video.duration } style={{ cursor: 'text' }} onChange = { (e) => { onChange('duration', e.target.value) } }/>
             </div>
             <br/>
             

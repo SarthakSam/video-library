@@ -4,7 +4,7 @@ import { Video } from './video/video';
 import { PlayListPopup } from '../playlist-popup/playlist-popup';
 import { UseAxios } from '../custom-hooks/useAxios';
 import { useNotifications } from '../contexts/notifications-context';
-import { mapping } from '../api.config';
+import { getUrl } from '../api.config';
 import { formatDate } from '../utils';
 
 export function VideoListing() {
@@ -25,7 +25,7 @@ export function VideoListing() {
                 setVideos(videos);
             }, (err) => {
                 showNotification({type: 'ERROR', message: err.message})
-            }, mapping['getVideos']);
+            }, getUrl('getVideos'));
         }
         getVideos();
     }, []);
