@@ -67,7 +67,7 @@ export function PlayListPopup({ selectedVideo: video, setSelectedVideo }) {
     const updateVideosInPlaylist = (id, videos, successCallback, failureCallback) => {
         const body = { videos };
         const config = { headers: { authToken: user._id } }
-        apiCall('put', successCallback, failureCallback, `${getUrl('updatePlaylist')}/${id}`, body, config);
+        apiCall('put', successCallback, failureCallback, getUrl('updatePlaylist', { playlistId: id } ), body, config);
     }
 
     return (
