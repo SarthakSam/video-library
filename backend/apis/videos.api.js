@@ -37,7 +37,7 @@ router.post('/', isAuthenticated, async (req, res) => {
 
 router.get('/liked', isAuthenticated , async (req, res) => {
     const user = req.user;
-    console.log(user);
+    // console.log(user);
     try {
         const videos = await Video.find({ likedBy: user._id });
         res.status(200).send({ message: 'Success', videos });
@@ -49,7 +49,7 @@ router.get('/liked', isAuthenticated , async (req, res) => {
 
 router.get('/disliked', isAuthenticated , async (req, res) => {
     const user = req.user;
-    console.log(user);
+    // console.log(user);
     try {
         const videos = await Video.find({ dislikedBy: user._id });
         res.status(200).send({ message: 'Success', videos });

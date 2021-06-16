@@ -1,5 +1,6 @@
 const express               = require('express'),
       router                = express.Router(),
+      bcrypt                = require('bcrypt'),
       User                  = require('../models/user.model'),
       Playlist              = require('../models/playlist.model'),
       isAuthenticated       = require('../middlewares/isAuthenticated'),
@@ -10,7 +11,8 @@ router.post('/signin', async (req, res) => {
     try {
         const foundUser = await User.findOne({ username: user.username });
         if(foundUser) {
-            if(foundUser.password === req.body.password) {
+            const validPassword = await bcrypt.compare(user.password, foundUser.password);
+            if(validPassword) {
                 const { username, email, _id } = foundUser;
                 res.json({ message: `Hello ${foundUser.username}`, user: { username, email, _id, authorization: getAuthorizationToken( { _id } ) } });
             } else {
@@ -41,7 +43,8 @@ router.post('/signup', async (req, res, next) => {
          }
          else {
             const { password1, password2, ...rest } = user;
-            rest['password'] = password1;
+            const salt = await bcrypt.genSalt(10);
+            rest['password'] = await bcrypt.hash(password1, salt);
             const newUser = await User.create(rest);
             req.user = newUser;
             // const { username, email, _id } = newUser;

@@ -7,7 +7,7 @@ const express           = require('express'),
       seedVideos        = require('./seeds'),
       videosRouter      = require('./apis/videos.api'),
       playlistsRouter   = require('./apis/playlists.api'),
-      userRouter        = require('./apis/user.api'),
+      userRouter        = require('./apis/users.api'),
       isAuthenticated   = require('./middlewares/isAuthenticated');
       
 dotEnv.config();
