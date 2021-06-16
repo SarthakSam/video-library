@@ -3,12 +3,14 @@ const express           = require('express'),
       bodyParser        = require('body-parser'),
       cors              = require('cors'),
       mongoose          = require('mongoose'),
+      dotEnv            = require('dotenv'),
       seedVideos        = require('./seeds'),
       videosRouter      = require('./apis/videos.api'),
       playlistsRouter   = require('./apis/playlists.api'),
       userRouter        = require('./apis/user.api'),
       isAuthenticated   = require('./middlewares/isAuthenticated');
       
+dotEnv.config();
 const PORT = process. env. PORT || 3001;
 const localDb = 'mongodb://localhost:27017/stream-it';
 const deployDb = `mongodb+srv://${ process.env.DBUSER }:${ process.env.DBPASSWORD }@mycluster.dxrov.mongodb.net/stream-it?retryWrites=true&w=majority`
@@ -16,17 +18,12 @@ const deployDb = `mongodb+srv://${ process.env.DBUSER }:${ process.env.DBPASSWOR
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(deployDb, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(localDb, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log("DB connected")
     // seedVideos();
 })
 .catch(console.log);
-
-// app.use((req, res, next) => { 
-//     console.log("request aai thi"); 
-//     next(); 
-// } );
 
 app.use('/', userRouter);
 app.use('/videos', videosRouter);

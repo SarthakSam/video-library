@@ -1,8 +1,9 @@
-const express           = require('express'),
-      router            = express.Router(),
-      User              = require('../models/user.model'),
-      Playlist          = require('../models/playlist.model'),
-      isAuthenticated   = require('../middlewares/isAuthenticated');
+const express               = require('express'),
+      router                = express.Router(),
+      User                  = require('../models/user.model'),
+      Playlist              = require('../models/playlist.model'),
+      isAuthenticated       = require('../middlewares/isAuthenticated'),
+      getAuthorizationToken = require('../utils/getAuthorizationToken');
 
 router.post('/signin', async (req, res) => {
     const user = req.body;
@@ -11,7 +12,7 @@ router.post('/signin', async (req, res) => {
         if(foundUser) {
             if(foundUser.password === req.body.password) {
                 const { username, email, _id } = foundUser;
-                res.json({ message: `Hello ${foundUser.username}`, user: { username, email, _id} })
+                res.json({ message: `Hello ${foundUser.username}`, user: { username, email, _id, authorization: getAuthorizationToken( { _id } ) } });
             } else {
                 res.status(500).json({ error: 'Incorrect password' });
             }
@@ -62,7 +63,7 @@ router.post('/signup', async (req, res, next) => {
     user.playlists.push(watchLaterPlaylist);
     await user.save();
     const { username, email, _id } = user;
-    res.status(201).json({ message: `Hello ${user.username}`, user: { username, email, _id } });
+    res.status(201).json({ message: `Hello ${user.username}`, user: { username, email, _id, authorization: getAuthorizationToken({ _id }) } });
 });
 
 router.get('/uploads', isAuthenticated , async (req, res) => {
