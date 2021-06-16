@@ -7,7 +7,7 @@ export function UseAxios() {
     const { setLoading } = useLoader();
 
     const apiCall = async (method, successCb, failureCb, url, ...rest) => {
-        // url = baseURL + url;
+        url = baseURL + url;
         try {
             setLoading(true);
             const res = await axios[method](url, ...rest);
