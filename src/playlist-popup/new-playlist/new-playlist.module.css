@@ -1,0 +1,30 @@
+.new__playlist__btn {
+    padding: 1em;
+    cursor: pointer;
+    background: inherit;
+    border: none;
+    outline: none;
+}
+
+.new__playlist__btn:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.playlist__label {
+    font-size: var(--font-normal);
+}
+
+.new__playlist__input {
+    border: none;
+    border-bottom: 1px solid var(--color-grey);
+    outline: none;
+    font-size: 1.1rem;
+}
+
+.new__playlist__input:focus {
+    border-color: var(--color-black);
+}
+
+.new__playlist__input:focus::placeholder {
+    color: var(--color-black);
+}

@@ -1,0 +1,32 @@
+
+
+.App {
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 2.5rem auto;
+    /* grid-template-columns: 12em 1fr; */
+    grid-template-areas: "nav nav"
+                         "body body";
+    overflow: hidden;
+}
+
+.nav__container {
+    grid-area: nav;
+    position: relative;
+}
+
+.body__container {
+    grid-area: body;
+    position: relative;
+}
+
+.sidenav__container {
+    grid-area: sidenav;
+    position: relative;
+}
+
+.content__container {
+    grid-area: content;
+    position: relative;
+}

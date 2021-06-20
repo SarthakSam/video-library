@@ -1,0 +1,37 @@
+.img {
+    object-fit: cover;
+    object-position: center;
+    height: 200px;
+}
+
+.badge {
+    padding: 0.1em;
+    bottom: 0.3em;
+    display: none;
+}
+
+.card {
+    cursor: pointer;
+    border: none;
+}
+
+.card:hover .badge {
+    display: block;
+}
+
+.card__body {
+    padding: 0.5em 0.2em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.card__info {
+    padding: 0 0.3em;
+    flex: 1;
+}
+
+.card__title {
+    font-size: var(--font-normal);
+    font-weight: 700;
+}

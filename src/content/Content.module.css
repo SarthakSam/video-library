@@ -1,0 +1,23 @@
+.container {
+    height: calc(100vh - 2.5em);
+    display: grid;
+    grid-template-columns: 12em 1fr;
+    grid-template-areas: "sidenav content";
+}
+
+.sidenav {
+    grid-area: sidenav;
+    position: relative;
+}
+
+.content {
+    grid-area: content;
+    padding: 1em;
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        grid-template-columns: 3.5em 1fr;
+    }
+}

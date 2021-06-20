@@ -1,0 +1,58 @@
+.container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    font-weight: 800;
+}
+
+.background {
+    position: absolute;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.form__container {
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+} 
+
+.form {
+    padding: var(--padding-1);
+    border-radius: var(--padding-point5);
+    background: rgba(233, 233, 233, 0.2);
+    box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
+		0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
+    /* position: absolute; */
+}
+
+.form input {
+    font-size: 1.2rem;
+}
+
+.form label {
+    font-size: 1.3rem;
+    color: var(--color-white);
+}
+
+.form input {
+    padding: 0.2em;
+}
+
+.form h2, .form h3 {
+    color: white;
+}
+
+.title {
+    text-align: center
+}
+
+.signup {
+    float: right;
+    padding-left: 2em;
+    padding-right: 2em;
+}

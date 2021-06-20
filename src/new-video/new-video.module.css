@@ -1,0 +1,16 @@
+.new-video-container {
+    width: 50vw;
+    padding: var(--padding-1);
+}
+
+.form__label {
+    font-size: var(--font-large);
+}
+
+.newVideo__form {
+    display: flex;
+    flex-direction: column;
+    max-width: 30em;
+    margin: auto;
+    padding: var(--padding-1);
+}
